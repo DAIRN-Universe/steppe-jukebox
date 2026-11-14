@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @contextmanager
-def running_app(directory, log_path):
+def running_app(directory, log_path, *, live=False):
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
@@ -30,6 +30,10 @@ def running_app(directory, log_path):
         environment = dict(os.environ)
         if directory is None:
             environment.pop("STEPPE_DATA_DIR", None)
+            if live:
+                environment.pop("STEPPE_SAVED_REGIONS", None)
+            else:
+                environment["STEPPE_SAVED_REGIONS"] = "1"
         else:
             environment["STEPPE_DATA_DIR"] = str(directory)
         server = subprocess.Popen([
@@ -90,7 +94,7 @@ def browser():
 
 
 def player_frame(page):
-    iframe = page.locator("iframe").first
+    iframe = page.locator('iframe[title$="route_player"]')
     iframe.wait_for(timeout=30_000)
     frame = iframe.element_handle().content_frame()
     expect(frame.locator("#interface")).to_be_visible(timeout=30_000)

@@ -1,0 +1,33 @@
+{
+  "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/14#issuecomment-6878148900",
+  "archive_sha256": "1678fb30e76b0f1d15544788eddc341df49747658d83eab3b3ec76068f2881ca",
+  "files": {
+    "ndvi": {
+      "archive_member": "ndvi-palette.xml",
+      "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml",
+      "sha256": "3cf93d3486be812170d41374bc489cc9614c6235e9b36d990e0b648d127eada6"
+    },
+    "snow": {
+      "archive_member": "snow-palette.xml",
+      "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDSI_Snow_Cover.xml",
+      "sha256": "4af042d24dffc7dd67b991589157285e7281307c85f74bd0188f46556dbafd7a"
+    },
+    "temperature": {
+      "archive_member": "lst-palette.xml",
+      "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_Land_Surface_Temp.xml",
+      "sha256": "b90c74d706d7e353ae8dad503b4aa2326f6abaa4dc32e82a99b98ca844a23912"
+    },
+    "water": {
+      "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_Land_Water_Mask.xml",
+      "sha256": "652832cb218b82fd802234f2cab0b6eed15117ad7cb897c065993e85a2e51c00",
+      "mask_date": "2015-01-01",
+      "layer": "MODIS_Terra_L3_Land_Water_Mask"
+    }
+  },
+  "eic": {
+    "product": "SVS 5544 / Suomi NPP VIIRS",
+    "url": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005544/NDVI_colorbar.png",
+    "sha256": "20b2c9c4092e7976842b520d3951961630612a7714c17cd1fcb7f9b13b8a28a7",
+    "method": "Five equal sections of the Low–High display ramp, nearest RGB on the center row; maximum RGB distance 45. These are display-color classes, not numerical NDVI."
+  }
+}
