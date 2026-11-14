@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steppe Jukebox</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="player.js" defer></script>
+</head>
+<body>
+<main id="interface" data-i18n-aria="interface_label" hidden>
+  <div class="language-field">
+    <label for="language" data-i18n="language_label">Language</label>
+    <select id="language">
+      <option id="system-language" value="auto">System language</option>
+      <option value="kk" lang="kk">Қазақша</option>
+      <option value="en" lang="en">English</option>
+      <option value="ru" lang="ru">Русский</option>
+    </select>
+  </div>
+  <p data-i18n="intro"></p>
+  <p id="test-warning" class="warning" data-i18n="test_warning" hidden></p>
+  <p id="description" class="muted" hidden></p>
+  <p id="data-error" role="alert" hidden></p>
+
+  <section id="player" hidden>
+    <div class="transport">
+      <div class="season-field">
+        <label for="season" data-i18n="season_label">Season</label>
+        <select id="season" aria-describedby="season-info"></select>
+      </div>
+      <button id="toggle" type="button" aria-controls="audio">Play</button>
+      <span id="tempo"></span>
+    </div>
+    <p id="season-info" class="muted"></p>
+    <p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p>
+    <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
+    <div class="position">
+      <progress id="progress" value="0" max="1" data-i18n-aria="progress_label"></progress>
+      <span id="clock"></span>
+    </div>
+    <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p id="error" role="alert" hidden></p>
+
+    <figure>
+      <figcaption data-i18n="route_heading"></figcaption>
+      <p class="muted" data-i18n="route_hint"></p>
+      <svg id="route-map" viewBox="0 0 720 280" role="img" aria-labelledby="map-title map-description">
+        <title id="map-title" data-i18n="map_title"></title>
+        <desc id="map-description" data-i18n="map_description"></desc>
+        <g id="map-content"></g>
+      </svg>
+    </figure>
+
+    <details id="timing-details" open>
+      <summary data-i18n="timing_summary"></summary>
+      <div class="table-scroll">
+        <table id="timeline">
+          <caption id="timeline-caption"></caption>
+          <thead><tr>
+            <th scope="col" data-i18n="col_index"></th>
+            <th scope="col" data-i18n="col_cell"></th>
+            <th scope="col" data-i18n="col_class"></th>
+            <th scope="col" data-i18n="col_note"></th>
+            <th scope="col" data-i18n="col_interval"></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details id="scale-details">
+      <summary data-i18n="scale_summary"></summary>
+      <p id="scale-description"></p>
+      <ul id="legend" data-i18n-aria="legend_label"></ul>
+    </details>
+  </section>
+  <p id="footer" class="muted" data-i18n="footer"></p>
+</main>
+</body>
+</html>

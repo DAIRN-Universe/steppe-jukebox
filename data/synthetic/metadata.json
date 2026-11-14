@@ -1,0 +1,13 @@
+{
+  "is_test": true,
+  "description": "Синтетические классы и условные координаты. Это тест звука и интерфейса, а не наблюдения NASA и не реальный маршрут.",
+  "description_i18n": {
+    "ru": "Синтетические классы и условные координаты. Это тест звука и интерфейса, а не наблюдения NASA и не реальный маршрут.",
+    "kk": "Синтетикалық кластар мен шартты координаттар. Бұл — дыбыс пен интерфейсті тексеруге арналған сынақ; NASA бақылаулары мен нақты маршрут емес.",
+    "en": "Synthetic classes and illustrative coordinates. This dataset tests audio and the interface; it is not NASA observations or a real route."
+  },
+  "seasons": {
+    "spring": {"date": null, "source_url": null},
+    "summer": {"date": null, "source_url": null}
+  }
+}
