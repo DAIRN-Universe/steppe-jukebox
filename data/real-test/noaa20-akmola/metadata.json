@@ -1,0 +1,165 @@
+{
+  "fixture": "Akmola prototype route with observed GIBS visual classes",
+  "source_layer": "VIIRS_NOAA20_NDVI_8Day",
+  "source": "https://gibs.earthdata.nasa.gov",
+  "dates": [
+    "2026-04-15",
+    "2026-07-16"
+  ],
+  "temporal_meaning": "Two rolling8-day visualization snapshots, NOT seasonal composites",
+  "sample_count": 56,
+  "prototype_screen": "akmola_spring; spring/summer xy identical",
+  "demo_values_discarded": true,
+  "geometry": "56 exact prototype SVG route positions recovered via affine georeferencing of Akmola oblast OSM relation215743 outline. Positions on drawn line, not native satellite pixel centers. Approximate geo reconstruction, not independently surveyed reserve coordinates.",
+  "affine": {
+    "svg_bbox": [
+      228.96,
+      336,
+      767.04,
+      692
+    ],
+    "geo_bbox_wsen": [
+      65.3524166,
+      50.0391877,
+      74.2617373,
+      53.6843697
+    ],
+    "independent_hole_max_residual_svg_units": 0.0069,
+    "validation": "Five independent interior rings agree; about8m max reconstruction residual. Exterior simplification has larger isolated residuals."
+  },
+  "anchor_labels": [
+    "Атбасарский заказник",
+    "Нацпарк Кокшетау",
+    "Нацпарк Бурабай",
+    "Нацпарк Буйратау"
+  ],
+  "anchor_geo_lat_lon": [
+    [
+      51.3939462,
+      68.7083137
+    ],
+    [
+      52.6529675,
+      69.2899827
+    ],
+    [
+      52.8328716,
+      70.4534862
+    ],
+    [
+      51.6637511,
+      72.6347862
+    ]
+  ],
+  "wmts": {
+    "projection": "EPSG4326",
+    "tile_matrix_set": "500m",
+    "level": 7,
+    "tile_size": 512,
+    "world_columns": 81920,
+    "degrees_per_pixel": 0.00439453125,
+    "sample_rule": "floor global grid coordinate; no interpolation, nearest-containing displayed pixel"
+  },
+  "classification": "Exact opaque GIBS RGB maps to unique official legend interval. Class=min(5,max(1,floor(midpoint*5)+1)). Transparent,partial,unmatched or missing -> blank. No nearest-color tolerance. Interval midpoint is a display approximation, not raw numeric NDVI.",
+  "palette_url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml",
+  "palette_sha256": "3cf93d3486be812170d41374bc489cc9614c6235e9b36d990e0b648d127eada6",
+  "summary": {
+    "spring": {
+      "date": "20260415",
+      "status_counts": {
+        "classified": 54,
+        "transparent": 2
+      },
+      "class_counts": {
+        "2": 41,
+        "": 2,
+        "1": 6,
+        "3": 2,
+        "4": 4,
+        "5": 1
+      },
+      "missing_cell_ids": [
+        "AKM-005",
+        "AKM-027"
+      ]
+    },
+    "summer": {
+      "date": "20260716",
+      "status_counts": {
+        "classified": 55,
+        "transparent": 1
+      },
+      "class_counts": {
+        "3": 18,
+        "4": 23,
+        "5": 8,
+        "": 1,
+        "2": 6
+      },
+      "missing_cell_ids": [
+        "AKM-027"
+      ]
+    }
+  },
+  "route_sha256": "1ce367ae7821be70f0cd5663e6ae5328ad13bbbc5c362a79f24db27a891721bd",
+  "tile_provenance_file": "tile-provenance.json",
+  "actual_dates_enforced": true,
+  "is_test": false,
+  "description": "NASA GIBS NOAA-20/VIIRS: 56 позиций маршрута Акмолы, скользящие 8-дневные композиты. Классы по интервалам легенды, не исходный NDVI.",
+  "description_i18n": {
+    "ru": "NASA GIBS NOAA-20/VIIRS: 56 позиций маршрута Акмолы, скользящие 8-дневные композиты. Классы по интервалам легенды, не исходный NDVI.",
+    "en": "NASA GIBS NOAA-20/VIIRS: 56 Akmola route positions, rolling 8-day composites. Classes from the display legend, not raw NDVI.",
+    "kk": "NASA GIBS NOAA-20/VIIRS: Ақмола бағытының 56 нүктесі, жылжымалы 8 күндік композиттер. Кластар бастапқы NDVI мәндерінен емес, карта аңызынан алынды."
+  },
+  "seasons": {
+    "spring": {
+      "date": "2026-04-15",
+      "source_url": "https://worldview.earthdata.nasa.gov/?v=68.3,51.1,73.0,53.1&l=VIIRS_NOAA20_NDVI_8Day&t=2026-04-15"
+    },
+    "summer": {
+      "date": "2026-07-16",
+      "source_url": "https://worldview.earthdata.nasa.gov/?v=68.3,51.1,73.0,53.1&l=VIIRS_NOAA20_NDVI_8Day&t=2026-07-16"
+    }
+  },
+  "journey": {
+    "file": "journey.csv",
+    "start_date": "2026-04-15",
+    "end_date": "2026-11-13",
+    "samples": 56,
+    "date_rule": "date(i)=2026-04-15 + round(i*212/55) days, zero-based i=0..55",
+    "basis": "sample index; NOT geographic distance",
+    "classified": 55,
+    "transparent": 1,
+    "missing": [
+      {
+        "cell_id": "AKM-027",
+        "date": "2026-07-24",
+        "status": "transparent"
+      }
+    ],
+    "checkpoints": [
+      {
+        "cell_id": "AKM-001",
+        "date": "2026-04-15",
+        "ndvi_class": 2
+      },
+      {
+        "cell_id": "AKM-019",
+        "date": "2026-06-23",
+        "ndvi_class": 3
+      },
+      {
+        "cell_id": "AKM-029",
+        "date": "2026-08-01",
+        "ndvi_class": 4
+      },
+      {
+        "cell_id": "AKM-056",
+        "date": "2026-11-13",
+        "ndvi_class": 2
+      }
+    ],
+    "actual_dates_verified": true,
+    "meaning": "One spatiotemporal traversal of existing route, not travel observations, not a fixed-location temporal trend or seasonal composite"
+  }
+}

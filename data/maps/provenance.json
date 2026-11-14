@@ -1,0 +1,20 @@
+{
+  "kostanay": {
+    "source_url": "https://www.openstreetmap.org/relation/1288730",
+    "source_local": "/home/svininykh-av/Documents/ChatGPT/NASA 2026/maps/cache_kostanay/region.geojson",
+    "sha256": "94cac8c0c69a92fa2a23e019e41d784d92c6101f7bc39ef37d1de84249910e5f",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "map_sources_verified": true
+  },
+  "akmola": {
+    "source_url": "https://www.openstreetmap.org/relation/215743",
+    "acquisition_url": "https://nominatim.openstreetmap.org/lookup?osm_ids=R215743&format=jsonv2&polygon_geojson=1&extratags=1",
+    "archive_member": "akmola-oblast.geojson",
+    "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/13#issuecomment-6876016651",
+    "sha256": "cfd5cf7bec87df48249e95e084be17200df522d6c7ee849d4cdd231cc27beda2",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "interior_rings": 5
+  }
+}

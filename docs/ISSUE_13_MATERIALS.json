@@ -1,0 +1,66 @@
+{
+  "issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/13",
+  "base_tag": "v0.2.0",
+  "prototype": {
+    "path": "/home/svininykh-av/Documents/ChatGPT/NASA 2026/output/steppe-jukebox-prototype/Steppe-Jukebox-Preview-Akmola.html",
+    "sha256": "e98b06912c697cf364a8913cad04ac971779351d4d9ec8554c6e9491d86f6947"
+  },
+  "missing_archives": [],
+  "note": "All three archives received from Issue #13. Prototype SHA-256 matches source-fixture provenance. Kostanay geometry verified against MAP-SOURCES.md; Akmola geometry imported from the archive. No demo classes or SVG viewport coordinates used as observations.",
+  "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/13#issuecomment-6876016651",
+  "archives": [
+    {
+      "url": "https://github.com/user-attachments/files/34847642/steppe-region-maps-svg.zip",
+      "bytes": 115249,
+      "sha256": "5d687463cc4edc74ea973b4dcb92deed82dbc08ea648b1e9eabbb405b92311b4"
+    },
+    {
+      "url": "https://github.com/user-attachments/files/34847644/steppe-jukebox-akmola-nasa-fixture.zip",
+      "bytes": 20138,
+      "sha256": "70619b56ca577b1f702e042667f46e966da9fa7a2fbeb4c9573c50bb5687debb"
+    },
+    {
+      "url": "https://github.com/user-attachments/files/34847643/steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "bytes": 1874797,
+      "sha256": "38b9721728b6b42f0fd4cd96a8885de355057a6ddbf3ca2d10caf309c868e1ff"
+    }
+  ],
+  "validation": {
+    "tests_passed": 153,
+    "python_tests": 95,
+    "browser_tests": 58,
+    "browser": "Chromium 157",
+    "python": "3.12.3",
+    "widths_px": [
+      1440,
+      390,
+      320
+    ],
+    "languages": [
+      "ru",
+      "kk",
+      "en"
+    ],
+    "reference_wav_matches_generated_bytes": true,
+    "reference_wav_matches_export_bytes": true,
+    "human_listening": "not separately documented; user confirmed the application manual check",
+    "screen_reader": "not separately confirmed",
+    "manual_check": {
+      "status": "passed",
+      "reported_by": "user",
+      "message": "я проверил всё работает",
+      "details": "No separate per-scenario results supplied."
+    },
+    "release_candidate": {
+      "tests_passed": 153,
+      "python_tests": 95,
+      "browser_tests": 58,
+      "elapsed_seconds": 355.3,
+      "dependency_check": "passed"
+    }
+  },
+  "deferred_scope": [
+    "Additional botanical data and sources: future versions, per user."
+  ],
+  "release_version": "0.3.0"
+}

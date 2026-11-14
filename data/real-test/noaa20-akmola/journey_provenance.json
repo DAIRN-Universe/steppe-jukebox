@@ -1,0 +1,93 @@
+{
+  "source_issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/11",
+  "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/13#issuecomment-6876016651",
+  "route_csv_sha256": "1ce367ae7821be70f0cd5663e6ae5328ad13bbbc5c362a79f24db27a891721bd",
+  "journey_csv_sha256": "4319953fa2a8167d89f3b039d9139f3ebfbc5bc07e7e1ceb618989aa284b64ab",
+  "issue_csv_lf_sha256": {
+    "route": "996c26a441a0c0ef18a4092b66b692c8618d548c15a9ec54774c009cabde6208",
+    "journey": "80afce1d1f143bda270fb19ca29b3125ce8f98b0611055ab32706912ba4cb1e1"
+  },
+  "issue_rows_match_archives": true,
+  "reference_wav": {
+    "member": "akmola-journey/journey-reference.wav",
+    "sha256": "686700038c7d1aa03396635c7ec37b626c50423fb0fbe3539f920bd10e031d1a",
+    "pcm_sha256": "51c63dddfd5a64d10f30bc215242a9f3503c24ae6ee61a3701ae61493de10138",
+    "sample_rate": 44100,
+    "frames": 1234800,
+    "duration_s": 28,
+    "matches_generated_bytes": true
+  },
+  "imported_files": {
+    "spring.csv": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/spring.csv",
+      "sha256": "aced889f44abecc03a712545688152bfbbd8800f0fd320b671d3c16d1e938bbb"
+    },
+    "summer.csv": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/summer.csv",
+      "sha256": "e2f6ef4859eb9079c773c210b1e55976fa79d5756490fd8d4b4ede77e244c12c"
+    },
+    "audit.csv": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/audit.csv",
+      "sha256": "72b2390534b05467d6eda427548547d1695920ffdaea877fb224b81d0253f524"
+    },
+    "tile-provenance.json": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/tile-provenance.json",
+      "sha256": "cf8d163ffc9020de39563d8f9deddc28dc94e0252a9419e6833ff5c6f929f02f"
+    },
+    "prototype-route.json": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/prototype-route.json",
+      "sha256": "6e44eeb71948e727f7933bda36b30dca69073109377550bba6320bdedd6a6649"
+    },
+    "route.csv": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/route.csv",
+      "sha256": "1ce367ae7821be70f0cd5663e6ae5328ad13bbbc5c362a79f24db27a891721bd"
+    },
+    "journey.csv": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/journey.csv",
+      "sha256": "4319953fa2a8167d89f3b039d9139f3ebfbc5bc07e7e1ceb618989aa284b64ab"
+    },
+    "metadata.json": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/metadata.json",
+      "sha256": "37e782bb8bc5f08870f6dc809a8acadab80291b77e56d6aa4638d71d41f2e1e5"
+    },
+    "journey-audit.csv": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/journey-audit.csv",
+      "sha256": "8bb121be39cae272ae02073c2bdbd61584b2af9ffd334a641154881221b450eb"
+    },
+    "journey-provenance.json": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/journey-provenance.json",
+      "sha256": "609e2e64790b1c3a62ba14d1a09a16f327f375a9c0a2f12a2b421358016cc1e0"
+    },
+    "palette.xml": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/palette.xml",
+      "sha256": "3cf93d3486be812170d41374bc489cc9614c6235e9b36d990e0b648d127eada6"
+    },
+    "journey-timing.csv": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/journey-timing.csv",
+      "sha256": "0a9036622ce81fdffa032ee11b101880bd7f2674554a6dc7c0aef1c7c3aeab3e"
+    },
+    "validation.json": {
+      "archive": "steppe-jukebox-akmola-journey-2026-for-idea.zip",
+      "member": "akmola-journey/validation.json",
+      "sha256": "018a2fd284e3d350798c39be569fafe4f48aa40c4e79bb9d72c39ae62ff24df2"
+    },
+    "fixture-metadata.json": {
+      "archive": "steppe-jukebox-akmola-nasa-fixture.zip",
+      "member": "akmola-fixture/metadata.json",
+      "sha256": "640e738bf6321f3c5f97387fd36ba3e9c9efb35c7adefee6a223fdd80964e657"
+    }
+  },
+  "note": "Archive CSVs retain original CRLF bytes. They have the same values and order as Issue #11. The reference WAV was compared byte for byte, without importing it into runtime assets."
+}

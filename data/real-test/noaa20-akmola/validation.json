@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "rows": 56,
+  "unique_ids": 56,
+  "requested_actual_dates_equal": 56,
+  "route_sha256": "1ce367ae7821be70f0cd5663e6ae5328ad13bbbc5c362a79f24db27a891721bd",
+  "same_route_as_fixed_fixture": true,
+  "same_fixed_spring_and_summer": true
+}
