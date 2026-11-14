@@ -13,7 +13,22 @@ Steppe Jukebox lets people see and hear how vegetation varies along a route acro
 
 ## Status
 
-The source and implementation plan are identified. This repository starts with documentation only; the runnable application and validation on real frames are not yet available.
+The first runnable preview uses **synthetic test data**: one 12-cell route, spring and summer, a shared five-note scale at 120 BPM, and silence for missing data. Streamlit provides keyboard-accessible play/pause, highlighting synchronized with audio, and Kazakh, English, and Russian interfaces with automatic language selection.
+
+Real satellite frames, route landmarks, and validation on real observations are still being prepared separately. The preview does not represent observed seasonal vegetation changes.
+
+## Run the preview
+
+Python 3.11 or newer:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
+```
+
+Open `http://localhost:8501`. See [the local demo guide](docs/LOCAL_DEMO.md) for the CSV contract, language controls, audio export, and tests.
 
 ## Data and attribution
 
