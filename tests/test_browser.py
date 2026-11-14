@@ -474,6 +474,7 @@ def test_translated_ui_fits_mobile_and_exposes_localized_accessibility(browser, 
 @pytest.mark.parametrize("name,count,duration,spring_date,summer_date,missing_season,missing_index", [
     ("noaa20-kostanay", 48, 24, "2026-04-15", "2026-07-16", "spring", 5),
     ("eic-kostanay", 137, 68.5, "2025-04-15", "2025-07-15", "summer", 39),
+    ("noaa20-akmola", 56, 28, "2026-04-15", "2026-07-16", "spring", 4),
 ])
 def test_issue_1_real_datasets_play_and_switch_seasons(browser, tmp_path, name, count, duration, spring_date, summer_date, missing_season, missing_index):
     with running_app(ROOT / "data" / "real-test" / name, tmp_path / f"{name}.log") as url:

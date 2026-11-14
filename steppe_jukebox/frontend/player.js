@@ -4,11 +4,12 @@
   const $ = (id) => document.getElementById(id);
   const audio = $("audio"), toggle = $("toggle"), select = $("season");
   const languageSelect = $("language");
-  const modeSelect = $("mode");
+  const modeSelect = $("mode"), regionSelect = $("region");
   const svgNS = "http://www.w3.org/2000/svg";
   const storageKey = "steppe-jukebox.language";
   const supported = ["kk", "en", "ru"];
-  let data, season, revision;
+  let data, season, revision, catalog;
+  let view = "listen", selectedPlace = "naurzum";
   let mode = "fixed";
   let language = "en", preference = "auto";
   let buttonState = "play", audioError = null;
@@ -42,6 +43,98 @@
 
   const seasonName = () => data.translations[language][season.key] ?? season.name;
   const placeName = (slot) => slot.landmark ? (data.translations[language][slot.landmark] ?? slot.landmark) : t("route_point");
+  const regionKey = () => data.region_key || (data.route[0]?.cell_id.startsWith("KST-") ? "kostanay" : "custom_region");
+
+  function showView(value, focus = false) {
+    view = value;
+    for (const key of ["listen", "places", "method"]) {
+      const tab = $(`tab-${key}`), selected = key === view;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      $(`${key}-view`).hidden = !selected;
+    }
+    if (focus) $(`tab-${view}`).focus();
+    if (view === "listen" && season) drawRoute();
+    resize();
+  }
+
+  function sourceLink(url, label) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = label;
+    return link;
+  }
+
+  const fieldSources = {
+    naurzum: "https://doi.org/10.1515/hacq-2016-0017",
+    kamennoye: "https://doi.org/10.32523/2616-7034-2023-145-4-63-70",
+  };
+
+  function renderPlace() {
+    const content = $("place-content");
+    content.replaceChildren();
+    const hasFieldData = regionKey() === "kostanay";
+    const key = hasFieldData ? selectedPlace : "missing";
+    for (const [tag, suffix] of [["h2", "title"], ["p", "date"], ["p", "body"], ["p", "metrics"]]) {
+      const translationKey = `botany_${key}_${suffix}`;
+      if (!data.translations[language][translationKey]) continue;
+      const node = document.createElement(tag);
+      node.textContent = t(translationKey);
+      if (suffix === "date") node.className = "muted";
+      content.append(node);
+    }
+    if (hasFieldData && fieldSources[key]) content.append(sourceLink(fieldSources[key], t("open_study")));
+    $("place-tabs").querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.place === selectedPlace)));
+    resize();
+  }
+
+  function renderContext() {
+    const key = regionKey();
+    $("region-heading").textContent = t(key);
+    $("map-region").textContent = key === "custom_region" ? "" : t(key);
+    $("route-summary").textContent = t("route_summary", {count: data.route.length, duration: seconds(season.duration_s), bpm: data.bpm});
+    $("field-summary").textContent = t(key === "kostanay" ? "field_summary_kostanay" : "field_summary_missing");
+    const landmarks = $("route-landmarks");
+    landmarks.replaceChildren();
+    for (const slot of data.journey?.intervals || []) {
+      if (!slot.landmark) continue;
+      const item = document.createElement("li");
+      item.textContent = `${placeName(slot)} · ${slot.cell_id}`;
+      landmarks.append(item);
+    }
+    const tabs = $("place-tabs");
+    tabs.replaceChildren();
+    if (key === "kostanay") {
+      for (const [place, label] of [["naurzum", "naurzum"], ["kamennoye", "kamennoye_lake"], ["akkum", "akkum"]]) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.place = place;
+        button.textContent = t(label);
+        button.addEventListener("click", () => { selectedPlace = place; renderPlace(); });
+        tabs.append(button);
+      }
+    }
+    renderPlace();
+    const literature = $("literature-sources");
+    literature.replaceChildren();
+    if (key === "kostanay") {
+      for (const place of ["naurzum", "kamennoye"]) {
+        const article = document.createElement("article");
+        const paragraph = document.createElement("p");
+        paragraph.textContent = t(`literature_${place}`);
+        article.append(paragraph, sourceLink(fieldSources[place], t("open_study")));
+        literature.append(article);
+      }
+    }
+    const observation = $("observation-source");
+    observation.textContent = mode === "journey" ? t("journey_summary", {start: season.intervals[0].date, end: season.intervals.at(-1).date, count: data.route.length}) : `${seasonName()} · ${season.date || t("no_date")}`;
+    if (season.source_url) observation.append(document.createElement("br"), sourceLink(season.source_url, t("source_link")));
+    $("map-attribution").hidden = !data.map_source_url;
+    $("map-credit").hidden = !data.map_source_url;
+    if (data.map_source_url) $("map-source").href = data.map_source_url;
+  }
 
   function renderCurrentStep(index) {
     const slot = season.intervals[index], cell = data.route[index];
@@ -220,22 +313,24 @@
     $("longitude-label").setAttribute("x", (left + right) / 2);
     $("longitude-label").setAttribute("y", height - 12);
     $("longitude-label").textContent = t("longitude_axis");
-    $("latitude-label").setAttribute("transform", `translate(18,${(top + bottom) / 2}) rotate(-90)`);
+    $("latitude-label").setAttribute("transform", `translate(24,${(top + bottom) / 2}) rotate(-90)`);
     $("latitude-label").textContent = t("latitude_axis");
   }
 
   function drawRoute() {
     const map = $("route-map");
-    const viewWidth = Math.max(280, map.clientWidth), viewHeight = map.clientHeight || 340;
+    const viewWidth = Math.max(280, map.clientWidth || renderedMapWidth || 720), viewHeight = map.clientHeight || 430;
     renderedMapWidth = map.clientWidth;
     map.setAttribute("viewBox", `0 0 ${viewWidth} ${viewHeight}`);
     const left = 100, right = viewWidth - 22, top = 22, bottom = viewHeight - 66;
     const content = $("map-content");
     content.replaceChildren();
     const lats = data.route.map((cell) => cell.lat), lons = data.route.map((cell) => cell.lon);
-    const minLat = Math.min(...lats), maxLat = Math.max(...lats);
-    const minLon = Math.min(...lons), maxLon = Math.max(...lons);
-    const cosLat = Math.max(0.01, Math.cos((minLat + maxLat) / 2 * Math.PI / 180));
+    const cosLat = Math.max(0.01, Math.cos((Math.min(...lats) + Math.max(...lats)) / 2 * Math.PI / 180));
+    const polygons = data.boundary?.type === "Polygon" ? [data.boundary.coordinates] : data.boundary?.coordinates || [];
+    const boundaryPoints = polygons.flat(2);
+    const minLat = Math.min(...lats, ...boundaryPoints.map((point) => point[1])), maxLat = Math.max(...lats, ...boundaryPoints.map((point) => point[1]));
+    const minLon = Math.min(...lons, ...boundaryPoints.map((point) => point[0])), maxLon = Math.max(...lons, ...boundaryPoints.map((point) => point[0]));
     // Minimum extent provides context for a single point or a flat route.
     const width = Math.max(maxLon - minLon, 0.02) * cosLat, height = Math.max(maxLat - minLat, 0.02);
     const scale = Math.min((right - left - 40) / width, (bottom - top - 40) / height);
@@ -247,6 +342,11 @@
       longitudeRange: [Math.max(-180, centerLon + (left - centerX) / (cosLat * scale)), Math.min(180, centerLon + (right - centerX) / (cosLat * scale))],
       latitudeRange: [Math.max(-90, centerLat - (bottom - centerY) / scale), Math.min(90, centerLat - (top - centerY) / scale)]};
     renderAxes();
+    $("map-boundary").replaceChildren();
+    for (const polygon of polygons) {
+      const path = polygon.map((ring) => "M " + ring.map(([lon, lat]) => `${projectX(lon)},${projectY(lat)}`).join(" L ") + " Z").join(" ");
+      $("map-boundary").append(svgElement("path", {d: path, class: "region-outline"}));
+    }
     const points = data.route.map((cell) => [projectX(cell.lon), projectY(cell.lat)]);
     content.append(svgElement("polyline", {points: points.map((point) => point.join(",")).join(" "), class: "route-line"}));
     const spacing = points.slice(1).map(([x, y], i) => Math.hypot(x - points[i][0], y - points[i][1])).filter((distance) => distance > 0);
@@ -261,7 +361,9 @@
       text.textContent = index + 1;
       const rect = svgElement("rect", {fill: color});
       rect.style.setProperty("--cell-stroke", compact ? 0.3 : 2);
-      group.append(svgElement("title", {}), rect, text);
+      const title = svgElement("title", {});
+      title.textContent = `${slot.cell_id}${slot.date ? ` · ${slot.date} · ${placeName(slot)}` : ""}: ${slot.note || t("missing_rest")}`;
+      group.append(title, rect, text);
       sizeMarker(group, false);
       content.append(group);
       return group;
@@ -301,6 +403,7 @@
       return;
     }
     if (!season) return;
+    for (const option of regionSelect.options) option.textContent = t(option.value);
     $("season-field").hidden = mode === "journey";
     $("journey-caveat").hidden = mode !== "journey";
     $("current-step").hidden = mode !== "journey";
@@ -342,6 +445,7 @@
     });
     $("error").hidden = !audioError;
     if (audioError) $("error").textContent = t(audioError);
+    renderContext();
     renderPosition();
     resize();
   }
@@ -394,16 +498,48 @@
     activateTrack(mode === "journey" ? data.journey : data.seasons.find((item) => item.key === select.value) ?? data.seasons[0]);
   }
 
+  function chooseRegion(key) {
+    const item = catalog.regions.find((region) => region.region_key === key);
+    const selectedSeason = select.value;
+    resetTransport();
+    data = {...item, translations: catalog.translations};
+    regionSelect.value = key;
+    select.replaceChildren();
+    for (const track of data.seasons) {
+      const option = document.createElement("option");
+      option.value = track.key;
+      select.append(option);
+    }
+    if (data.seasons.some((track) => track.key === selectedSeason)) select.value = selectedSeason;
+    $("mode-field").hidden = !data.journey;
+    selectedPlace = "naurzum";
+    chooseMode(mode);
+    showView(view);
+  }
+
   function render(payload) {
     if (payload.revision === revision) return;
     revision = payload.revision;
     data = payload;
+    catalog = payload;
     language = preference === "auto" ? systemLanguage() : preference;
     $("interface").hidden = false;
     $("player").hidden = Boolean(data.error);
+    $("navigation").hidden = Boolean(data.error);
+    $("region-field").hidden = Boolean(data.error) || !payload.regions;
     if (data.error) {
       resetTransport();
       refreshText();
+      return;
+    }
+    if (payload.regions) {
+      regionSelect.replaceChildren();
+      for (const item of payload.regions) {
+        const option = document.createElement("option");
+        option.value = item.region_key;
+        regionSelect.append(option);
+      }
+      chooseRegion(payload.regions[0].region_key);
       return;
     }
     select.replaceChildren();
@@ -419,6 +555,19 @@
   toggle.addEventListener("click", () => wantsPlayback || !audio.paused ? pause() : play());
   select.addEventListener("change", () => chooseSeason(select.value));
   modeSelect.addEventListener("change", () => chooseMode(modeSelect.value));
+  regionSelect.addEventListener("change", () => chooseRegion(regionSelect.value));
+  $("restart").addEventListener("click", () => activateTrack(season));
+  document.querySelectorAll("[data-open-view], [data-view]").forEach((button) => {
+    button.addEventListener("click", () => showView(button.dataset.openView || button.dataset.view, true));
+  });
+  $("navigation").addEventListener("keydown", (event) => {
+    const tabs = [...$("navigation").querySelectorAll("[role=tab]")];
+    let index = tabs.indexOf(document.activeElement);
+    if (index < 0 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    index = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+    showView(tabs[index].dataset.view, true);
+  });
   languageSelect.addEventListener("change", () => chooseLanguage(languageSelect.value));
   window.addEventListener("languagechange", () => {
     if (preference === "auto") chooseLanguage("auto", false);

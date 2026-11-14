@@ -1,0 +1,14 @@
+[
+  {
+    "key": "kostanay",
+    "dataset": "real-test/noaa20-kostanay",
+    "boundary": "maps/kostanay.geojson",
+    "map_source_url": "https://www.openstreetmap.org/relation/1288730"
+  },
+  {
+    "key": "akmola",
+    "dataset": "real-test/noaa20-akmola",
+    "boundary": "maps/akmola.geojson",
+    "map_source_url": "https://www.openstreetmap.org/relation/215743"
+  }
+]

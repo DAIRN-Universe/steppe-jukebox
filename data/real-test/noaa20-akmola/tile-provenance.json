@@ -1,0 +1,142 @@
+{
+  "20260415/17/110": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-04-15/500m/7/17/110.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "dbe18aa34bc0b842f519b1528cd15b5629dc90faeae4a89619da21a9e92799ac",
+    "bytes": 139580,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-04-15",
+      "layer-time-actual": "2026-04-15T00:00:00Z",
+      "etag": "0489s0026bltn"
+    }
+  },
+  "20260415/16/110": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-04-15/500m/7/16/110.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "ed34a2505756c5835e2b3d9ec41eeba172bce2f7869be9ffa7be6f0675a069e9",
+    "bytes": 148245,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-04-15",
+      "layer-time-actual": "2026-04-15T00:00:00Z",
+      "etag": "04gol001oapqv"
+    }
+  },
+  "20260415/16/111": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-04-15/500m/7/16/111.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "1c16f2738865205eb45ef90634f72d393ecfd5b3dbf3f46dff696e867b9ad838",
+    "bytes": 148440,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-04-15",
+      "layer-time-actual": "2026-04-15T00:00:00Z",
+      "etag": "04guo001ofajk"
+    }
+  },
+  "20260415/16/112": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-04-15/500m/7/16/112.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "f951f3af3f3db33f2c26dc74223c31da2de48427a0e0703d17dd4fdd423953a0",
+    "bytes": 133489,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-04-15",
+      "layer-time-actual": "2026-04-15T00:00:00Z",
+      "etag": "042bh001ojric"
+    }
+  },
+  "20260415/17/112": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-04-15/500m/7/17/112.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "f9b5b9de47286cfb22701e40667366d3f50e71f09872400e39f12e8ba22b1419",
+    "bytes": 160292,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-04-15",
+      "layer-time-actual": "2026-04-15T00:00:00Z",
+      "etag": "04sh40026kepu"
+    }
+  },
+  "20260716/17/110": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-07-16/500m/7/17/110.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "c199f70a912ef30e504fdbe73280aca20bb3f25acb5a88e0d96be666945e94b0",
+    "bytes": 151964,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-07-16",
+      "layer-time-actual": "2026-07-16T00:00:00Z",
+      "etag": "04kcs003o4gv7"
+    }
+  },
+  "20260716/16/110": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-07-16/500m/7/16/110.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "34aa9e643e70636b1c42417c7abe20a133838243ba55a7caa4d5a3e72cbe9f4e",
+    "bytes": 160394,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-07-16",
+      "layer-time-actual": "2026-07-16T00:00:00Z",
+      "etag": "04ska0039doc6"
+    }
+  },
+  "20260716/16/111": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-07-16/500m/7/16/111.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "15dd8c33acc3a444c2704157dfc011c8620ba6a9f66974268d02ae899d6de0c9",
+    "bytes": 168245,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-07-16",
+      "layer-time-actual": "2026-07-16T00:00:00Z",
+      "etag": "0549l0039il0g"
+    }
+  },
+  "20260716/16/112": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-07-16/500m/7/16/112.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "27f4a2ef1c34730467ce38fce28f9bf53eaef348f66665d535fc8c6d4fc13a93",
+    "bytes": 153057,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-07-16",
+      "layer-time-actual": "2026-07-16T00:00:00Z",
+      "etag": "04lf10039npa5"
+    }
+  },
+  "20260716/17/112": {
+    "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_NOAA20_NDVI_8Day/default/2026-07-16/500m/7/17/112.png",
+    "actual_host": "gibs.earthdata.nasa.gov",
+    "sha256": "35e2ce74d9588e59468c06296c878046b88f6cd22c5506952346165ad97f2780",
+    "bytes": 174614,
+    "headers": {
+      "date": "Sat, 14 Nov 2026 09:36:58 GMT",
+      "layer-identifier-request": "VIIRS_NOAA20_NDVI_8Day",
+      "layer-identifier-actual": "VIIRS_NOAA20_NDVI_8Day_v2.0_NRT",
+      "layer-time-request": "2026-07-16",
+      "layer-time-actual": "2026-07-16T00:00:00Z",
+      "etag": "05agm003oeco4"
+    }
+  }
+}

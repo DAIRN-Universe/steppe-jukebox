@@ -72,3 +72,14 @@ def player_payload(dataset: Dataset) -> dict:
             slot.update(date=step.date, landmark=landmarks.get(step.cell_id), distance_km=distances[index])
         payload["journey"] = item
     return _with_translations(payload)
+
+
+def regions_payload(regions) -> dict:
+    items = []
+    for region in regions:
+        item = player_payload(region.dataset)
+        item.pop("translations")
+        item.pop("revision")
+        item.update(region_key=region.key, boundary=region.boundary, map_source_url=region.source_url)
+        items.append(item)
+    return _with_translations({"regions": items})
