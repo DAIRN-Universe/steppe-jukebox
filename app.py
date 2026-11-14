@@ -6,7 +6,6 @@ from pathlib import Path
 import streamlit as st
 import streamlit.components.v1 as components
 
-from steppe_jukebox import __version__
 from steppe_jukebox.data import DataError, load_dataset
 from steppe_jukebox.player import error_payload, player_payload, regions_payload
 from steppe_jukebox.regions import load_regions
@@ -15,7 +14,8 @@ from steppe_jukebox.live_view import render_live
 
 ROOT = Path(__file__).resolve().parent
 st.set_page_config(page_title="Steppe Jukebox", page_icon="🌱", layout="wide")
-st.caption(f"v{__version__}")
+# Keep enough room for Streamlit's toolbar without the default 96 px gap.
+st.html("<style>[data-testid='stMainBlockContainer'] { padding-top: 4rem; }</style>")
 
 
 @st.cache_data(show_spinner=False)

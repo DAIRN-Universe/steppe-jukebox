@@ -7,11 +7,13 @@ import math
 from dataclasses import asdict
 from pathlib import Path
 
+from . import __version__
 from .data import DataError, Dataset
 from .sound import BPM, MISSING_COLOR, SAMPLE_RATE, SCALE, STEP_SECONDS, build_track
 
 
 def _with_translations(payload: dict) -> dict:
+    payload["version"] = __version__
     payload["translations"] = json.loads((Path(__file__).parent / "frontend" / "locales.json").read_text(encoding="utf-8"))
     payload["revision"] = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
     return payload

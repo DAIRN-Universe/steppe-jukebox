@@ -564,6 +564,7 @@
     }
     if (payload.revision === revision) return;
     revision = payload.revision;
+    $("app-version").textContent = payload.version ? `v${payload.version}` : "";
     data = payload;
     catalog = payload;
     language = preference === "auto" ? systemLanguage() : preference;
