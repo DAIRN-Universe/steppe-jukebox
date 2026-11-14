@@ -17,6 +17,14 @@
   let frame = null, activeIndex = -1;
   let rows = [], markers = [];
   let mapGeometry = null, renderedMapWidth = 0;
+  let isLive = false, mapDate = null;
+  function liveStep() { return audio.ended ? (season?.intervals.length || 1)-1 : Math.max(0, activeIndex); }
+  const live = new window.LivePlayerSession({reset: resetTransport, selection: () => chooseMode(mode),
+    prepare: () => activateTrack(live.placeholder(data, mode)),
+    region: () => regionSelect.value || data.region_key, mode: () => mode, text: (...args) => t(...args),
+    redraw: () => { if (season) drawRoute(); }, track: activateTrack,
+    currentDate: () => season?.intervals[liveStep()]?.date || live.day()});
+  window.steppeLive = live;
   try {
     const saved = localStorage.getItem(storageKey);
     if (["auto", ...supported].includes(saved)) preference = saved;
@@ -43,6 +51,8 @@
 
   const seasonName = () => data.translations[language][season.key] ?? season.name;
   const placeName = (slot) => slot.landmark ? (data.translations[language][slot.landmark] ?? slot.landmark) : t("route_point");
+  const liveLandmarks = () => (data.journey?.intervals || []).flatMap((slot, index) => slot.landmark
+    ? [{...data.route[index], index, label: `${placeName(slot)} · ${slot.cell_id}`}] : []);
   const regionKey = () => data.region_key || (data.route[0]?.cell_id.startsWith("KST-") ? "kostanay" : "custom_region");
 
   function showView(value, focus = false) {
@@ -184,6 +194,7 @@
     }
     activeIndex = index;
     if (index >= 0) {
+      if (!rows[index]) return;
       rows[index].classList.add("active");
       rows[index].setAttribute("aria-current", "step");
       // SVG paints in DOM order: the current cell must stay above nearby cells.
@@ -205,6 +216,11 @@
     // Half-open intervals come from the same sample offsets as the WAV.
     const index = !started || audio.ended ? -1 : season.intervals.findIndex((slot) => time >= slot.start_s && time < slot.end_s);
     setActive(index);
+    if (isLive) {
+      const day = season.intervals[liveStep()]?.date || live.day();
+      if (mapDate !== day) drawRoute();
+      live.map.highlight(index, audio.ended);
+    }
     if (mode === "journey") renderCurrentStep(audio.ended ? rows.length - 1 : Math.max(0, index));
     let status = t(audio.ended ? "ended" : "ready");
     if (!audio.ended && index >= 0) {
@@ -214,6 +230,7 @@
         cell: slot.cell_id, note, index: index + 1, total: rows.length, date: slot.date, place: mode === "journey" ? placeName(slot) : ""});
     }
     if ($("status").textContent !== status) $("status").textContent = status;
+    if (isLive && !live.ready) $("status").textContent = $("load-state").textContent;
   }
 
   function animate() {
@@ -347,6 +364,13 @@
       const path = polygon.map((ring) => "M " + ring.map(([lon, lat]) => `${projectX(lon)},${projectY(lat)}`).join(" L ") + " Z").join(" ");
       $("map-boundary").append(svgElement("path", {d: path, class: "region-outline"}));
     }
+    if (isLive) {
+      mapDate = season?.intervals[liveStep()]?.date || live.day();
+      live.map.draw(data.map_config, live.slice(mapDate), mapGeometry, activeIndex, audio.ended, liveLandmarks());
+      live.refresh();
+      markers = [];
+      return;
+    }
     const points = data.route.map((cell) => [projectX(cell.lon), projectY(cell.lat)]);
     content.append(svgElement("polyline", {points: points.map((point) => point.join(",")).join(" "), class: "route-line"}));
     const spacing = points.slice(1).map(([x, y], i) => Math.hypot(x - points[i][0], y - points[i][1])).filter((distance) => distance > 0);
@@ -428,7 +452,7 @@
       const values = [index + 1, slot.cell_id, slot.ndvi_class ?? t("missing"), slot.note || t("rest"), `${seconds(slot.start_s)}–${seconds(slot.end_s)}`];
       if (mode === "journey") values.splice(2, 0, slot.date);
       [...rows[index].children].forEach((td, i) => { td.textContent = values[i]; });
-      markers[index].querySelector("title").textContent = `${slot.cell_id}${slot.date ? ` · ${slot.date} · ${placeName(slot)}` : ""}: ${slot.note || t("missing_rest")}`;
+      if (markers[index]) markers[index].querySelector("title").textContent = `${slot.cell_id}${slot.date ? ` · ${slot.date} · ${placeName(slot)}` : ""}: ${slot.note || t("missing_rest")}`;
     });
     const noteNames = data.translations[language].note_names;
     const notes = data.scale.map((note, index) => t("scale_note", {value: index + 1, label: noteNames[index], note: note.name})).join(", ");
@@ -447,6 +471,16 @@
     if (audioError) $("error").textContent = t(audioError);
     renderContext();
     renderPosition();
+    if (isLive) {
+      $("load-state").hidden = false; $("live-diagnostics").hidden = false; $("provider-method").hidden = false;
+      $("interface").setAttribute("aria-label", t("live_interface"));
+      $("audio").setAttribute("aria-label", t("live_audio"));
+      $("keyboard-help").textContent = t("live_keyboard");
+      document.querySelector('[data-i18n="route_hint"]').textContent = t("live_route_hint");
+      live.map.labelLandmarks(liveLandmarks());
+      $("journey-caveat").textContent = t("live_journey_caveat");
+      live.refresh();
+    }
     resize();
   }
 
@@ -480,7 +514,7 @@
     resetTransport(); // Synchronous: old audio stops before loading the new source.
     season = track;
     if (mode === "fixed") select.value = season.key;
-    audio.src = season.audio_src;
+    if (season.audio_src) audio.src = season.audio_src;
     audio.load();
     $("progress").max = season.duration_s;
     drawRoute();
@@ -495,6 +529,10 @@
   function chooseMode(value) {
     mode = value === "journey" && data.journey ? "journey" : "fixed";
     modeSelect.value = mode;
+    if (isLive) {
+      live.invalidate();
+      return;
+    }
     activateTrack(mode === "journey" ? data.journey : data.seasons.find((item) => item.key === select.value) ?? data.seasons[0]);
   }
 
@@ -517,7 +555,13 @@
     showView(view);
   }
 
-  function render(payload) {
+  function render(payload, bootstrap = false) {
+    if (payload.live && !bootstrap) {
+      isLive = true; document.body.classList.add("live-mode");
+      if (!catalog?.live) render(payload.base, true);
+      live.cache = payload.cache; live.accept(payload);
+      return;
+    }
     if (payload.revision === revision) return;
     revision = payload.revision;
     data = payload;

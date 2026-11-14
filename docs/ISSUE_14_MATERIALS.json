@@ -1,0 +1,1879 @@
+{
+  "issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/14",
+  "checked_at": "2026-11-14T15:06:59.477392+00:00",
+  "base_tag": "v0.3.0",
+  "base_commit": "9d2c3fa43253e37a25b7a87cd261433e0d9af552",
+  "branch": "feat/14-nasa-map",
+  "scope": "Local first stage: one-date NASA map; no publication",
+  "materials": {
+    "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/14#issuecomment-6878148900",
+    "archive_sha256": "1678fb30e76b0f1d15544788eddc341df49747658d83eab3b3ec76068f2881ca",
+    "files": {
+      "ndvi": {
+        "archive_member": "ndvi-palette.xml",
+        "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml",
+        "sha256": "3cf93d3486be812170d41374bc489cc9614c6235e9b36d990e0b648d127eada6"
+      },
+      "snow": {
+        "archive_member": "snow-palette.xml",
+        "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDSI_Snow_Cover.xml",
+        "sha256": "4af042d24dffc7dd67b991589157285e7281307c85f74bd0188f46556dbafd7a"
+      },
+      "temperature": {
+        "archive_member": "lst-palette.xml",
+        "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_Land_Surface_Temp.xml",
+        "sha256": "b90c74d706d7e353ae8dad503b4aa2326f6abaa4dc32e82a99b98ca844a23912"
+      },
+      "water": {
+        "url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_Land_Water_Mask.xml",
+        "sha256": "652832cb218b82fd802234f2cab0b6eed15117ad7cb897c065993e85a2e51c00",
+        "mask_date": "2015-01-01",
+        "layer": "MODIS_Terra_L3_Land_Water_Mask"
+      }
+    }
+  },
+  "cache": {
+    "directory": "/home/svininykh-av/.cache/steppe-jukebox/nasa-gibs",
+    "outside_project": true,
+    "manifests_after_checks": 89,
+    "restart_network_requests": 0,
+    "missing_manifest_test": {
+      "network_requests": 1,
+      "cache_hits": 14
+    }
+  },
+  "benchmark_definition": "Browser time from clicking Load to SVG image load followed by animation frame. NDVI only, 15 tiles, 4 workers. Cold disk cache cleared; warm server process and browser context restarted.",
+  "benchmark": {
+    "cold": {
+      "kind": "cold-empty-cache",
+      "date": "2026-04-15",
+      "network_requests": 15,
+      "cache_hits": 0,
+      "first_backend_s": 3.181771868003125,
+      "full_backend_s": 6.1975811070005875,
+      "timing": {
+        "request_id": "a59643a5-b6d0-4d26-9685-49528e0b6e43",
+        "first_visible_s": 3.5690999999940396,
+        "full_visible_s": 6.79369999999553,
+        "loaded": 15
+      },
+      "tiles": [
+        {
+          "row": 15,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 15,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 15,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 16,
+          "col": 106,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 16,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 16,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 16,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 17,
+          "col": 106,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 17,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 17,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 17,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 17,
+          "col": 110,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 18,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 18,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        },
+        {
+          "row": 18,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": false
+        }
+      ],
+      "partial": [
+        2,
+        4,
+        7,
+        10,
+        11,
+        12,
+        14,
+        15
+      ],
+      "javascript_errors": []
+    },
+    "warm": {
+      "kind": "warm-after-server-restart",
+      "date": "2026-04-15",
+      "network_requests": 0,
+      "cache_hits": 15,
+      "first_backend_s": 0.23070478800218552,
+      "full_backend_s": 0.34114900400163606,
+      "timing": {
+        "request_id": "fb271e53-7038-4f75-a2ec-18bced64c080",
+        "first_visible_s": 0.8041999999955296,
+        "full_visible_s": 0.8057999999970198,
+        "loaded": 15
+      },
+      "tiles": [
+        {
+          "row": 15,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 15,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 15,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 16,
+          "col": 106,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 16,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 16,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 16,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 17,
+          "col": 106,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 17,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 17,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 17,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 17,
+          "col": 110,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 18,
+          "col": 107,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 18,
+          "col": 108,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        },
+        {
+          "row": 18,
+          "col": 109,
+          "status": "ok",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "from_cache": true
+        }
+      ],
+      "partial": [
+        15
+      ],
+      "javascript_errors": []
+    }
+  },
+  "control_points": [
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2701",
+        "0.2751"
+      ],
+      "cell_id": "KST-001",
+      "lat": 53.29027778,
+      "lon": 63.77583333,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2551",
+        "0.2601"
+      ],
+      "cell_id": "KST-002",
+      "lat": 53.20120435,
+      "lon": 63.77801089,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3451",
+        "0.3526"
+      ],
+      "cell_id": "KST-003",
+      "lat": 53.11212954,
+      "lon": 63.78017945,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2901",
+        "0.2951"
+      ],
+      "cell_id": "KST-004",
+      "lat": 53.02305335,
+      "lon": 63.78233905,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2201",
+        "0.2251"
+      ],
+      "cell_id": "KST-005",
+      "lat": 52.93397577,
+      "lon": 63.78448978,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "transparent",
+      "ndvi_class": null,
+      "cell_id": "KST-006",
+      "lat": 52.84489682,
+      "lon": 63.7866317,
+      "row": 16,
+      "col": 108,
+      "expected": null,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2851",
+        "0.2901"
+      ],
+      "cell_id": "KST-007",
+      "lat": 52.75581648,
+      "lon": 63.78876487,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3526",
+        "0.3601"
+      ],
+      "cell_id": "KST-008",
+      "lat": 52.66673476,
+      "lon": 63.79088935,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2401",
+        "0.2451"
+      ],
+      "cell_id": "KST-009",
+      "lat": 52.57765166,
+      "lon": 63.79300521,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3526",
+        "0.3601"
+      ],
+      "cell_id": "KST-010",
+      "lat": 52.48856716,
+      "lon": 63.79511251,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2551",
+        "0.2601"
+      ],
+      "cell_id": "KST-011",
+      "lat": 52.39948128,
+      "lon": 63.79721131,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3751",
+        "0.3826"
+      ],
+      "cell_id": "KST-012",
+      "lat": 52.31039402,
+      "lon": 63.79930167,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.3976",
+        "0.4051"
+      ],
+      "cell_id": "KST-013",
+      "lat": 52.22130536,
+      "lon": 63.80138366,
+      "row": 16,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3001",
+        "0.3076"
+      ],
+      "cell_id": "KST-014",
+      "lat": 52.13221532,
+      "lon": 63.80345733,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3001",
+        "0.3076"
+      ],
+      "cell_id": "KST-015",
+      "lat": 52.04312388,
+      "lon": 63.80552275,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3526",
+        "0.3601"
+      ],
+      "cell_id": "KST-016",
+      "lat": 51.95403106,
+      "lon": 63.80757997,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2051",
+        "0.2101"
+      ],
+      "cell_id": "KST-017",
+      "lat": 51.86493684,
+      "lon": 63.80962905,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3676",
+        "0.3751"
+      ],
+      "cell_id": "KST-018",
+      "lat": 51.77652909,
+      "lon": 63.81653887,
+      "row": 16,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3526",
+        "0.3601"
+      ],
+      "cell_id": "KST-019",
+      "lat": 51.69565633,
+      "lon": 63.87679041,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3601",
+        "0.3676"
+      ],
+      "cell_id": "KST-020",
+      "lat": 51.61475167,
+      "lon": 63.93682752,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3076",
+        "0.3151"
+      ],
+      "cell_id": "KST-021",
+      "lat": 51.53381529,
+      "lon": 63.99665148,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2951",
+        "0.3001"
+      ],
+      "cell_id": "KST-022",
+      "lat": 51.45284739,
+      "lon": 64.05626359,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3601",
+        "0.3676"
+      ],
+      "cell_id": "KST-023",
+      "lat": 51.37184817,
+      "lon": 64.11566513,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4051",
+        "0.4126"
+      ],
+      "cell_id": "KST-024",
+      "lat": 51.29081782,
+      "lon": 64.17485737,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3301",
+        "0.3376"
+      ],
+      "cell_id": "KST-025",
+      "lat": 51.20975652,
+      "lon": 64.23384157,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3676",
+        "0.3751"
+      ],
+      "cell_id": "KST-026",
+      "lat": 51.12866447,
+      "lon": 64.29261899,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4951",
+        "0.5026"
+      ],
+      "cell_id": "KST-027",
+      "lat": 51.04754185,
+      "lon": 64.35119087,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.5776",
+        "0.5851"
+      ],
+      "cell_id": "KST-028",
+      "lat": 50.96638885,
+      "lon": 64.40955845,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4501",
+        "0.4576"
+      ],
+      "cell_id": "KST-029",
+      "lat": 50.88520565,
+      "lon": 64.46772296,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.5401",
+        "0.5476"
+      ],
+      "cell_id": "KST-030",
+      "lat": 50.80399244,
+      "lon": 64.5256856,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3076",
+        "0.3151"
+      ],
+      "cell_id": "KST-031",
+      "lat": 50.72274939,
+      "lon": 64.5834476,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4651",
+        "0.4726"
+      ],
+      "cell_id": "KST-032",
+      "lat": 50.64147669,
+      "lon": 64.64101015,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4426",
+        "0.4501"
+      ],
+      "cell_id": "KST-033",
+      "lat": 50.56017451,
+      "lon": 64.69837444,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4876",
+        "0.4951"
+      ],
+      "cell_id": "KST-034",
+      "lat": 50.47884304,
+      "lon": 64.75554166,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.5026",
+        "0.5101"
+      ],
+      "cell_id": "KST-035",
+      "lat": 50.39748244,
+      "lon": 64.81251297,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4651",
+        "0.4726"
+      ],
+      "cell_id": "KST-036",
+      "lat": 50.31609289,
+      "lon": 64.86928956,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.2451",
+        "0.2501"
+      ],
+      "cell_id": "KST-037",
+      "lat": 50.23467457,
+      "lon": 64.92587257,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4726",
+        "0.4801"
+      ],
+      "cell_id": "KST-038",
+      "lat": 50.15322764,
+      "lon": 64.98226316,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4801",
+        "0.4876"
+      ],
+      "cell_id": "KST-039",
+      "lat": 50.07175228,
+      "lon": 65.03846247,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3451",
+        "0.3526"
+      ],
+      "cell_id": "KST-040",
+      "lat": 49.99024866,
+      "lon": 65.09447163,
+      "row": 17,
+      "col": 108,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4351",
+        "0.4426"
+      ],
+      "cell_id": "KST-041",
+      "lat": 49.90871694,
+      "lon": 65.15029176,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.3976",
+        "0.4051"
+      ],
+      "cell_id": "KST-042",
+      "lat": 49.82715729,
+      "lon": 65.205924,
+      "row": 17,
+      "col": 108,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.3976",
+        "0.4051"
+      ],
+      "cell_id": "KST-043",
+      "lat": 49.74556987,
+      "lon": 65.26136943,
+      "row": 17,
+      "col": 109,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3901",
+        "0.3976"
+      ],
+      "cell_id": "KST-044",
+      "lat": 49.66395485,
+      "lon": 65.31662918,
+      "row": 17,
+      "col": 109,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4576",
+        "0.4651"
+      ],
+      "cell_id": "KST-045",
+      "lat": 49.58231239,
+      "lon": 65.37170432,
+      "row": 17,
+      "col": 109,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4351",
+        "0.4426"
+      ],
+      "cell_id": "KST-046",
+      "lat": 49.50064266,
+      "lon": 65.42659596,
+      "row": 17,
+      "col": 109,
+      "expected": 3,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 2,
+      "interval": [
+        "0.3076",
+        "0.3151"
+      ],
+      "cell_id": "KST-047",
+      "lat": 49.41894581,
+      "lon": 65.48130516,
+      "row": 18,
+      "col": 109,
+      "expected": 2,
+      "matches": true
+    },
+    {
+      "status": "classified",
+      "ndvi_class": 3,
+      "interval": [
+        "0.4726",
+        "0.4801"
+      ],
+      "cell_id": "KST-048",
+      "lat": 49.337222,
+      "lon": 65.535833,
+      "row": 18,
+      "col": 109,
+      "expected": 3,
+      "matches": true
+    }
+  ],
+  "overlay_runs": [
+    {
+      "date": "2026-04-15",
+      "network_requests": 37,
+      "cache_hits": 15,
+      "counts": {
+        "snow": 1437,
+        "water": 9802,
+        "temperature_cold": 588,
+        "temperature_warm": 590,
+        "temperature_ambiguous": 97,
+        "temperature_unknown": 162
+      },
+      "statuses": {
+        "ok": 52
+      },
+      "verified_dates": [
+        {
+          "layer": "ndvi",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "count": 15
+        },
+        {
+          "layer": "snow",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "count": 15
+        },
+        {
+          "layer": "temperature",
+          "actual_date": "2026-04-15T00:00:00Z",
+          "count": 7
+        },
+        {
+          "layer": "water",
+          "actual_date": "2015-01-01T00:00:00Z",
+          "count": 15
+        }
+      ]
+    },
+    {
+      "date": "2026-01-15",
+      "network_requests": 37,
+      "cache_hits": 15,
+      "counts": {
+        "snow": 993772,
+        "water": 13790,
+        "temperature_cold": 914387,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 79385
+      },
+      "statuses": {
+        "ok": 51,
+        "request_error": 1
+      },
+      "verified_dates": [
+        {
+          "layer": "ndvi",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 14
+        },
+        {
+          "layer": "snow",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 15
+        },
+        {
+          "layer": "temperature",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 7
+        },
+        {
+          "layer": "water",
+          "actual_date": "2015-01-01T00:00:00Z",
+          "count": 15
+        }
+      ]
+    },
+    {
+      "date": "2026-01-15",
+      "network_requests": 1,
+      "cache_hits": 51,
+      "counts": {
+        "snow": 1000526,
+        "water": 13804,
+        "temperature_cold": 921047,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 79479
+      },
+      "statuses": {
+        "ok": 52
+      },
+      "verified_dates": [
+        {
+          "layer": "ndvi",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 15
+        },
+        {
+          "layer": "snow",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 15
+        },
+        {
+          "layer": "temperature",
+          "actual_date": "2026-01-15T00:00:00Z",
+          "count": 7
+        },
+        {
+          "layer": "water",
+          "actual_date": "2015-01-01T00:00:00Z",
+          "count": 15
+        }
+      ]
+    }
+  ],
+  "reference_summary": [
+    {
+      "date": "2026-04-15",
+      "successful_requests": 30,
+      "requests": 30,
+      "download_seconds": 8.628,
+      "region_pixels": 1320667,
+      "valid_ndvi": 1300134,
+      "transparent_ndvi": 20533,
+      "confirmed_snow_any": 3055,
+      "white_overlay": 1437,
+      "unknown_after_overlay": 19096,
+      "ndvi_fetch_failure": 0,
+      "preserved_valid_ndvi": true
+    },
+    {
+      "date": "2026-01-15",
+      "successful_requests": 30,
+      "requests": 30,
+      "download_seconds": 8.02,
+      "region_pixels": 1320667,
+      "valid_ndvi": 22503,
+      "transparent_ndvi": 1298164,
+      "confirmed_snow_any": 1020180,
+      "white_overlay": 1000525,
+      "unknown_after_overlay": 297639,
+      "ndvi_fetch_failure": 0,
+      "preserved_valid_ndvi": true
+    }
+  ],
+  "reference_temperature_summary": [
+    {
+      "date": "2026-04-15",
+      "requests": 7,
+      "success": 7,
+      "seconds": 6.088,
+      "snow_gap_total": 1437,
+      "support_interval_at_or_below_1C": 588,
+      "threshold_ambiguous": 97,
+      "interval_above_1C": 590,
+      "temperature_unknown": 162,
+      "valid_ndvi_preserved": true
+    },
+    {
+      "date": "2026-01-15",
+      "requests": 7,
+      "success": 7,
+      "seconds": 5.343,
+      "snow_gap_total": 1000525,
+      "support_interval_at_or_below_1C": 921046,
+      "threshold_ambiguous": 0,
+      "interval_above_1C": 0,
+      "temperature_unknown": 79479,
+      "valid_ndvi_preserved": true
+    }
+  ],
+  "mask": {
+    "local_pixels": 1320668,
+    "reference_summary_pixels": 1320667,
+    "archive_geometry_and_release_geometry_rasterize_identically_here": true,
+    "note": "January aggregate snow/cold counts exceed the archive summary by one native mask pixel; original native reference mask is not included, so pixelwise equality with it is not claimed."
+  },
+  "archive_png_comparison": {
+    "matching": 74,
+    "total": 74,
+    "tiles": [
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/15/107",
+        "archive_sha256": "158245ee5d1fc4f09b7818cde67066118c5a409d0033f9bca07d3efe7aa1a37e",
+        "downloaded_sha256": "158245ee5d1fc4f09b7818cde67066118c5a409d0033f9bca07d3efe7aa1a37e",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/15/108",
+        "archive_sha256": "a798a716b642f13ddd2850d7328ab5bdd045741e57d3b047e0aac614eb979798",
+        "downloaded_sha256": "a798a716b642f13ddd2850d7328ab5bdd045741e57d3b047e0aac614eb979798",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/15/109",
+        "archive_sha256": "37e2812777f66b587d27f78fa21e902162df8f783805247734dfd4d713caf99a",
+        "downloaded_sha256": "37e2812777f66b587d27f78fa21e902162df8f783805247734dfd4d713caf99a",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/16/106",
+        "archive_sha256": "8fa9f2e769713229d841694e4013031ed11c26185a80d1f9c27b0ef95288902a",
+        "downloaded_sha256": "8fa9f2e769713229d841694e4013031ed11c26185a80d1f9c27b0ef95288902a",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/16/107",
+        "archive_sha256": "54d3fe3ed57b96d93a84570191ecd2e3aed24ddb31ba0c18275582f08b874015",
+        "downloaded_sha256": "54d3fe3ed57b96d93a84570191ecd2e3aed24ddb31ba0c18275582f08b874015",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/16/108",
+        "archive_sha256": "359b55f2a84416af75207817ea21ef31ee629d9586a8454bf0ae861c846af94c",
+        "downloaded_sha256": "359b55f2a84416af75207817ea21ef31ee629d9586a8454bf0ae861c846af94c",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/16/109",
+        "archive_sha256": "97e2836db404721a6ee0d23b2d9f8100ccd1f578f3572801866d45151c84507e",
+        "downloaded_sha256": "97e2836db404721a6ee0d23b2d9f8100ccd1f578f3572801866d45151c84507e",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/17/106",
+        "archive_sha256": "18c15e4c085b0980731185e79c500fb4a5c498091646592475578f9c92f03220",
+        "downloaded_sha256": "18c15e4c085b0980731185e79c500fb4a5c498091646592475578f9c92f03220",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/17/107",
+        "archive_sha256": "2a664a35b10b8b5efaebc48d0b9111c449097bb595cab56ee37f5e780150c7f3",
+        "downloaded_sha256": "2a664a35b10b8b5efaebc48d0b9111c449097bb595cab56ee37f5e780150c7f3",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/17/108",
+        "archive_sha256": "35b78355926daf27ed975c3019770e8a1b5cf300897217cfefc16b5cd086b9a3",
+        "downloaded_sha256": "35b78355926daf27ed975c3019770e8a1b5cf300897217cfefc16b5cd086b9a3",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/17/109",
+        "archive_sha256": "51440f37f1b6f1cce3dc421b1f773d30a8cdfaf4a9f03c82ea69669f63447a90",
+        "downloaded_sha256": "51440f37f1b6f1cce3dc421b1f773d30a8cdfaf4a9f03c82ea69669f63447a90",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/17/110",
+        "archive_sha256": "dbe18aa34bc0b842f519b1528cd15b5629dc90faeae4a89619da21a9e92799ac",
+        "downloaded_sha256": "dbe18aa34bc0b842f519b1528cd15b5629dc90faeae4a89619da21a9e92799ac",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/18/107",
+        "archive_sha256": "e9efac7fd88c889aacf109ad7ad13b184e4167842b2f2493b7b97387cc88241d",
+        "downloaded_sha256": "e9efac7fd88c889aacf109ad7ad13b184e4167842b2f2493b7b97387cc88241d",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/18/108",
+        "archive_sha256": "9675145a992698170b62aeb0a9c8d9f0137dd0d8f9d680f3064428551d653d15",
+        "downloaded_sha256": "9675145a992698170b62aeb0a9c8d9f0137dd0d8f9d680f3064428551d653d15",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-04-15/EPSG4326/500m/7/18/109",
+        "archive_sha256": "10e0f25532fdecc63bc8a815f2071b8556ee0733821fed1372c6ea4c5828e267",
+        "downloaded_sha256": "10e0f25532fdecc63bc8a815f2071b8556ee0733821fed1372c6ea4c5828e267",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/15/107",
+        "archive_sha256": "bd85e9d5c2649a0fcdfd3b7f3f53d7c77eb51bb0a38729c7421b9de9771f0d6a",
+        "downloaded_sha256": "bd85e9d5c2649a0fcdfd3b7f3f53d7c77eb51bb0a38729c7421b9de9771f0d6a",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/15/108",
+        "archive_sha256": "04681b18279c589c93828b66afdb9111abddf0114ee9add92b84227b4921493f",
+        "downloaded_sha256": "04681b18279c589c93828b66afdb9111abddf0114ee9add92b84227b4921493f",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/15/109",
+        "archive_sha256": "de278fe40e5ff05887e97da915053dcd9ca6ae61ca39f078100c2d81f05c2307",
+        "downloaded_sha256": "de278fe40e5ff05887e97da915053dcd9ca6ae61ca39f078100c2d81f05c2307",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/16/106",
+        "archive_sha256": "4f25c59d165334602149f48cb7cdcf25ce1454b27a813eb95b4202f5a776f7b0",
+        "downloaded_sha256": "4f25c59d165334602149f48cb7cdcf25ce1454b27a813eb95b4202f5a776f7b0",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/16/107",
+        "archive_sha256": "4768ce6d84649ccb756bff059807143d6364666e2333a7308e0b26c6e850273c",
+        "downloaded_sha256": "4768ce6d84649ccb756bff059807143d6364666e2333a7308e0b26c6e850273c",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/16/108",
+        "archive_sha256": "767d5b0e7e437d8ceeb83377dcd1554418d65f7267130ab4a18db7efb25a7703",
+        "downloaded_sha256": "767d5b0e7e437d8ceeb83377dcd1554418d65f7267130ab4a18db7efb25a7703",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/16/109",
+        "archive_sha256": "b51a2fd2a0e4b53b0dd2a030bfac643f6265cd215fb5e6b07ea2b4088e986c75",
+        "downloaded_sha256": "b51a2fd2a0e4b53b0dd2a030bfac643f6265cd215fb5e6b07ea2b4088e986c75",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/17/106",
+        "archive_sha256": "63897d07a4c5d185ce4ef56fbafc1e0d86d3ee305f23e0c535a4a360bce4a549",
+        "downloaded_sha256": "63897d07a4c5d185ce4ef56fbafc1e0d86d3ee305f23e0c535a4a360bce4a549",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/17/107",
+        "archive_sha256": "3be71ef12969227f348507a261d867ca98896c89eadd22961d372b4fbe10eb45",
+        "downloaded_sha256": "3be71ef12969227f348507a261d867ca98896c89eadd22961d372b4fbe10eb45",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/17/108",
+        "archive_sha256": "bd5211a4492592ac736d6a5a9dd3256699f64d87c484dc60c67cce946a1f440f",
+        "downloaded_sha256": "bd5211a4492592ac736d6a5a9dd3256699f64d87c484dc60c67cce946a1f440f",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/17/109",
+        "archive_sha256": "40ffa2c9133da671ff3a87ec14f4ad1b0f666369cf37bf00163721ec10173f62",
+        "downloaded_sha256": "40ffa2c9133da671ff3a87ec14f4ad1b0f666369cf37bf00163721ec10173f62",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/17/110",
+        "archive_sha256": "083a972547a116b9e6e1365d4791abcc522f397abd13bf23d10b96a7a88f673e",
+        "downloaded_sha256": "083a972547a116b9e6e1365d4791abcc522f397abd13bf23d10b96a7a88f673e",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/18/107",
+        "archive_sha256": "6db54241050f854ba266041b59cbad5a8d95a272d3cf9a5960ae669243d5b2dd",
+        "downloaded_sha256": "6db54241050f854ba266041b59cbad5a8d95a272d3cf9a5960ae669243d5b2dd",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/18/108",
+        "archive_sha256": "01ff07bcc17a95963d2daf9002428f8168fdd3b2df32c25f6c4f6d5da39060f5",
+        "downloaded_sha256": "01ff07bcc17a95963d2daf9002428f8168fdd3b2df32c25f6c4f6d5da39060f5",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-04-15/EPSG4326/500m/7/18/109",
+        "archive_sha256": "7da20ea69f9ef5a9f0e095781a5bfdbe815fd353670aac9db3b99f66f9895d38",
+        "downloaded_sha256": "7da20ea69f9ef5a9f0e095781a5bfdbe815fd353670aac9db3b99f66f9895d38",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/15/107",
+        "archive_sha256": "6f1f1e08ef959991053f8b8a7df3187efdc6077305b6812979ab44b9bcd06ef3",
+        "downloaded_sha256": "6f1f1e08ef959991053f8b8a7df3187efdc6077305b6812979ab44b9bcd06ef3",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/15/108",
+        "archive_sha256": "1824a8f897fe98df3049132ab7ed46644493daad12a7213d8d54f3c85bad338f",
+        "downloaded_sha256": "1824a8f897fe98df3049132ab7ed46644493daad12a7213d8d54f3c85bad338f",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/15/109",
+        "archive_sha256": "3a08c41ac49769f9cb59d0576be90fde53b9c9d757415892365a6f75c26edcb5",
+        "downloaded_sha256": "3a08c41ac49769f9cb59d0576be90fde53b9c9d757415892365a6f75c26edcb5",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/16/106",
+        "archive_sha256": "8032482577886a2ba2d3eec1b64688ddc77a5f0290f5ef8b410c700718b2b356",
+        "downloaded_sha256": "8032482577886a2ba2d3eec1b64688ddc77a5f0290f5ef8b410c700718b2b356",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/16/107",
+        "archive_sha256": "62fef2d75472f15af44bf6d2302365755eba0f670bd337039ed928b0762d182e",
+        "downloaded_sha256": "62fef2d75472f15af44bf6d2302365755eba0f670bd337039ed928b0762d182e",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/16/108",
+        "archive_sha256": "0a37288ca2f92cde12e1933ae7b15dcc444d50c60bcf251caf9e9502dcbd6617",
+        "downloaded_sha256": "0a37288ca2f92cde12e1933ae7b15dcc444d50c60bcf251caf9e9502dcbd6617",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/16/109",
+        "archive_sha256": "0bb0ad16027c1a5520e76e3951cb384ad401676accf1d712d7d2560190622e66",
+        "downloaded_sha256": "0bb0ad16027c1a5520e76e3951cb384ad401676accf1d712d7d2560190622e66",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/17/106",
+        "archive_sha256": "924735c1ee75732b465e37b4ea0ad8d5fab8808fa9b54ebde092526f4fef878f",
+        "downloaded_sha256": "924735c1ee75732b465e37b4ea0ad8d5fab8808fa9b54ebde092526f4fef878f",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/17/107",
+        "archive_sha256": "3904821335a6ac476f8b5db9cfc37e0b5eee2602453828a899941e7ac31d333a",
+        "downloaded_sha256": "3904821335a6ac476f8b5db9cfc37e0b5eee2602453828a899941e7ac31d333a",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/17/108",
+        "archive_sha256": "28fd8ad54e7e9fc0decd79442c607e7dee5c56bd56d462f1da5813f061a82c6d",
+        "downloaded_sha256": "28fd8ad54e7e9fc0decd79442c607e7dee5c56bd56d462f1da5813f061a82c6d",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/17/109",
+        "archive_sha256": "a41cabba05f295a41fa5776ffb2b7e5e4e48bd0980d0667412f6749a0b16c1c7",
+        "downloaded_sha256": "a41cabba05f295a41fa5776ffb2b7e5e4e48bd0980d0667412f6749a0b16c1c7",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/17/110",
+        "archive_sha256": "f75bafe7e77931dcc683fd479b4d74e2e1c56870bb749563daa6bd044bff3304",
+        "downloaded_sha256": "f75bafe7e77931dcc683fd479b4d74e2e1c56870bb749563daa6bd044bff3304",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/18/107",
+        "archive_sha256": "a98e2a65890d932b58bd594eab5d9c6769367e2a6d45de28bd553b2417e63589",
+        "downloaded_sha256": "a98e2a65890d932b58bd594eab5d9c6769367e2a6d45de28bd553b2417e63589",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/18/108",
+        "archive_sha256": "ec361e3eb5862cb971cbb663ec612d7abe3b2b411d941ba309b85689fc126685",
+        "downloaded_sha256": "ec361e3eb5862cb971cbb663ec612d7abe3b2b411d941ba309b85689fc126685",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "VIIRS_NOAA20_NDVI_8Day/2026-01-15/EPSG4326/500m/7/18/109",
+        "archive_sha256": "18ce3472c27c1c3be84d05bda2793b8a6c123bacc40abea90f7d753892e4d697",
+        "downloaded_sha256": "18ce3472c27c1c3be84d05bda2793b8a6c123bacc40abea90f7d753892e4d697",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/15/107",
+        "archive_sha256": "015cc61b7d6ce5b06b2e486c176d32cfa6de1555b3df36dbeba6423d40bdbb32",
+        "downloaded_sha256": "015cc61b7d6ce5b06b2e486c176d32cfa6de1555b3df36dbeba6423d40bdbb32",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/15/108",
+        "archive_sha256": "372a622190980e267c63b57e27ca6fd2608096358a6134e31a83cf1b11b1c8ea",
+        "downloaded_sha256": "372a622190980e267c63b57e27ca6fd2608096358a6134e31a83cf1b11b1c8ea",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/15/109",
+        "archive_sha256": "9e4ec76617a22f5430c0b747866a6babe96c7df288cc625df5523a9d6a7251d7",
+        "downloaded_sha256": "9e4ec76617a22f5430c0b747866a6babe96c7df288cc625df5523a9d6a7251d7",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/16/106",
+        "archive_sha256": "a030561ff98e79feb36234debc97425914f95596d60c183294a685e12198bd2d",
+        "downloaded_sha256": "a030561ff98e79feb36234debc97425914f95596d60c183294a685e12198bd2d",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/16/107",
+        "archive_sha256": "4a3425397ac4f662e70a974e86c4f9fd0b72922f1b3738190c09c7123cc231ab",
+        "downloaded_sha256": "4a3425397ac4f662e70a974e86c4f9fd0b72922f1b3738190c09c7123cc231ab",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/16/108",
+        "archive_sha256": "a12433f1f313b4f8a3418d49b7474a53ebb2f57ae39274f622724726cfb8f5aa",
+        "downloaded_sha256": "a12433f1f313b4f8a3418d49b7474a53ebb2f57ae39274f622724726cfb8f5aa",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/16/109",
+        "archive_sha256": "eb6214d60df7729e2ec3741f935019ae413a85e6bd2272951480a3f2b38268f2",
+        "downloaded_sha256": "eb6214d60df7729e2ec3741f935019ae413a85e6bd2272951480a3f2b38268f2",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/17/106",
+        "archive_sha256": "382f6ce2c173ef49dd0087b0fda8ba254aba1dae4c1501b9ec593b3a1be11b82",
+        "downloaded_sha256": "382f6ce2c173ef49dd0087b0fda8ba254aba1dae4c1501b9ec593b3a1be11b82",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/17/107",
+        "archive_sha256": "32f701c0518ed62194a51ef278add5cb960b6efbc445fac3562464b10a1bbc7b",
+        "downloaded_sha256": "32f701c0518ed62194a51ef278add5cb960b6efbc445fac3562464b10a1bbc7b",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/17/108",
+        "archive_sha256": "38781155903267818efd68aea07cd8d48cb193377d35b471b7271f2c5fd1b758",
+        "downloaded_sha256": "38781155903267818efd68aea07cd8d48cb193377d35b471b7271f2c5fd1b758",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/17/109",
+        "archive_sha256": "8f699b33a842ea4b750f31a3c030f828551b7a43f5182925ddaeb8689dc9185a",
+        "downloaded_sha256": "8f699b33a842ea4b750f31a3c030f828551b7a43f5182925ddaeb8689dc9185a",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/17/110",
+        "archive_sha256": "2d6b8f766dd1cdcfb4c33e4bfbbede716ad7d1300901d9d9f548f5b26dacd88c",
+        "downloaded_sha256": "2d6b8f766dd1cdcfb4c33e4bfbbede716ad7d1300901d9d9f548f5b26dacd88c",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/18/107",
+        "archive_sha256": "bca8664ed85993a8af093e2c63ed88bd28559834393d33ce3fea2021eed379a3",
+        "downloaded_sha256": "bca8664ed85993a8af093e2c63ed88bd28559834393d33ce3fea2021eed379a3",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/18/108",
+        "archive_sha256": "760b02bc4a0af98b36388ec5e8bdc6e19fe25146743eb5feded7d61b6bd90634",
+        "downloaded_sha256": "760b02bc4a0af98b36388ec5e8bdc6e19fe25146743eb5feded7d61b6bd90634",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_NDSI_Snow_Cover/2026-01-15/EPSG4326/500m/7/18/109",
+        "archive_sha256": "303d4dcce341f599a5ed85eabc036e9fd9a68e9529ec9c5b086abc59829ba3a7",
+        "downloaded_sha256": "303d4dcce341f599a5ed85eabc036e9fd9a68e9529ec9c5b086abc59829ba3a7",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/7/53",
+        "archive_sha256": "1f8a2b1c2dcc4f460354913e3a638d0e8069c6888c579a37b101f2b93465837b",
+        "downloaded_sha256": "1f8a2b1c2dcc4f460354913e3a638d0e8069c6888c579a37b101f2b93465837b",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/7/54",
+        "archive_sha256": "6266a3c63ee86917edfd6ab8fe7de51f1b14574a8d31507327d9c2ba76630679",
+        "downloaded_sha256": "6266a3c63ee86917edfd6ab8fe7de51f1b14574a8d31507327d9c2ba76630679",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/8/53",
+        "archive_sha256": "c9cd7b000b4bfc2024c6549bff19c8467ade0279f25d54a2d81a193c06229a3a",
+        "downloaded_sha256": "c9cd7b000b4bfc2024c6549bff19c8467ade0279f25d54a2d81a193c06229a3a",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/8/54",
+        "archive_sha256": "c1b777930c6e8d9f4962cb7965fdde0117e3ea64a1124121da281124b6c3209c",
+        "downloaded_sha256": "c1b777930c6e8d9f4962cb7965fdde0117e3ea64a1124121da281124b6c3209c",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/8/55",
+        "archive_sha256": "155a0df9a0758a73893e3d4a86fcb12fa4536860f690916c992d2c0495b76014",
+        "downloaded_sha256": "155a0df9a0758a73893e3d4a86fcb12fa4536860f690916c992d2c0495b76014",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/9/53",
+        "archive_sha256": "3f38e9e3cb70bccb4ec54a083b7ba9be31f3b0b47a1e8c8692d6d8561a6dde9c",
+        "downloaded_sha256": "3f38e9e3cb70bccb4ec54a083b7ba9be31f3b0b47a1e8c8692d6d8561a6dde9c",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-04-15/EPSG4326/1km/6/9/54",
+        "archive_sha256": "12dc18a856b28a4cdfd7d26c2339fc29b6203d4b361339980bc276e8ae7386b1",
+        "downloaded_sha256": "12dc18a856b28a4cdfd7d26c2339fc29b6203d4b361339980bc276e8ae7386b1",
+        "actual_date": "2026-04-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/7/53",
+        "archive_sha256": "dc780868ca45e36638dd942877f65392302282a3d88860feaab49547988e7e1e",
+        "downloaded_sha256": "dc780868ca45e36638dd942877f65392302282a3d88860feaab49547988e7e1e",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/7/54",
+        "archive_sha256": "d1de8246128b2a1792ce39ca015a4f3dda60aecac493a32ed4e12613e5a277e0",
+        "downloaded_sha256": "d1de8246128b2a1792ce39ca015a4f3dda60aecac493a32ed4e12613e5a277e0",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/8/53",
+        "archive_sha256": "9a9295d73a0d649b155de5d37a45dbba696bc5220d122a2ce7d38816f1680d99",
+        "downloaded_sha256": "9a9295d73a0d649b155de5d37a45dbba696bc5220d122a2ce7d38816f1680d99",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/8/54",
+        "archive_sha256": "40991210a918302770224966ca5c9d5628d3789c18ae015f35d617b6fe1582cb",
+        "downloaded_sha256": "40991210a918302770224966ca5c9d5628d3789c18ae015f35d617b6fe1582cb",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/8/55",
+        "archive_sha256": "56c44c63eaf7a51eeff379824fef35b8aa3a171a7585b3255af4f01c27e1985d",
+        "downloaded_sha256": "56c44c63eaf7a51eeff379824fef35b8aa3a171a7585b3255af4f01c27e1985d",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/9/53",
+        "archive_sha256": "85e8796e64780d5ca1e4ade788733c8e2e2630e1da46fee4bc5f02dd7cc2803a",
+        "downloaded_sha256": "85e8796e64780d5ca1e4ade788733c8e2e2630e1da46fee4bc5f02dd7cc2803a",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      },
+      {
+        "identity": "MODIS_Terra_L3_Land_Surface_Temp_Daily_Day/2026-01-15/EPSG4326/1km/6/9/54",
+        "archive_sha256": "870dd3ac8ec1d31c452fcff8bef745e8073e91720773301cc7ba50895d81abcd",
+        "downloaded_sha256": "870dd3ac8ec1d31c452fcff8bef745e8073e91720773301cc7ba50895d81abcd",
+        "actual_date": "2026-01-15T00:00:00Z",
+        "matches": true
+      }
+    ]
+  },
+  "real_browser_ui_checks": [
+    {
+      "language": "ru",
+      "width": 1440,
+      "date": "2026-04-15",
+      "network": 0,
+      "cached": 15,
+      "ok": 15,
+      "total": 15,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "matches": 48,
+      "javascript_errors": []
+    },
+    {
+      "overlays": "april",
+      "date": "2026-04-15",
+      "network": 37,
+      "cached": 15,
+      "ok": 52,
+      "total": 52,
+      "counts": {
+        "snow": 1437,
+        "water": 9802,
+        "temperature_cold": 588,
+        "temperature_warm": 590,
+        "temperature_ambiguous": 97,
+        "temperature_unknown": 162
+      },
+      "matches": 48
+    },
+    {
+      "overlays": "january",
+      "date": "2026-01-15",
+      "network": 37,
+      "cached": 15,
+      "ok": 52,
+      "total": 52,
+      "counts": {
+        "snow": 1000526,
+        "water": 13804,
+        "temperature_cold": 921047,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 79479
+      },
+      "matches": 0
+    },
+    {
+      "language": "kk",
+      "width": 390,
+      "date": "2026-04-15",
+      "network": 0,
+      "cached": 15,
+      "ok": 15,
+      "total": 15,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "matches": 48,
+      "javascript_errors": []
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "date": "2026-04-15",
+      "network": 0,
+      "cached": 15,
+      "ok": 15,
+      "total": 15,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "matches": 48,
+      "javascript_errors": []
+    }
+  ],
+  "tests": {
+    "python_passed": 126,
+    "browser_passed": 66,
+    "junit_reports": {
+      "issue14-results.xml": {
+        "tests": "191",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "429.403",
+        "timestamp": "2026-11-14T19:47:51.465372+05:00"
+      },
+      "issue14-python-results.xml": {
+        "tests": "126",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "5.825",
+        "timestamp": "2026-11-14T20:00:02.851194+05:00"
+      },
+      "issue14-cache-browser-results.xml": {
+        "tests": "1",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "15.891",
+        "timestamp": "2026-11-14T20:00:42.159365+05:00"
+      },
+      "issue14-offline-browser-results.xml": {
+        "tests": "1",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "16.787",
+        "timestamp": "2026-11-14T20:02:59.373151+05:00"
+      }
+    }
+  },
+  "offline_demo": {
+    "external_connections_blocked": true,
+    "empty_nasa_cache": true,
+    "regions": [
+      "kostanay",
+      "akmola"
+    ],
+    "modes": [
+      "spring",
+      "summer",
+      "journey"
+    ],
+    "keyboard_start": true,
+    "highlight_follows_audio": true,
+    "switch_source_while_playing_stops_previous_track": true,
+    "return_after_nasa_failure_starts_paused_at_zero": true
+  },
+  "manual_check": {
+    "reported_by_user": true,
+    "user_message": "прроверил",
+    "scenario_details_provided": false
+  }
+}

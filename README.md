@@ -2,7 +2,7 @@
 
 A DAIRN Great Steppe project for the [2026 NASA Space Apps Challenge: The Earth Information Jukebox](https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/).
 
-Steppe Jukebox lets people see and hear how vegetation varies along routes across Kazakhstan's Kostanay and Akmola regions. It turns vegetation-index color classes in NASA GIBS NOAA-20/VIIRS visualizations into notes while highlighting the corresponding cells on a map.
+Steppe Jukebox lets people see and hear how vegetation varies along routes across Kazakhstan's Kostanay and Akmola regions. It loads NASA GIBS NOAA-20/VIIRS or NASA EIC Suomi NPP/VIIRS visualizations and turns vegetation-index color classes into notes while highlighting the corresponding cells on a map.
 
 ## First working version
 
@@ -13,11 +13,11 @@ Steppe Jukebox lets people see and hear how vegetation varies along routes acros
 
 ## Status
 
-Version **v0.3.0** supports Kostanay and Akmola, each with fixed spring/summer observations and a journey where location and date change at every step. Kostanay has 48 route positions and a 24-second track; Akmola has 56 positions and a 28-second track. Both journeys run from April 15 to November 13, 2026 on the same five-note scale and at 120 BPM. Kostanay is selected first.
+Version **v0.4.0** is the first release that builds the map and sound from downloaded NASA data or the loader's verified disk cache. GIBS is the default source; EIC is selected separately. Choose an exact date, then press **Load**. Kostanay has 48 route positions and a 24-second track; Akmola has 56 positions and a 28-second track, using the same five notes and 120 BPM. Key places appear as **+**; the current cell and travelled path become visible during playback, while the upcoming route stays hidden.
 
-The supplied real-data CSVs contain visualization classes, not raw numerical NDVI. The journey uses rolling 8-day composites and does not establish a vegetation trend: location and date change together. The responsive interface has Listen to the steppe, Plants and places, and How it works sections. It provides keyboard playback, synchronized highlighting and dates, geographic axes over OpenStreetMap region boundaries, and Kazakh, English, and Russian interfaces. The original synthetic dataset and the separate EIC dataset remain available.
+Classes describe the selected product's color scale, not precise numerical NDVI. GIBS and EIC use their own scales, so class numbers need not match between sources. Journey mode uses the date of each step; unavailable EIC dates are reported without substitution. Location and date change together, so the journey does not establish a vegetation trend. The responsive interface retains its three sections, keyboard playback and Kazakh, English and Russian translations. The released v0.3.0 CSV datasets remain unchanged and can be opened explicitly in saved-data mode.
 
-The user confirmed the manual application check; 153 automated checks passed. Additional botanical data and sources are planned for later versions. Source-image crops, independent verification of the supplied classes, and screen-reader evaluation remain separate acceptance work. See [the v0.3.0 release report](docs/RELEASE_0.3.0.md) for verified behavior and open checks.
+The user confirmed the working interface. Targeted checks covered both sources, both regions, dates, keyboard playback, mobile layouts, three languages and offline replay from a prepared cache; the full suite was not rerun. EIC's first download retrieves a global frame and can take around two minutes on the tested connection. Arbitrary routes, a full online journey check and screen-reader evaluation remain separate work. See [the v0.4.0 release report](docs/RELEASE_0.4.0.md) for results and limits.
 
 ## Run the preview
 
@@ -30,11 +30,11 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Open `http://localhost:8501`. Select **Region** to choose Kostanay or Akmola. Choose **Mode → Journey through time** for the dated journey, or **One date along the route** to compare Spring and Summer. Changing the region, season, or mode stops playback and resets highlighting without autoplay. Changing the language or section preserves playback. See [the local demo guide](docs/LOCAL_DEMO.md) for the CSV contracts, alternative datasets, language controls, audio export, and tests.
+Open `http://localhost:8501`. Select **Region**, **Data source** and an exact **Date**, press **Load**, then start playback. For an initial comparison, use April 20 or June 10, 2026; both are in the checked EIC catalog. **Journey through time** loads the dates required by each step and reports missing frames. Changing the source, region, date or mode stops playback and resets highlighting without autoplay. Changing the language or section preserves playback. NASA images are cached outside the project under the user's cache directory; an empty cache needs network access. See [the local demo guide](docs/LOCAL_DEMO.md) for saved-data mode, CSV contracts, language controls, audio export and tests.
 
 ## Data and attribution
 
-The NOAA-20 data use [NASA Earthdata GIBS rolling 8-day NDVI](https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_NOAA20_NDVI_8Day.json) and the [GIBS display legend](https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml). The separate EIC dataset refers to [NASA Scientific Visualization Studio / Earth Information Center: Near Real-Time NDVI](https://svs.gsfc.nasa.gov/5544/).
+The NOAA-20 data use [NASA Earthdata GIBS rolling 8-day NDVI](https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_NOAA20_NDVI_8Day.json) and the [GIBS display legend](https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml). The EIC loader uses native georeferenced frames and its own color scale from [NASA Scientific Visualization Studio / Earth Information Center: Near Real-Time NDVI](https://svs.gsfc.nasa.gov/5544/).
 
 Map boundaries use [OpenStreetMap data under ODbL](https://www.openstreetmap.org/copyright); the original SVG and GeoJSON source information is in [MAP-SOURCES.md](data/maps/MAP-SOURCES.md).
 

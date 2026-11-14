@@ -1,0 +1,231 @@
+{
+  "issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/14",
+  "base_tag": "v0.3.0",
+  "branch": "feat/14-nasa-map",
+  "checked_at": "2026-11-14T17:02:19.651013+00:00",
+  "scope": "NASA view only: simplified controls, class grid inside region, saved-route playback. New route input remains the next stage.",
+  "prototype_sha256": "e98b06912c697cf364a8913cad04ac971779351d4d9ec8554c6e9491d86f6947",
+  "tests": {
+    "python": 132,
+    "browser": 68,
+    "total": 200,
+    "reports": {
+      "issue14-grid-python.xml": {
+        "tests": "132",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "6.748",
+        "timestamp": "2026-11-14T21:44:17.730520+05:00"
+      },
+      "issue14-grid-browser.xml": {
+        "tests": "10",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "170.420",
+        "timestamp": "2026-11-14T21:55:55.249103+05:00"
+      },
+      "issue14-grid-saved-browser.xml": {
+        "tests": "39",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "191.925",
+        "timestamp": "2026-11-14T21:47:32.073134+05:00"
+      },
+      "issue14-grid-region-browser.xml": {
+        "tests": "19",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "183.845",
+        "timestamp": "2026-11-14T21:55:59.362278+05:00"
+      }
+    },
+    "final_layout": {
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "time": "33.207",
+      "timestamp": "2026-11-14T22:02:18.558366+05:00"
+    }
+  },
+  "completion_reloads": {
+    "attempts": 15,
+    "passed": 15,
+    "detached_maps": 0
+  },
+  "real_data_checks": [
+    {
+      "language": "ru",
+      "width": 1440,
+      "date": "2026-04-15",
+      "network": 0,
+      "cache_hits": 15,
+      "total": 15,
+      "ok": 15,
+      "matches": 48,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "wav_sha256": "d659378e1a7e7dcdc17a28a73a6764558b87d814034f64214bde20efe928444a",
+      "wav_matches_saved": true,
+      "keyboard_play_pause_restart": true,
+      "javascript_errors": []
+    },
+    {
+      "overlay": "winter",
+      "date": "2026-01-15",
+      "network": 0,
+      "cache_hits": 52,
+      "total": 52,
+      "ok": 52,
+      "matches": 0,
+      "counts": {
+        "snow": 1000526,
+        "water": 13804,
+        "temperature_cold": 921047,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 79479
+      }
+    },
+    {
+      "overlay": "spring",
+      "date": "2026-04-15",
+      "network": 0,
+      "cache_hits": 52,
+      "total": 52,
+      "ok": 52,
+      "matches": 48,
+      "counts": {
+        "snow": 1437,
+        "water": 9802,
+        "temperature_cold": 588,
+        "temperature_warm": 590,
+        "temperature_ambiguous": 97,
+        "temperature_unknown": 162
+      }
+    },
+    {
+      "language": "kk",
+      "width": 390,
+      "date": "2026-04-15",
+      "network": 0,
+      "cache_hits": 15,
+      "total": 15,
+      "ok": 15,
+      "matches": 48,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "wav_sha256": "d659378e1a7e7dcdc17a28a73a6764558b87d814034f64214bde20efe928444a",
+      "wav_matches_saved": true,
+      "keyboard_play_pause_restart": true,
+      "javascript_errors": []
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "date": "2026-04-15",
+      "network": 0,
+      "cache_hits": 15,
+      "total": 15,
+      "ok": 15,
+      "matches": 48,
+      "counts": {
+        "snow": 0,
+        "water": 0,
+        "temperature_cold": 0,
+        "temperature_warm": 0,
+        "temperature_ambiguous": 0,
+        "temperature_unknown": 0
+      },
+      "wav_sha256": "d659378e1a7e7dcdc17a28a73a6764558b87d814034f64214bde20efe928444a",
+      "wav_matches_saved": true,
+      "keyboard_play_pause_restart": true,
+      "javascript_errors": []
+    }
+  ],
+  "raw_cache_unchanged": true,
+  "grid": {
+    "georeferenced": true,
+    "x_native_pixels": 52,
+    "y_native_pixels": 32,
+    "native_values_averaged": false,
+    "dividers_are_display_only": true,
+    "polygon_clipping_and_holes_preserved": true
+  },
+  "route": {
+    "count": 48,
+    "duration_s": 24,
+    "bpm": 120,
+    "seconds_per_step": 0.5,
+    "rest": {
+      "cell_id": "KST-006",
+      "date": "2026-04-15",
+      "start_s": 2.5,
+      "end_s": 3.0
+    },
+    "clock": "HTMLAudioElement.currentTime",
+    "unknown_or_failed_samples_block_playback": true
+  },
+  "manual_check": {
+    "new_ui_reported_by_user": false,
+    "previous_first_stage_check_recorded_separately": true
+  },
+  "published": false,
+  "trail_followup": {
+    "checked_at": "2026-11-14T17:33:17.220802+00:00",
+    "full_suite_run": false,
+    "unique_targeted_tests": 5,
+    "whole_interior_cells": 674,
+    "route_points": 48,
+    "route_point_cells": 32,
+    "trail_cells": 37,
+    "hidden_route_points": [],
+    "route_polyline_visible": false,
+    "route_point_circles_visible": false,
+    "wav_and_route_coordinates_unchanged": true,
+    "reports": {
+      "issue14-trail-geometry.xml": {
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "time": "0.438",
+        "timestamp": "2026-11-14T22:25:42.902946+05:00"
+      },
+      "issue14-trail-browser.xml": {
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "time": "56.918",
+        "timestamp": "2026-11-14T22:26:28.064099+05:00"
+      },
+      "issue14-trail-steps-final.xml": {
+        "tests": "1",
+        "failures": "0",
+        "errors": "0",
+        "time": "34.857",
+        "timestamp": "2026-11-14T22:28:56.841856+05:00"
+      }
+    },
+    "real_data_widths_px": [
+      1440,
+      320
+    ],
+    "real_data_control_matches": 48,
+    "real_data_network_requests": 0
+  }
+}
