@@ -1,0 +1,19 @@
+{
+  "is_test": false,
+  "description": "NASA EIC / SVS 5544: 137 ячеек. Классы по цветовой шкале, не численный NDVI.",
+  "description_i18n": {
+    "ru": "NASA EIC / SVS 5544: 137 ячеек. Классы по цветовой шкале, не численный NDVI.",
+    "en": "NASA EIC / SVS 5544: 137 cells. Classes from the colour ramp, not numerical NDVI.",
+    "kk": "NASA EIC / SVS 5544: 137 ұяшық. Кластар сандық NDVI емес, түс шкаласына негізделген."
+  },
+  "seasons": {
+    "spring": {
+      "date": "2025-04-15",
+      "source_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005544/frames/8640x4320_2x1_30p/equirectangular/SNPP_VIIRS.20250415.ndvi_w_snow.oceanblue.png"
+    },
+    "summer": {
+      "date": "2025-07-15",
+      "source_url": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005544/frames/8640x4320_2x1_30p/equirectangular/SNPP_VIIRS.20250715.ndvi_w_snow.oceanblue.png"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "source_issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/11",
+  "source_url": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_NOAA20_NDVI_8Day.json",
+  "legend_url": "https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml",
+  "landmarks": {
+    "KST-001": "kamennoye_lake",
+    "KST-018": "naurzum",
+    "KST-048": "akkum"
+  }
+}

@@ -3,6 +3,7 @@
 import base64
 import hashlib
 import json
+import math
 from dataclasses import asdict
 from pathlib import Path
 
@@ -20,6 +21,25 @@ def error_payload(error: DataError) -> dict:
     return _with_translations({"error": {"code": error.code, "context": error.context}})
 
 
+def _track_payload(route, classes) -> dict:
+    track = build_track(route, classes)
+    return {
+        "audio_src": "data:audio/wav;base64," + base64.b64encode(track.wav).decode("ascii"),
+        "duration_s": track.duration_s,
+        "intervals": [dict(asdict(slot), start_s=slot.start_s, end_s=slot.end_s) for slot in track.intervals],
+    }
+
+
+def _route_distances(route) -> list[float]:
+    distances = [0.0]
+    for first, second in zip(route, route[1:]):
+        lat1, lat2 = math.radians(first.lat), math.radians(second.lat)
+        dlat, dlon = lat2 - lat1, math.radians(second.lon - first.lon)
+        a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+        distances.append(distances[-1] + 6371 * 2 * math.atan2(math.sqrt(a), math.sqrt(max(0, 1 - a))))
+    return distances
+
+
 def player_payload(dataset: Dataset) -> dict:
     payload = {
         "route": [asdict(cell) for cell in dataset.route],
@@ -32,16 +52,23 @@ def player_payload(dataset: Dataset) -> dict:
         "missing_color": MISSING_COLOR,
         "scale": [dict(asdict(note), frequency=note.frequency) for note in SCALE],
         "seasons": [],
+        "journey": None,
     }
     for season in dataset.seasons:
-        track = build_track(dataset.route, season.classes)
         payload["seasons"].append({
             "key": season.key,
             "name": season.name,
             "date": season.date,
             "source_url": season.source_url,
-            "audio_src": "data:audio/wav;base64," + base64.b64encode(track.wav).decode("ascii"),
-            "duration_s": track.duration_s,
-            "intervals": [dict(asdict(slot), start_s=slot.start_s, end_s=slot.end_s) for slot in track.intervals],
+            **_track_payload(dataset.route, season.classes),
         })
+    if dataset.journey is not None:
+        journey = dataset.journey
+        item = _track_payload(dataset.route, tuple(step.ndvi_class for step in journey.steps))
+        landmarks = dict(journey.landmarks)
+        distances = _route_distances(dataset.route)
+        item.update(key="journey", source_url=journey.source_url, distance_km=distances[-1])
+        for index, (step, slot) in enumerate(zip(journey.steps, item["intervals"], strict=True)):
+            slot.update(date=step.date, landmark=landmarks.get(step.cell_id), distance_km=distances[index])
+        payload["journey"] = item
     return _with_translations(payload)

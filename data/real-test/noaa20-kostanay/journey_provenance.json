@@ -1,0 +1,7 @@
+{
+  "source_issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/11",
+  "issue_body_sha256": "d9fd14c62b93956c7284d12a0d40bd05e5d40aeb155979b7b51078cbbcf1c7e1",
+  "journey_csv_sha256": "79348e685adff793857bd209c3d0d5164ad7e5bfd5eb25dbc96f3d2680abeaca",
+  "route_csv_sha256": "95b7d9b6301d9d712194ca572afc358c3cbc1a63c0b09b6af0a9f875e3e39e00",
+  "import_method": "verbatim CSV code block; no class, date or route interpolation"
+}

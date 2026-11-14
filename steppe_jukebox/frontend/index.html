@@ -25,7 +25,14 @@
 
   <section id="player" hidden>
     <div class="transport">
-      <div class="season-field">
+      <div id="mode-field" class="season-field" hidden>
+        <label for="mode" data-i18n="mode_label"></label>
+        <select id="mode">
+          <option value="fixed" data-i18n="fixed_mode"></option>
+          <option value="journey" data-i18n="journey"></option>
+        </select>
+      </div>
+      <div id="season-field" class="season-field">
         <label for="season" data-i18n="season_label">Season</label>
         <select id="season" aria-describedby="season-info"></select>
       </div>
@@ -33,6 +40,7 @@
       <span id="tempo"></span>
     </div>
     <p id="season-info" class="muted"></p>
+    <p id="journey-caveat" class="muted" data-i18n="journey_caveat" hidden></p>
     <p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p>
     <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
     <div class="position">
@@ -40,15 +48,24 @@
       <span id="clock"></span>
     </div>
     <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="current-step" data-i18n-aria="current_step_label" role="group" hidden>
+      <p><strong data-i18n="current_date_label"></strong> <time id="step-date"></time></p>
+      <p id="step-place"></p>
+      <p id="step-position" class="muted"></p>
+    </div>
     <p id="error" role="alert" hidden></p>
 
     <figure>
       <figcaption data-i18n="route_heading"></figcaption>
       <p class="muted" data-i18n="route_hint"></p>
-      <svg id="route-map" viewBox="0 0 720 280" role="img" aria-labelledby="map-title map-description">
+      <svg id="route-map" viewBox="0 0 720 340" role="img" aria-labelledby="map-title map-description">
         <title id="map-title" data-i18n="map_title"></title>
         <desc id="map-description" data-i18n="map_description"></desc>
+        <g id="map-grid" aria-hidden="true"></g>
+        <g id="map-axes" aria-hidden="true"></g>
         <g id="map-content"></g>
+        <text id="longitude-label" class="axis-title" data-i18n="longitude_axis"></text>
+        <text id="latitude-label" class="axis-title" data-i18n="latitude_axis"></text>
       </svg>
     </figure>
 
@@ -60,6 +77,7 @@
           <thead><tr>
             <th scope="col" data-i18n="col_index"></th>
             <th scope="col" data-i18n="col_cell"></th>
+            <th id="date-column" scope="col" data-i18n="col_date" hidden></th>
             <th scope="col" data-i18n="col_class"></th>
             <th scope="col" data-i18n="col_note"></th>
             <th scope="col" data-i18n="col_interval"></th>

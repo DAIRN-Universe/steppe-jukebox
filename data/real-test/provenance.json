@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_issue": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/1",
+  "source_comment": "https://github.com/DAIRN-Universe/steppe-jukebox/issues/1#issuecomment-6873947119",
+  "comment_body_sha256": "b1ea9290b7d3c10a5646c87e1931795360c3d3a374eee3adcabfec54f675c213",
+  "import_method": "ast.literal_eval of the files dictionary; the comment script was not executed",
+  "files": {
+    "data/real-test/eic-kostanay/metadata.json": "c0ab0e81c5abf337e31d28f5cb6a828a17ee5ce8f16a2659debab4fa6328058d",
+    "data/real-test/eic-kostanay/route.csv": "ba84cba93cc4d52a77a3bc30d236ce89ee3674b1fa4cbea9c5c50fe434b834c9",
+    "data/real-test/eic-kostanay/spring.csv": "af612a24411b190a25fc48ca0d0a173bb74d9b70ffd6e60f951168327ca1ba12",
+    "data/real-test/eic-kostanay/summer.csv": "59b88ed4ded4d97062f30cbe412b753114d0571ab06a526e2a9aced05967e9b2",
+    "data/real-test/noaa20-kostanay/metadata.json": "679d8b401da37b5551d33c2c42f3d3ace569987c54e022c41fa58af9c520b28f",
+    "data/real-test/noaa20-kostanay/route.csv": "95b7d9b6301d9d712194ca572afc358c3cbc1a63c0b09b6af0a9f875e3e39e00",
+    "data/real-test/noaa20-kostanay/spring.csv": "2f345f5981b3ff9c5e1d2da8913a1da2f2a1fead0acc6e8cd79d81bece49eacc",
+    "data/real-test/noaa20-kostanay/summer.csv": "5f4c78a1efa5c575dee8dae0b00ddce8a85d565acc30184d1917a80a8cbc2796"
+  }
+}

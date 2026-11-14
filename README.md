@@ -13,9 +13,11 @@ Steppe Jukebox lets people see and hear how vegetation varies along a route acro
 
 ## Status
 
-The first runnable preview uses **synthetic test data**: one 12-cell route, spring and summer, a shared five-note scale at 120 BPM, and silence for missing data. Streamlit provides keyboard-accessible play/pause, highlighting synchronized with audio, and Kazakh, English, and Russian interfaces with automatic language selection.
+The application supports two modes: a fixed date along the whole route, and a journey where both location and date change at every step. The default NOAA-20/VIIRS dataset has 48 route points. Its journey runs from April 15 to November 13, 2026 in 24 seconds, using the same five-note scale and 120 BPM as the fixed seasonal tracks.
 
-Real satellite frames, route landmarks, and validation on real observations are still being prepared separately. The preview does not represent observed seasonal vegetation changes.
+The supplied real-data CSVs contain visualization classes, not raw numerical NDVI. The journey uses rolling 8-day composites and does not establish a vegetation trend: location and date change together. Streamlit provides keyboard playback, synchronized highlighting and dates, geographic axes, and Kazakh, English, and Russian interfaces. The original synthetic dataset and the separate EIC dataset remain available.
+
+The user confirmed the Kostanay manual playback scenario before releasing v0.2.0. Akmola support is deferred. Source-image crops, independent verification of the supplied classes, and screen-reader evaluation remain separate acceptance work. See [the v0.2.0 release report](docs/RELEASE_0.2.0.md) for verified behavior and open checks.
 
 ## Run the preview
 
@@ -28,11 +30,13 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Open `http://localhost:8501`. See [the local demo guide](docs/LOCAL_DEMO.md) for the CSV contract, language controls, audio export, and tests.
+Open `http://localhost:8501`. Choose **Mode → Journey through time** for the dated journey, or **One date along the route** to compare Spring and Summer. Switching modes stops playback and resets highlighting. See [the local demo guide](docs/LOCAL_DEMO.md) for the CSV contracts, alternative datasets, language controls, audio export, and tests.
 
 ## Data and attribution
 
-[NASA Scientific Visualization Studio / Earth Information Center: Near Real-Time Normalized Difference Vegetation Index (NDVI)](https://svs.gsfc.nasa.gov/5544/). Exact frame dates, source links, and any additional credits will be documented when the frames are selected.
+The NOAA-20 data use [NASA Earthdata GIBS rolling 8-day NDVI](https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_NOAA20_NDVI_8Day.json) and the [GIBS display legend](https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml). The separate EIC dataset refers to [NASA Scientific Visualization Studio / Earth Information Center: Near Real-Time NDVI](https://svs.gsfc.nasa.gov/5544/).
+
+CSV provenance, dates and source links supplied through Issues #1 and #11 are recorded in [data/real-test](data/real-test/README.md). Synthetic data are explicitly labeled in the app.
 
 This is an independent hackathon project, not an official NASA product.
 

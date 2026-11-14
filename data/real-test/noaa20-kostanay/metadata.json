@@ -1,0 +1,19 @@
+{
+  "is_test": false,
+  "description": "NASA GIBS NOAA-20/VIIRS: 48 точек, скользящие 8-дневные композиты. Классы по интервалам легенды, не исходный NDVI.",
+  "description_i18n": {
+    "ru": "NASA GIBS NOAA-20/VIIRS: 48 точек, скользящие 8-дневные композиты. Классы по интервалам легенды, не исходный NDVI.",
+    "en": "NASA GIBS NOAA-20/VIIRS: 48 points, rolling 8-day composites. Classes from the display legend, not raw NDVI.",
+    "kk": "NASA GIBS NOAA-20/VIIRS: 48 нүкте, жылжымалы 8 күндік композиттер. Кластар бастапқы NDVI мәндерінен емес, карта аңызынан алынды."
+  },
+  "seasons": {
+    "spring": {
+      "date": "2026-04-15",
+      "source_url": "https://worldview.earthdata.nasa.gov/?v=63.5,49.1,65.8,53.5&l=VIIRS_NOAA20_NDVI_8Day&t=2026-04-15"
+    },
+    "summer": {
+      "date": "2026-07-16",
+      "source_url": "https://worldview.earthdata.nasa.gov/?v=63.5,49.1,65.8,53.5&l=VIIRS_NOAA20_NDVI_8Day&t=2026-07-16"
+    }
+  }
+}
