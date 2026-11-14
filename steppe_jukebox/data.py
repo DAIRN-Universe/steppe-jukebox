@@ -4,6 +4,7 @@ import csv
 import json
 import math
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -37,12 +38,27 @@ class Season:
 
 
 @dataclass(frozen=True)
+class JourneyStep:
+    cell_id: str
+    date: str
+    ndvi_class: int | None
+
+
+@dataclass(frozen=True)
+class Journey:
+    steps: tuple[JourneyStep, ...]
+    source_url: str | None = None
+    landmarks: tuple[tuple[str, str], ...] = ()
+
+
+@dataclass(frozen=True)
 class Dataset:
     route: tuple[Cell, ...]
     seasons: tuple[Season, ...]
     is_test: bool
     description: str
     description_i18n: tuple[tuple[str, str], ...] = ()
+    journey: Journey | None = None
 
 
 def _rows(path: Path, columns: tuple[str, ...]) -> list[list[str]]:
@@ -85,12 +101,58 @@ def load_classes(path: Path, route: tuple[Cell, ...]) -> tuple[int | None, ...]:
     rows = _rows(Path(path), ("cell_id", "ndvi_class"))
     if [row[0] for row in rows] != [cell.cell_id for cell in route]:
         raise DataError(f"{path.name}: ID и порядок ячеек должны точно совпадать с route.csv", "alignment", file=path.name)
-    classes = []
-    for cell_id, value in rows:
-        if value and value not in {"1", "2", "3", "4", "5"}:
-            raise DataError(f"{path.name}: {cell_id}: ndvi_class — целое 1–5 или пустое значение", "ndvi_class", file=path.name, cell=cell_id)
-        classes.append(int(value) if value else None)
-    return tuple(classes)
+    return tuple(_class_value(value, path, cell_id) for cell_id, value in rows)
+
+
+def _class_value(value: str, path: Path, cell_id: str) -> int | None:
+    if value and value not in {"1", "2", "3", "4", "5"}:
+        raise DataError(f"{path.name}: {cell_id}: ndvi_class — целое 1–5 или пустое значение", "ndvi_class", file=path.name, cell=cell_id)
+    return int(value) if value else None
+
+
+def load_journey(directory: Path, route: tuple[Cell, ...]) -> Journey | None:
+    path = directory / "journey.csv"
+    info_path = directory / "journey_metadata.json"
+    if not path.exists() and not info_path.exists():
+        return None
+    rows = _rows(path, ("cell_id", "date", "ndvi_class"))
+    if [row[0] for row in rows] != [cell.cell_id for cell in route]:
+        raise DataError(f"{path.name}: ID и порядок ячеек должны точно совпадать с route.csv", "alignment", file=path.name)
+    steps = []
+    previous = None
+    for cell_id, value, ndvi_class in rows:
+        try:
+            parsed = date.fromisoformat(value)
+            if parsed.isoformat() != value:
+                raise ValueError("Expected YYYY-MM-DD")
+        except ValueError as exc:
+            raise DataError(f"{path.name}: {cell_id}: неверная дата {value}", "journey_date", file=path.name, cell=cell_id, value=value) from exc
+        if previous is not None and parsed <= previous:
+            raise DataError(f"{path.name}: {cell_id}: даты должны строго возрастать", "journey_date_order", file=path.name, cell=cell_id)
+        previous = parsed
+        steps.append(JourneyStep(cell_id, value, _class_value(ndvi_class, path, cell_id)))
+    info = {}
+    if info_path.exists():
+        try:
+            info = json.loads(info_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, ValueError) as exc:
+            raise DataError(f"{info_path.name}: {exc}", "read_file", file=info_path.name) from exc
+    if not isinstance(info, dict):
+        raise DataError("journey_metadata.json: ожидается объект", "journey_metadata")
+    source_url = info.get("source_url")
+    if source_url is not None:
+        try:
+            url = urlsplit(source_url) if isinstance(source_url, str) else None
+            valid_url = url and url.scheme in {"http", "https"} and bool(url.netloc)
+        except ValueError:
+            valid_url = False
+        if not valid_url:
+            raise DataError("journey_metadata.json: source_url должен быть HTTP(S) ссылкой", "journey_source")
+    landmarks = info.get("landmarks", {})
+    ids = {cell.cell_id for cell in route}
+    if not isinstance(landmarks, dict) or any(key not in ids or not isinstance(value, str) or not value.strip() for key, value in landmarks.items()):
+        raise DataError("journey_metadata.json: неверные ID или названия ориентиров", "journey_landmarks")
+    return Journey(tuple(steps), source_url, tuple((cell.cell_id, landmarks[cell.cell_id]) for cell in route if cell.cell_id in landmarks))
 
 
 def load_dataset(directory: Path) -> Dataset:
@@ -135,4 +197,4 @@ def load_dataset(directory: Path) -> Dataset:
             if not valid_url:
                 raise DataError(f"metadata.json: {key}.source_url должен быть HTTP(S) ссылкой", "url", field=f"{key}.source_url")
         seasons.append(Season(key, name, load_classes(directory / f"{key}.csv", route), date, source_url))
-    return Dataset(route, tuple(seasons), metadata.get("is_test", True), metadata.get("description", ""), tuple(sorted(descriptions.items())))
+    return Dataset(route, tuple(seasons), metadata.get("is_test", True), metadata.get("description", ""), tuple(sorted(descriptions.items())), load_journey(directory, route))
