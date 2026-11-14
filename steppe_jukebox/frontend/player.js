@@ -9,7 +9,7 @@
   const storageKey = "steppe-jukebox.language";
   const supported = ["kk", "en", "ru"];
   let data, season, revision, catalog;
-  let view = "listen", selectedPlace = "naurzum";
+  let view = "listen";
   let mode = "fixed";
   let language = "en", preference = "auto";
   let buttonState = "play", audioError = null;
@@ -55,9 +55,16 @@
     ? [{...data.route[index], index, label: `${placeName(slot)} · ${slot.cell_id}`}] : []);
   const regionKey = () => data.region_key || (data.route[0]?.cell_id.startsWith("KST-") ? "kostanay" : "custom_region");
 
+  function updateViewLayout() {
+    const hidden = view !== "listen" || Boolean(data.error);
+    for (const id of ["listen-heading", "selection-panel", "route-context-card"]) $(id).hidden = hidden;
+    document.querySelector(".player-layout").classList.toggle("without-sidebar", hidden);
+  }
+
   function showView(value, focus = false) {
     view = value;
-    for (const key of ["listen", "places", "method"]) {
+    updateViewLayout();
+    for (const key of ["listen", "method"]) {
       const tab = $(`tab-${key}`), selected = key === view;
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
@@ -77,35 +84,11 @@
     return link;
   }
 
-  const fieldSources = {
-    naurzum: "https://doi.org/10.1515/hacq-2016-0017",
-    kamennoye: "https://doi.org/10.32523/2616-7034-2023-145-4-63-70",
-  };
-
-  function renderPlace() {
-    const content = $("place-content");
-    content.replaceChildren();
-    const hasFieldData = regionKey() === "kostanay";
-    const key = hasFieldData ? selectedPlace : "missing";
-    for (const [tag, suffix] of [["h2", "title"], ["p", "date"], ["p", "body"], ["p", "metrics"]]) {
-      const translationKey = `botany_${key}_${suffix}`;
-      if (!data.translations[language][translationKey]) continue;
-      const node = document.createElement(tag);
-      node.textContent = t(translationKey);
-      if (suffix === "date") node.className = "muted";
-      content.append(node);
-    }
-    if (hasFieldData && fieldSources[key]) content.append(sourceLink(fieldSources[key], t("open_study")));
-    $("place-tabs").querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.place === selectedPlace)));
-    resize();
-  }
-
   function renderContext() {
     const key = regionKey();
     $("region-heading").textContent = t(key);
     $("map-region").textContent = key === "custom_region" ? "" : t(key);
     $("route-summary").textContent = t("route_summary", {count: data.route.length, duration: seconds(season.duration_s), bpm: data.bpm});
-    $("field-summary").textContent = t(key === "kostanay" ? "field_summary_kostanay" : "field_summary_missing");
     const landmarks = $("route-landmarks");
     landmarks.replaceChildren();
     for (const slot of data.journey?.intervals || []) {
@@ -113,30 +96,6 @@
       const item = document.createElement("li");
       item.textContent = `${placeName(slot)} · ${slot.cell_id}`;
       landmarks.append(item);
-    }
-    const tabs = $("place-tabs");
-    tabs.replaceChildren();
-    if (key === "kostanay") {
-      for (const [place, label] of [["naurzum", "naurzum"], ["kamennoye", "kamennoye_lake"], ["akkum", "akkum"]]) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.dataset.place = place;
-        button.textContent = t(label);
-        button.addEventListener("click", () => { selectedPlace = place; renderPlace(); });
-        tabs.append(button);
-      }
-    }
-    renderPlace();
-    const literature = $("literature-sources");
-    literature.replaceChildren();
-    if (key === "kostanay") {
-      for (const place of ["naurzum", "kamennoye"]) {
-        const article = document.createElement("article");
-        const paragraph = document.createElement("p");
-        paragraph.textContent = t(`literature_${place}`);
-        article.append(paragraph, sourceLink(fieldSources[place], t("open_study")));
-        literature.append(article);
-      }
     }
     const observation = $("observation-source");
     observation.textContent = mode === "journey" ? t("journey_summary", {start: season.intervals[0].date, end: season.intervals.at(-1).date, count: data.route.length}) : `${seasonName()} · ${season.date || t("no_date")}`;
@@ -550,7 +509,6 @@
     }
     if (data.seasons.some((track) => track.key === selectedSeason)) select.value = selectedSeason;
     $("mode-field").hidden = !data.journey;
-    selectedPlace = "naurzum";
     chooseMode(mode);
     showView(view);
   }
@@ -570,6 +528,7 @@
     language = preference === "auto" ? systemLanguage() : preference;
     $("interface").hidden = false;
     $("player").hidden = Boolean(data.error);
+    updateViewLayout();
     $("navigation").hidden = Boolean(data.error);
     $("region-field").hidden = Boolean(data.error) || !payload.regions;
     if (data.error) {

@@ -4,6 +4,7 @@ from pathlib import Path
 import streamlit as st
 import streamlit.components.v1 as components
 
+from . import __version__
 from .eic import FrameClient, cache_directory
 from .gibs import TileCache, user_cache_directory
 from .live import LiveJob, load_live_regions, player_catalog
@@ -12,13 +13,14 @@ player = components.declare_component("route_player", path=str(Path(__file__).pa
 
 
 @st.cache_resource(show_spinner=False)
-def environment():
+def environment(version):
+    # New releases must not reuse metadata/translations from the previous UI.
     regions = load_live_regions()
     return regions, player_catalog(regions)
 
 
 def render_live():
-    regions, catalog = environment()
+    regions, catalog = environment(__version__)
     job = st.session_state.get("live-job")
     request = job.payload(st.session_state.get("live-known", {})) if job else None
     if request and request["source"] == "eic" and request["available_dates"] and not st.session_state.get("live-catalog-dates"):

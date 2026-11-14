@@ -69,7 +69,7 @@ window.LivePlayerSession = class {
   }
   refresh(){
     if(!this.hooks.text)return;const t=this.hooks.text,$=this.$;
-    $('live-controls').hidden=false;$('season-field').hidden=true;$('date-field').hidden=this.hooks.mode()==='journey';
+    $('live-controls').hidden=false;$('load-data').hidden=false;$('season-field').hidden=true;$('date-field').hidden=this.hooks.mode()==='journey';
     $('load-data').disabled=this.loading;$('toggle').disabled=!this.ready;$('restart').disabled=!this.ready;
     $('timing-details').hidden=!this.ready;
     const eic=this.provider()==='eic',select=$('eic-date');

@@ -107,22 +107,23 @@ def test_both_region_boundaries_and_routes_share_localized_coordinate_axes(brows
                 assert not re.search("[А-Яа-яӘәҒғҚқҢңӨөҰұҮүҺһІі]", frame.locator("#player").inner_text())
 
 
-def test_switch_regions_with_hidden_map_keeps_place_context_separate(browser, journey_url):
+def test_navigation_hides_region_controls_and_region_switch_resets_audio(browser, journey_url):
     with localized_ui(browser, journey_url) as (_, frame):
         frame.locator("#mode").select_option("journey")
         frame.locator("#toggle").press("Enter")
         frame.wait_for_function("document.querySelector('audio').currentTime > .2")
-        frame.locator("#tab-places").click()
+        frame.locator("#tab-method").click()
+        expect(frame.locator("#selection-panel")).not_to_be_visible()
+        assert not media(frame)["paused"]
+        frame.locator("#tab-listen").click()
         frame.locator("#region").select_option("akmola")
         assert_reset(frame)
-        expect(frame.locator("#place-tabs button")).to_have_count(0)
-        expect(frame.locator("#place-content")).not_to_contain_text("2010")
+        expect(frame.locator("#route-map .cell")).to_have_count(56)
         frame.locator("#language").select_option("en")
         frame.locator("#tab-method").click()
-        expect(frame.locator("#literature-sources article")).to_have_count(0)
-        frame.locator("#region").select_option("kostanay")
-        expect(frame.locator("#literature-sources article")).to_have_count(2)
+        expect(frame.locator("#selection-panel")).not_to_be_visible()
         frame.locator("#tab-listen").click()
+        frame.locator("#region").select_option("kostanay")
         expect(frame.locator("#step-place")).to_contain_text("Kamennoye Lake")
         assert media(frame)["paused"] and media(frame)["time"] == 0
         expect(frame.locator("#route-map .cell")).to_have_count(48)
