@@ -1,0 +1,126 @@
+{
+  "version": "0.5.1",
+  "checks": [
+    {
+      "language": "ru",
+      "width": 1920,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "ru",
+      "width": 1440,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "ru",
+      "width": 768,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "ru",
+      "width": 390,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "ru",
+      "width": 320,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "kk",
+      "width": 1920,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "kk",
+      "width": 1440,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "kk",
+      "width": 768,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "kk",
+      "width": 390,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "kk",
+      "width": 320,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "en",
+      "width": 1920,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "logo_size": [
+        106,
+        41.75
+      ]
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "logo_size": [
+        64,
+        25.203125
+      ]
+    }
+  ],
+  "errors": []
+}
