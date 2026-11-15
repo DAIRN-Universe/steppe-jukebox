@@ -189,7 +189,7 @@ footer > span { font: .6rem ui-monospace,monospace; color: var(--muted); }
   #load-data { margin: 0; align-self: end; }
   .edition { display: none; }
 }
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
   .site-header { grid-template-areas: 'brand logo language' 'navigation navigation navigation'; gap: 8px 18px; }
   .header-actions { display: contents; }
 }

@@ -44,5 +44,15 @@
       }
     },
     "notes": "Restored papers, dates and DOI links; both regions; three locales; keyboard; six viewport widths; audio, pause and zoom preservation. Responsive checks await Streamlit iframe width."
+  },
+  "research_hidden_followup": {
+    "browser": {
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "49.514"
+    },
+    "notes": "Research tab hidden and skipped by keyboard; retained source material; two public tabs, three languages, responsive header and playback preserved."
   }
 }

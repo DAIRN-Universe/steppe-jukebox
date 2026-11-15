@@ -42,8 +42,7 @@
   "research": {
     "tabs": [
       "listen",
-      "method",
-      "research"
+      "method"
     ],
     "studies": [
       "https://doi.org/10.1515/hacq-2016-0017",
@@ -56,6 +55,7 @@
     ],
     "desktop_width": 1280,
     "mobile_width": 320,
-    "javascript_errors": []
+    "javascript_errors": [],
+    "visible": false
   }
 }
