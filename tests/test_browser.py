@@ -101,6 +101,17 @@ def player_frame(page):
     return frame
 
 
+def resize_viewport(page, frame, width, height):
+    """Wait for Streamlit's asynchronous component width before measuring it."""
+    page.set_viewport_size({"width": width, "height": height})
+    page.wait_for_function("""width => {
+        const frame = document.querySelector('iframe[title$="route_player"]');
+        return innerWidth === width &&
+            Math.abs(frame.getBoundingClientRect().width - frame.parentElement.getBoundingClientRect().width) < 1;
+    }""", arg=width)
+    frame.evaluate("() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))")
+
+
 @contextmanager
 def localized_ui(browser, app_url, locale="ru-RU", init_script=None):
     context = browser.new_context(viewport={"width": 1280, "height": 1000}, locale=locale)

@@ -1,7 +1,7 @@
 """Linked hackathon logo and a compact three-language selector."""
 import pytest
 from playwright.sync_api import expect
-from test_browser import browser,app_url,localized_ui,media
+from test_browser import browser,app_url,localized_ui,media,resize_viewport
 
 pytestmark=pytest.mark.browser
 
@@ -18,15 +18,14 @@ def test_compact_header_controls_and_logo_link_keep_playback(browser,app_url,loc
         expect(logo).to_have_attribute('target','_blank')
         expect(logo).to_have_attribute('rel','noopener noreferrer')
         for width in [1280,1024,853,768,390,320]:
-            page.set_viewport_size({'width':width,'height':1000})
-            f.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            resize_viewport(page,f,width,1000)
             assert f.evaluate('document.documentElement.scrollWidth<=innerWidth')
             positions=f.evaluate('''()=>Object.fromEntries(['.site-header','.brand','.hackathon-logo','.language-field'].map(s=>[s,document.querySelector(s).getBoundingClientRect().toJSON()]))''')
             header,brand,image,select=(positions[x] for x in ['.site-header','.brand','.hackathon-logo','.language-field'])
             assert abs((image['left']+image['right'])/2-(header['left']+header['right'])/2)<1
             assert brand['right']<=image['left']+1 and image['right']<=select['left']+1
             assert select['width']<=110
-        page.set_viewport_size({'width':1280,'height':1000})
+        resize_viewport(page,f,1280,1000)
         f.locator('#toggle').click();f.wait_for_function('document.querySelector("audio").currentTime>.1')
         context=page.context
         context.route('https://www.spaceappschallenge.org/**',lambda route:route.fulfill(status=200,content_type='text/html',body='<title>Space Apps</title>'))

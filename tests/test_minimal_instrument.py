@@ -4,7 +4,7 @@ import math
 import pytest
 from playwright.sync_api import expect
 
-from test_browser import browser, journey_url, localized_ui, media, running_app
+from test_browser import browser, journey_url, localized_ui, media, running_app, resize_viewport
 from test_live_browser import transport, ui, load
 
 pytestmark = pytest.mark.browser
@@ -87,7 +87,7 @@ def test_step_buttons_and_cursor_keys_preserve_clock_and_native_navigation(brows
         frame.locator('#tab-listen').press('ArrowRight')
         expect(frame.locator('#method-view')).to_be_visible()
         assert media(frame)['time'] == .5
-        frame.locator('[data-open-view="listen"].back-button').press('ArrowLeft')
+        frame.locator('#method-view [data-open-view="listen"].back-button').press('ArrowLeft')
         assert media(frame)['time'] == .5
         frame.locator('#tab-listen').click()
         frame.locator('#progress').press('End')
@@ -145,8 +145,7 @@ def test_transport_remains_visible_in_720p_and_enlarged_zoom(browser, journey_ur
         frame.locator('#language').select_option(language)
         # Effective CSS viewports for 1280x720 at 100%, 125% and 150% zoom.
         for width, height in [(1280, 720), (1024, 576), (853, 480)]:
-            page.set_viewport_size({'width': width, 'height': height})
-            frame.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            resize_viewport(page, frame, width, height)
             for selector in ['#toggle', '#restart', '#step-back', '#step-forward', '#progress']:
                 rect = frame.locator(selector).bounding_box()
                 assert rect['y'] >= 0 and rect['y'] + rect['height'] <= height, (language, width, height, selector, rect)
@@ -165,16 +164,14 @@ def test_transport_remains_visible_in_720p_and_enlarged_zoom(browser, journey_ur
 def test_recording_controls_fit_1080p_and_phone_has_no_horizontal_scroll(browser, journey_url, language):
     with localized_ui(browser, journey_url) as (page, frame):
         frame.locator('#language').select_option(language)
-        page.set_viewport_size({'width': 1920, 'height': 1080})
-        frame.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+        resize_viewport(page, frame, 1920, 1080)
         assert not frame.locator('#technical-details').evaluate('e=>e.open')
         for selector in ['#route-map', '.point-card', '#progress', '#toggle', '#restart', '#step-back', '#step-forward', '#selection-panel']:
             rect = frame.locator(selector).bounding_box()
             assert rect['x'] >= 0 and rect['y'] >= 0
             assert rect['y'] + rect['height'] <= 1080, (selector, rect)
         for width in [390, 320]:
-            page.set_viewport_size({'width': width, 'height': 844})
-            frame.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            resize_viewport(page, frame, width, 844)
             assert frame.evaluate('document.documentElement.scrollWidth <= innerWidth')
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             assert frame.locator('#point-note').evaluate('e=>e.getClientRects().length') == 1

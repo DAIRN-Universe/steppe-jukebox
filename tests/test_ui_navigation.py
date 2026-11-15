@@ -3,7 +3,7 @@
 import pytest
 from playwright.sync_api import expect
 
-from test_browser import browser, journey_url, localized_ui, media, assert_reset
+from test_browser import browser, journey_url, localized_ui, media, assert_reset, resize_viewport
 
 
 pytestmark = pytest.mark.browser
@@ -25,23 +25,25 @@ def test_prototype_navigation_and_context_fit_desktop_and_mobile(browser, journe
         expect(frame.locator("#map-attribution")).to_contain_text("OpenStreetMap")
         expect(frame.locator(".region-outline")).to_have_count(1)
         for width in [1440, 390, 320]:
-            page.set_viewport_size({"width": width, "height": 900})
-            for view in ["listen", "method"]:
+            resize_viewport(page, frame, width, 900)
+            for view in ["listen", "method", "research"]:
                 frame.locator(f"#tab-{view}").click()
                 expect(frame.locator(f"#{view}-view")).to_be_visible()
                 assert frame.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (language, width, view)
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
             expect(frame.locator("#tab-method")).to_have_text(method)
-        expect(frame.locator('#navigation [role="tab"]')).to_have_count(2)
+        assert frame.locator('#navigation [role="tab"]').evaluate_all("nodes => nodes.map(n => n.dataset.view)") == ["listen", "method", "research"]
         expect(frame.locator("#places-view, .field-context")).to_have_count(0)
         frame.locator("#tab-listen").click()
         frame.locator("#tab-listen").press("ArrowRight")
         expect(frame.locator("#tab-method")).to_be_focused()
         frame.locator("#tab-method").press("ArrowRight")
+        expect(frame.locator("#tab-research")).to_be_focused()
+        frame.locator("#tab-research").press("ArrowRight")
         expect(frame.locator("#tab-listen")).to_be_focused()
         frame.locator("#tab-listen").press("End")
-        expect(frame.locator("#tab-method")).to_be_focused()
-        frame.locator("#tab-method").press("Home")
+        expect(frame.locator("#tab-research")).to_be_focused()
+        frame.locator("#tab-research").press("Home")
         expect(frame.locator("#tab-listen")).to_be_focused()
         assert media(frame)["paused"] and media(frame)["time"] == 0
 
@@ -54,6 +56,7 @@ def test_navigation_and_language_preserve_clock_restart_stops_without_autoplay(b
         original_source = frame.locator("audio").get_attribute("src")
         before = media(frame)["time"]
         frame.locator("#tab-method").click()
+        frame.locator("#tab-research").click()
         frame.locator("#language").select_option("kk")
         assert media(frame)["time"] >= before
         assert not media(frame)["paused"]
@@ -63,6 +66,7 @@ def test_navigation_and_language_preserve_clock_restart_stops_without_autoplay(b
         paused = media(frame)["time"]
         active = frame.locator(".cell.active").get_attribute("data-cell-id")
         frame.locator("#tab-method").click()
+        frame.locator("#tab-research").click()
         frame.locator("#language").select_option("en")
         frame.locator("#tab-listen").click()
         assert media(frame)["time"] == paused

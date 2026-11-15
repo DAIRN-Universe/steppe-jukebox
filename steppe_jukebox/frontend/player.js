@@ -7,6 +7,7 @@
   const modeSelect = $("mode"), regionSelect = $("region");
   const svgNS = "http://www.w3.org/2000/svg";
   const supported = ["kk", "en", "ru"];
+  const views = ["listen", "method", "research"];
   let data, season, revision, catalog;
   let view = "listen";
   let mode = "fixed";
@@ -64,9 +65,10 @@
   }
 
   function showView(value, focus = false) {
+    if (!views.includes(value)) return;
     view = value;
     updateViewLayout();
-    for (const key of ["listen", "method"]) {
+    for (const key of views) {
       const tab = $(`tab-${key}`), selected = key === view;
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
@@ -88,6 +90,7 @@
 
   function renderContext() {
     const key = regionKey();
+    $("research-region-note").hidden = key !== "akmola";
     $("region-heading").textContent = t(key);
     $("map-region").textContent = key === "custom_region" ? "" : t(key);
     $("route-summary").textContent = t("route_summary", {count: data.route.length, duration: seconds(season.duration_s), bpm: data.bpm});

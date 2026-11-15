@@ -126,11 +126,11 @@
     "place_picker": "Место полевого описания",
     "back_listen": "Вернуться к мелодии",
     "botany_naurzum_title": "Сухая ковыльно-типчаковая степь",
-    "botany_naurzum_date": "Наурзум · наблюдения 2010 года · Bragina, 2016 (N4)",
+    "botany_naurzum_date": "Наурзум · наблюдения 2010 года · Bragina, 2016",
     "botany_naurzum_body": "На обследованной площадке доминируют ковыль Лессинга и типчак. Также отмечены Stipa capillata и Artemisia lercheana.",
     "botany_naurzum_metrics": "Покрытие 60–70% · 25–30 видов на 100 м² · высота травостоя 22–24 см. Показатели относятся к площадке исследования, а не ко всему заповеднику или спутниковому пикселю.",
     "botany_kamennoye_title": "Каменное озеро",
-    "botany_kamennoye_date": "Маршрутные обследования 2019–2022 · Султангазина, Куприянов, 2023 (N3)",
+    "botany_kamennoye_date": "Маршрутные обследования 2019–2022 · Султангазина, Куприянов, 2023",
     "botany_kamennoye_body": "В обследованном урочище указаны 177 видов, 132 рода и 48 семейств. Пять местообитаний: кустарниковые склоны, березняк, суходольный луг с кустарниками, лугово-болотные и лугово-степные сообщества.",
     "botany_kamennoye_metrics": "В списке флоры: Stipa lessingiana, Artemisia austriaca, Tulipa biebersteiniana. Это сведения статьи, не распознавание видов по NDVI. Границы экотопов на карте не показаны.",
     "botany_akkum_title": "Аккум · Алтын Дала",
@@ -238,7 +238,10 @@
     "map_fit": "Вся карта",
     "map_gesture_hint": "Колесо / два пальца · перетаскивание",
     "route_pick_ready": "Выберите любую ячейку внутри области",
-    "preset_naurzum": "Наурзум"
+    "preset_naurzum": "Наурзум",
+    "research_nav": "Научные работы",
+    "research_intro": "Полевые исследования Костанайской области: Наурзум и Каменное озеро. Публикации, даты наблюдений и ссылки на оригиналы.",
+    "research_limits": "Границы применимости исследований"
   },
   "kk": {
     "route_settings": "Маршрут параметрлері",
@@ -367,11 +370,11 @@
     "place_picker": "Далалық сипаттама орны",
     "back_listen": "Әуенге оралу",
     "botany_naurzum_title": "Құрғақ бозды-бетегелі дала",
-    "botany_naurzum_date": "Наурызым · 2010 жылғы бақылаулар · Bragina, 2016 (N4)",
+    "botany_naurzum_date": "Наурызым · 2010 жылғы бақылаулар · Bragina, 2016",
     "botany_naurzum_body": "Зерттелген алаңда Лессинг бозы мен бетеге басым. Stipa capillata және Artemisia lercheana да тіркелген.",
     "botany_naurzum_metrics": "Жамылғысы 60–70% · 100 м² жерде 25–30 түр · шөп биіктігі 22–24 см. Бұл көрсеткіштер бүкіл қорықты немесе спутник пикселін емес, зерттеу алаңын сипаттайды.",
     "botany_kamennoye_title": "Каменное көлі",
-    "botany_kamennoye_date": "2019–2022 жылдардағы маршруттық зерттеулер · Сұлтанғазина, Куприянов, 2023 (N3)",
+    "botany_kamennoye_date": "2019–2022 жылдардағы маршруттық зерттеулер · Сұлтанғазина, Куприянов, 2023",
     "botany_kamennoye_body": "Зерттелген алқапта 177 түр, 132 туыс және 48 тұқымдас көрсетілген. Бес мекен: бұталы беткей, қайыңды орман, бұталы құрғақ шалғын, шалғынды-батпақты және шалғынды-далалық қауымдастықтар.",
     "botany_kamennoye_metrics": "Флора тізімінде Stipa lessingiana, Artemisia austriaca және Tulipa biebersteiniana бар. Бұл NDVI арқылы түр тану емес, мақала дерегі. Экотоп шекаралары картада көрсетілмеген.",
     "botany_akkum_title": "Аққұм · Алтын Дала",
@@ -479,7 +482,10 @@
     "map_fit": "Толық карта",
     "map_gesture_hint": "Дөңгелек / екі саусақ · сүйреп жылжыту",
     "route_pick_ready": "Облыс ішіндегі кез келген ұяшықты таңдаңыз",
-    "preset_naurzum": "Наурызым"
+    "preset_naurzum": "Наурызым",
+    "research_nav": "Ғылыми еңбектер",
+    "research_intro": "Қостанай облысының далалық зерттеулері: Наурызым және Каменное көлі. Жарияланымдар, бақылау жылдары және түпнұсқаға сілтемелер.",
+    "research_limits": "Зерттеулерді қолдану шектері"
   },
   "en": {
     "route_settings": "Route settings",
@@ -608,11 +614,11 @@
     "place_picker": "Field description location",
     "back_listen": "Back to the melody",
     "botany_naurzum_title": "Dry feather-grass and fescue steppe",
-    "botany_naurzum_date": "Naurzum · observations in 2010 · Bragina, 2016 (N4)",
+    "botany_naurzum_date": "Naurzum · observations in 2010 · Bragina, 2016",
     "botany_naurzum_body": "Lessing feather grass and fescue dominate the surveyed plot. Stipa capillata and Artemisia lercheana are also reported.",
     "botany_naurzum_metrics": "Cover 60–70% · 25–30 species per 100 m² · vegetation height 22–24 cm. These measurements describe the study plot, not the entire reserve or a satellite pixel.",
     "botany_kamennoye_title": "Kamennoye Lake",
-    "botany_kamennoye_date": "Route surveys in 2019–2022 · Sultangazina, Kupriyanov, 2023 (N3)",
+    "botany_kamennoye_date": "Route surveys in 2019–2022 · Sultangazina, Kupriyanov, 2023",
     "botany_kamennoye_body": "The surveyed tract includes 177 species, 132 genera and 48 families. Five habitats: shrub slopes, birch woodland, dry shrub meadow, wet meadow and marsh, and meadow-steppe communities.",
     "botany_kamennoye_metrics": "The flora list includes Stipa lessingiana, Artemisia austriaca and Tulipa biebersteiniana. This is evidence from the paper, not species identification by NDVI. Habitat boundaries are not mapped.",
     "botany_akkum_title": "Akkum · Altyn Dala",
@@ -720,6 +726,9 @@
     "map_fit": "Fit map",
     "map_gesture_hint": "Wheel / pinch · drag to pan",
     "route_pick_ready": "Choose any cell inside the region",
-    "preset_naurzum": "Naurzum"
+    "preset_naurzum": "Naurzum",
+    "research_nav": "Research",
+    "research_intro": "Field studies in Kostanay Region: Naurzum and Kamennoye Lake. Publications, survey dates and links to the original research.",
+    "research_limits": "Scope of the studies"
   }
 }

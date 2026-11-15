@@ -25,5 +25,24 @@
     "failures": 0,
     "errors": 0,
     "notes": "Header link, primary system language/fallback, three options, keyboard, narrow layouts and audio preservation."
+  },
+  "research_followup": {
+    "results": {
+      "browser": {
+        "tests": "24",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "107.088"
+      },
+      "locales": {
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "0.243"
+      }
+    },
+    "notes": "Restored papers, dates and DOI links; both regions; three locales; keyboard; six viewport widths; audio, pause and zoom preservation. Responsive checks await Streamlit iframe width."
   }
 }
