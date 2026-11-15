@@ -65,7 +65,7 @@
   }
 
   function showView(value, focus = false) {
-    if (!views.includes(value)) return;
+    if (!views.includes(value) || $(`tab-${value}`).hidden) return;
     view = value;
     updateViewLayout();
     for (const key of views) {
@@ -670,7 +670,7 @@
     button.addEventListener("click", (event) => { event.preventDefault(); showView(button.dataset.openView || button.dataset.view, true); });
   });
   $("navigation").addEventListener("keydown", (event) => {
-    const tabs = [...$("navigation").querySelectorAll("[role=tab]")];
+    const tabs = [...$("navigation").querySelectorAll("[role=tab]")].filter(tab => !tab.hidden);
     let index = tabs.indexOf(document.activeElement);
     if (index < 0 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();

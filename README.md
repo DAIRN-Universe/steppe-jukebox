@@ -19,7 +19,7 @@ The default routes retain their original geometry and timing: **Kostanay — 48 
 
 The **Route points** panel sits below **Load route**, starts collapsed and shows the point count in its heading. Zoom from **100% to 800%** using buttons, the mouse wheel or a two-finger pinch, and drag the enlarged map. Zooming, panning and collapsing the panel preserve the route and playback position. There is one audio player and no autoplay. The header has one compact Kazakh/English/Russian selector: each page opening selects the primary system/browser language, with English as the fallback. The hackathon logo links to the official Space Apps website in a new tab. Keyboard controls, seek buttons and the compact mobile layout remain available.
 
-The **Research** section follows **How it works**. It restores the Naurzum and Kamennoye Lake publications, survey dates, field context and DOI links in Kazakh, English and Russian. Both studies concern Kostanay Region; their observations remain separate from satellite data and are not assigned to Akmola.
+The interface has two tabs: **Listen to the steppe** and **How it works**. The **Research** tab is hidden; its publications and translations are retained in the source.
 
 Classes describe the selected visualization’s color scale, not precise numerical NDVI. GIBS and EIC have separate scales and caches; a missing date is reported without substituting another date or provider. The main interface uses **one date**. Historical seasonal datasets and journeys remain available explicitly in saved-data mode, with their original CSV/WAV contracts.
 
