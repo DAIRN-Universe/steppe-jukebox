@@ -6,12 +6,11 @@
   const languageSelect = $("language");
   const modeSelect = $("mode"), regionSelect = $("region");
   const svgNS = "http://www.w3.org/2000/svg";
-  const storageKey = "steppe-jukebox.language";
   const supported = ["kk", "en", "ru"];
   let data, season, revision, catalog;
   let view = "listen";
   let mode = "fixed";
-  let language = "en", preference = "auto";
+  let language = "en", followsSystemLanguage = true;
   let buttonState = "play", audioError = null;
   let generation = 0, started = false, wantsPlayback = false;
   let frame = null, activeIndex = -1;
@@ -35,17 +34,10 @@
     currentDate: () => season?.intervals[liveStep()]?.date || live.day()});
   window.steppeLive = live;
   live.map.onFocusCell = cell => mapView.reveal(cell);
-  try {
-    const saved = localStorage.getItem(storageKey);
-    if (["auto", ...supported].includes(saved)) preference = saved;
-  } catch { /* Browser storage may be disabled; switching still works. */ }
-
   function systemLanguage() {
-    for (const locale of [...(navigator.languages || []), navigator.language]) {
-      const base = (locale || "").toLowerCase().split(/[-_]/)[0];
-      if (supported.includes(base)) return base;
-    }
-    return "en";
+    const locale = navigator.language || navigator.languages?.[0] || "en";
+    const base = locale.toLowerCase().split(/[-_]/)[0];
+    return supported.includes(base) ? base : "en";
   }
 
   function t(key, values = {}) {
@@ -458,8 +450,7 @@
     document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
     document.querySelectorAll("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", t(node.dataset.i18nAria)); });
     document.querySelectorAll("[data-i18n-title]").forEach((node) => { node.title = t(node.dataset.i18nTitle); });
-    $("system-language").textContent = t("system_language");
-    languageSelect.value = preference;
+    languageSelect.value = language;
     $("test-warning").hidden = Boolean(data.error) || !data.is_test;
     $("description").textContent = data.description_i18n?.[language] || data.description || "";
     $("description").hidden = Boolean(data.error) || !$("description").textContent;
@@ -536,12 +527,10 @@
     resize();
   }
 
-  function chooseLanguage(choice, persist = true) {
-    preference = choice;
-    language = preference === "auto" ? systemLanguage() : preference;
-    if (persist) {
-      try { localStorage.setItem(storageKey, preference); } catch { /* Optional storage. */ }
-    }
+  function chooseLanguage(choice) {
+    if (!supported.includes(choice)) return;
+    followsSystemLanguage = false;
+    language = choice;
     // No source reload, play/pause call, or replacement of active rows/markers.
     refreshText();
   }
@@ -621,7 +610,7 @@
     $("app-version").textContent = payload.version ? `v${payload.version}` : "";
     data = payload;
     catalog = payload;
-    language = preference === "auto" ? systemLanguage() : preference;
+    if (followsSystemLanguage) language = systemLanguage();
     $("interface").hidden = false;
     $("player").hidden = Boolean(data.error);
     updateViewLayout();
@@ -687,7 +676,7 @@
   });
   languageSelect.addEventListener("change", () => chooseLanguage(languageSelect.value));
   window.addEventListener("languagechange", () => {
-    if (preference === "auto") chooseLanguage("auto", false);
+    if (followsSystemLanguage) { language = systemLanguage(); refreshText(); }
   });
   audio.addEventListener("playing", () => {
     stopAnimation();

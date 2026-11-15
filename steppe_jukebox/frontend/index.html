@@ -14,16 +14,15 @@
 <main id="interface" data-i18n-aria="interface_label" hidden>
   <header class="site-header">
     <a class="brand" href="#" data-open-view="listen"><span class="brand-origin">DAIRN</span><strong>Steppe Jukebox</strong></a>
-    <img class="hackathon-logo" src="assets/space-apps-logo.svg" width="561" height="221" alt="NASA International Space Apps Challenge">
+    <a class="hackathon-logo" href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener noreferrer"><img src="assets/space-apps-logo.svg" width="561" height="221" alt="NASA International Space Apps Challenge"></a>
     <div class="header-actions">
       <nav id="navigation" role="tablist" data-i18n-aria="navigation_label">
         <button id="tab-listen" role="tab" aria-selected="true" aria-controls="listen-view" data-view="listen" data-i18n="listen_nav"></button>
         <button id="tab-method" role="tab" aria-selected="false" aria-controls="method-view" tabindex="-1" data-view="method" data-i18n="method_nav"></button>
       </nav>
       <div class="language-field">
-        <label for="language" data-i18n="language_label">Language</label>
+        <label class="sr-only" for="language" data-i18n="language_label">Language</label>
         <select id="language">
-          <option id="system-language" value="auto">System language</option>
           <option value="kk" lang="kk">Қазақша</option>
           <option value="en" lang="en">English</option>
           <option value="ru" lang="ru">Русский</option>

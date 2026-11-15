@@ -344,7 +344,7 @@ def test_layout_and_accessible_scale_on_desktop_and_mobile(ui):
 def test_default_language_comes_from_browser_locale(browser, app_url, locale, language, play, season, warning):
     with localized_ui(browser, app_url, locale) as (_, frame):
         expect(frame.locator("html")).to_have_attribute("lang", language)
-        expect(frame.locator("#language")).to_have_value("auto")
+        expect(frame.locator("#language")).to_have_value(language)
         expect(frame.get_by_role("button", name=play, exact=True)).to_be_visible()
         expect(frame.locator("#season option:checked")).to_have_text(season)
         expect(frame.locator("#test-warning")).to_contain_text(warning)
@@ -357,33 +357,38 @@ def test_default_language_comes_from_browser_locale(browser, app_url, locale, la
             assert not re.search("[А-Яа-яӘәҒғҚқҢңӨөҰұҮүҺһІі]", frame.locator("#description").inner_text())
 
 
-def test_system_language_uses_ordered_preferences_and_tracks_changes(browser, app_url):
+def test_system_language_uses_primary_locale_and_tracks_changes(browser, app_url):
     script = "Object.defineProperty(navigator, 'languages', {configurable: true, get: () => ['fr-FR', 'kk-KZ', 'en-US']});"
     with localized_ui(browser, app_url, "fr-FR", script) as (_, frame):
-        expect(frame.locator("html")).to_have_attribute("lang", "kk")
-        frame.evaluate("""() => {
-          Object.defineProperty(navigator, 'languages', {configurable: true, get: () => ['en-GB']});
-          dispatchEvent(new Event('languagechange'));
-        }""")
-        expect(frame.locator("html")).to_have_attribute("lang", "en")
-        frame.locator("#language").select_option("ru")
-        frame.evaluate("dispatchEvent(new Event('languagechange'))")
-        expect(frame.locator("html")).to_have_attribute("lang", "ru")
-        frame.locator("#language").select_option("auto")
-        expect(frame.locator("html")).to_have_attribute("lang", "en")
-
-
-def test_manual_language_survives_reload_and_can_return_to_system(browser, app_url):
-    with localized_ui(browser, app_url, "kk-KZ") as (page, frame):
-        frame.locator("#language").select_option("en")
-        page.reload()
-        frame = player_frame(page)
+        # An unsupported primary system locale falls back directly to English.
         expect(frame.locator("html")).to_have_attribute("lang", "en")
         expect(frame.locator("#language")).to_have_value("en")
-        frame.locator("#language").select_option("auto")
+        frame.evaluate("""() => {
+          Object.defineProperty(navigator, 'language', {configurable: true, get: () => 'kk-KZ'});
+          dispatchEvent(new Event('languagechange'));
+        }""")
         expect(frame.locator("html")).to_have_attribute("lang", "kk")
+        expect(frame.locator("#language")).to_have_value("kk")
+        frame.locator("#language").select_option("ru")
+        frame.evaluate("""() => {
+          Object.defineProperty(navigator, 'language', {configurable: true, get: () => 'en-GB'});
+          dispatchEvent(new Event('languagechange'));
+        }""")
+        expect(frame.locator("html")).to_have_attribute("lang", "ru")
+
+
+def test_each_open_starts_with_system_language_and_ignores_legacy_storage(browser, app_url):
+    script = "localStorage.setItem('steppe-jukebox.language', 'ru');"
+    with localized_ui(browser, app_url, "kk-KZ", script) as (page, frame):
+        expect(frame.locator("html")).to_have_attribute("lang", "kk")
+        expect(frame.locator("#language")).to_have_value("kk")
+        expect(frame.locator("#language option")).to_have_count(3)
+        frame.locator("#language").select_option("en")
+        expect(frame.locator("html")).to_have_attribute("lang", "en")
         page.reload()
-        expect(player_frame(page).locator("html")).to_have_attribute("lang", "kk")
+        frame = player_frame(page)
+        expect(frame.locator("html")).to_have_attribute("lang", "kk")
+        expect(frame.locator("#language")).to_have_value("kk")
 
 
 def test_language_switching_preserves_audio_and_paused_position(ui):
@@ -401,7 +406,7 @@ def test_language_switching_preserves_audio_and_paused_position(ui):
     before = media(frame)["time"]
     language = frame.get_by_label("Язык", exact=True)
     language.focus()
-    language.press("ArrowDown")  # Native keyboard selection: system -> Kazakh.
+    language.press("Home")  # Native keyboard selection: Russian -> first option, Kazakh.
     expect(frame.locator("#language")).to_have_value("kk")
     expect(frame.get_by_label("Тіл", exact=True)).to_be_focused()
     expect(frame.get_by_role("button", name="Кідірту", exact=True)).to_be_visible()

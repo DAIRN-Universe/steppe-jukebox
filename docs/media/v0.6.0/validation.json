@@ -18,5 +18,12 @@
   },
   "pip_check": "No broken requirements found",
   "javascript_syntax": "passed",
-  "git_diff_check": "passed"
+  "git_diff_check": "passed",
+  "header_followup": {
+    "browser_tests": 12,
+    "locale_tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "notes": "Header link, primary system language/fallback, three options, keyboard, narrow layouts and audio preservation."
+  }
 }

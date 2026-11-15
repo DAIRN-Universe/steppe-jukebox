@@ -28,5 +28,15 @@
       "water_mask_used": false
     }
   ],
-  "javascript_errors": []
+  "javascript_errors": [],
+  "header": {
+    "hackathon_url": "https://www.spaceappschallenge.org/",
+    "language_options": [
+      "kk",
+      "en",
+      "ru"
+    ],
+    "unsupported_primary_locale": "en",
+    "system_option_removed": true
+  }
 }
