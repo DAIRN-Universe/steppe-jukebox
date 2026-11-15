@@ -1,3 +1,3 @@
 """CSV-based vegetation sonification for Steppe Jukebox."""
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"

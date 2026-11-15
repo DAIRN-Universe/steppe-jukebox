@@ -5,3 +5,6 @@ __pycache__/
 *.py[cod]
 artifacts/
 test-results/
+
+# Downloaded tiles from the cancelled water-routing experiment stay local.
+/data/route-fixtures/nasa/

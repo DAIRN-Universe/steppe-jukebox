@@ -18,14 +18,23 @@
   let rows = [], markers = [];
   let mapGeometry = null, renderedMapWidth = 0;
   let isLive = false, mapDate = null;
+  const mapView = new window.MapViewport({enabled: () => isLive, geometry: () => mapGeometry,
+    redraw: () => { if (season) drawRoute(); }});
+  window.steppeMapView = mapView;
   const atEnd = () => started && season && audio.currentTime >= season.duration_s;
   function liveStep() { return atEnd() ? (season?.intervals.length || 1)-1 : Math.max(0, activeIndex); }
   const live = new window.LivePlayerSession({reset: resetTransport, selection: () => chooseMode(mode),
     prepare: () => activateTrack(live.placeholder(data, mode)),
     region: () => regionSelect.value || data.region_key, mode: () => mode, text: (...args) => t(...args),
-    redraw: () => { if (season) drawRoute(); }, track: activateTrack,
+    redraw: () => { if (season) drawRoute(); }, track: activateTrack, pause: () => { if (season) pause(); },
+    restore: () => chooseRegion(regionSelect.value),
+    geometry: definition => {
+      data = {...data, route: definition.route, map_config: definition.map_config, journey: null,
+        seasons: [{...data.seasons[0], duration_s: definition.route.length * data.step_seconds, intervals: definition.intervals}]};
+    },
     currentDate: () => season?.intervals[liveStep()]?.date || live.day()});
   window.steppeLive = live;
+  live.map.onFocusCell = cell => mapView.reveal(cell);
   try {
     const saved = localStorage.getItem(storageKey);
     if (["auto", ...supported].includes(saved)) preference = saved;
@@ -53,7 +62,7 @@
   const seasonName = () => data.translations[language][season.key] ?? season.name;
   const placeName = (slot) => slot.landmark ? (data.translations[language][slot.landmark] ?? slot.landmark) : t("route_point");
   const liveLandmarks = () => (data.journey?.intervals || []).flatMap((slot, index) => slot.landmark
-    ? [{...data.route[index], index, label: `${placeName(slot)} · ${slot.cell_id}`}] : []);
+    ? [{...data.route[index], index, name_key: slot.landmark}] : []);
   const regionKey = () => data.region_key || (data.route[0]?.cell_id.startsWith("KST-") ? "kostanay" : "custom_region");
 
   function updateViewLayout() {
@@ -367,21 +376,30 @@
     const content = $("map-content");
     content.replaceChildren();
     const lats = data.route.map((cell) => cell.lat), lons = data.route.map((cell) => cell.lon);
-    const cosLat = Math.max(0.01, Math.cos((Math.min(...lats) + Math.max(...lats)) / 2 * Math.PI / 180));
     const polygons = data.boundary?.type === "Polygon" ? [data.boundary.coordinates] : data.boundary?.coordinates || [];
     const boundaryPoints = polygons.flat(2);
     const minLat = Math.min(...lats, ...boundaryPoints.map((point) => point[1])), maxLat = Math.max(...lats, ...boundaryPoints.map((point) => point[1]));
     const minLon = Math.min(...lons, ...boundaryPoints.map((point) => point[0])), maxLon = Math.max(...lons, ...boundaryPoints.map((point) => point[0]));
+    const cosLat = Math.max(0.01, Math.cos((isLive ? minLat + maxLat : Math.min(...lats) + Math.max(...lats)) / 2 * Math.PI / 180));
     // Minimum extent provides context for a single point or a flat route.
     const width = Math.max(maxLon - minLon, 0.02) * cosLat, height = Math.max(maxLat - minLat, 0.02);
-    const scale = Math.min((right - left - 40) / width, (bottom - top - 40) / height);
+    const scale = Math.min((right - left - 40) / width, (bottom - top - 40) / height) * (isLive ? mapView.zoom : 1);
     const centerX = (left + right) / 2, centerY = (top + bottom) / 2;
-    const centerLon = (minLon + maxLon) / 2, centerLat = (minLat + maxLat) / 2;
+    const baseLon = (minLon + maxLon) / 2, baseLat = (minLat + maxLat) / 2;
+    const centerLon = Math.max(minLon, Math.min(maxLon, baseLon + (isLive ? mapView.lon : 0)));
+    const centerLat = Math.max(minLat, Math.min(maxLat, baseLat + (isLive ? mapView.lat : 0)));
+    if (isLive) { mapView.lon = centerLon - baseLon; mapView.lat = centerLat - baseLat; }
     const projectX = (lon) => centerX + (lon - centerLon) * cosLat * scale;
     const projectY = (lat) => centerY - (lat - centerLat) * scale;
-    mapGeometry = {left, right, top, bottom, height: viewHeight, projectX, projectY,
+    mapGeometry = {left, right, top, bottom, height: viewHeight, projectX, projectY, centerX, centerY, centerLon, centerLat, cosLat, scale,
       longitudeRange: [Math.max(-180, centerLon + (left - centerX) / (cosLat * scale)), Math.min(180, centerLon + (right - centerX) / (cosLat * scale))],
       latitudeRange: [Math.max(-90, centerLat - (bottom - centerY) / scale), Math.min(90, centerLat - (top - centerY) / scale)]};
+    for (const id of ['map-boundary', 'map-grid', 'map-content']) {
+      if (isLive) $(id).setAttribute('clip-path', 'url(#map-viewport-clip)');
+      else $(id).removeAttribute('clip-path');
+    }
+    for (const [key, value] of Object.entries({x: left, y: top, width: right-left, height: bottom-top})) $('map-viewport-rect').setAttribute(key, value);
+    mapView.refresh();
     renderAxes();
     $("map-boundary").replaceChildren();
     for (const polygon of polygons) {
@@ -390,7 +408,8 @@
     }
     if (isLive) {
       mapDate = season?.intervals[liveStep()]?.date || live.day();
-      live.map.draw(data.map_config, live.slice(mapDate), mapGeometry, activeIndex, atEnd(), liveLandmarks());
+      live.map.draw(data.map_config, live.slice(mapDate), mapGeometry, activeIndex, atEnd());
+      live.decorateMap();
       live.refresh();
       markers = [];
       return;
@@ -510,7 +529,7 @@
       $("audio").setAttribute("aria-label", t("live_audio"));
       $("keyboard-help").textContent = t("live_keyboard");
       document.querySelector('[data-i18n="route_hint"]').textContent = t("live_route_hint");
-      live.map.labelLandmarks(liveLandmarks());
+      live.decorateMap();
       $("journey-caveat").textContent = t("live_journey_caveat");
       live.refresh();
     }
@@ -561,7 +580,7 @@
   }
 
   function chooseMode(value) {
-    mode = value === "journey" && data.journey ? "journey" : "fixed";
+    mode = !isLive && value === "journey" && data.journey ? "journey" : "fixed";
     modeSelect.value = mode;
     if (isLive) {
       live.invalidate();
@@ -574,7 +593,9 @@
     const item = catalog.regions.find((region) => region.region_key === key);
     const selectedSeason = select.value;
     resetTransport();
+    mapView.reset(false);
     data = {...item, translations: catalog.translations};
+    if (isLive) live.resetRegion(data.map_config, liveLandmarks());
     regionSelect.value = key;
     select.replaceChildren();
     for (const track of data.seasons) {
@@ -583,7 +604,7 @@
       select.append(option);
     }
     if (data.seasons.some((track) => track.key === selectedSeason)) select.value = selectedSeason;
-    $("mode-field").hidden = !data.journey;
+    $("mode-field").hidden = isLive || !data.journey;
     chooseMode(mode);
     showView(view);
   }

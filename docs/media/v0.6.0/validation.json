@@ -1,0 +1,22 @@
+{
+  "version": "0.6.0",
+  "results": {
+    "unit": {
+      "tests": "157",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "18.763"
+    },
+    "browser": {
+      "tests": "37",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "399.411"
+    }
+  },
+  "pip_check": "No broken requirements found",
+  "javascript_syntax": "passed",
+  "git_diff_check": "passed"
+}

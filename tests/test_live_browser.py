@@ -24,6 +24,7 @@ def transport(tmp_path, monkeypatch):
     for value in [2,4]:
         color=next(c for c in gibs.entries if gibs.ndvi((*c,255)).get('ndvi_class')==value)
         Image.new('RGBA',(512,512),(*color,255)).save(folder/(str(value)+'.png'))
+    Image.new('RGBA',(512,512),(122,87,6,0)).save(folder/'mask.png')
     (folder/'sitecustomize.py').write_text(textwrap.dedent('''
         import io,os,socket
         from pathlib import Path
@@ -44,6 +45,9 @@ def transport(tmp_path, monkeypatch):
             with (folder/'requests.log').open('a') as out:out.write(url+'\\n')
             if (folder/'offline').exists():raise URLError('offline fixture')
             if 'gibs.earthdata.nasa.gov' in url:
+                if 'MODIS_Terra_L3_Land_Water_Mask' in url:
+                    if (folder/'mask-offline').exists():raise URLError('mask unavailable')
+                    return Response((folder/'mask.png').read_bytes(),url,'2015-01-01')
                 day=url.split('/')[8]
                 actual='2026-01-15' if (folder/'wrong-date').exists() else day
                 return Response((folder/('2.png' if day=='2026-04-20' else '4.png')).read_bytes(),url,actual)
@@ -83,8 +87,11 @@ def ui(browser,url,locale='ru-RU'):
 
 
 def load(frame):
+    previous=frame.evaluate('steppeLive.active')
     frame.locator('#load-data').press('Enter')
-    frame.wait_for_function('window.steppeLive.ready||window.steppeLive.request?.state==="error"',timeout=45000)
+    frame.wait_for_function('''previous=>!steppeLive.buildId&&!steppeLive.loading&&
+        (steppeLive.routeError||(steppeLive.active!==previous&&
+        (steppeLive.ready||steppeLive.request?.state==="error")))''',arg=previous,timeout=45000)
 
 
 def test_shared_player_source_date_region_mode_and_offline_cache(browser,tmp_path,monkeypatch):
@@ -110,8 +117,8 @@ def test_shared_player_source_date_region_mode_and_offline_cache(browser,tmp_pat
         f.locator('#region').select_option('akmola');expect(f.locator('#toggle')).to_be_disabled();load(f)
         assert f.evaluate('steppeLive.request.track.intervals.length')==56
         assert f.evaluate('steppeLive.request.track.duration_s')==28
-        f.locator('#mode').select_option('journey');load(f)
-        assert f.evaluate('steppeLive.request.mode')=='journey'
+        expect(f.locator('#mode-field')).not_to_be_visible()
+        assert f.evaluate('steppeLive.request.mode')=='fixed'
         f.locator('#toggle').press('Enter');f.wait_for_function('document.querySelector("audio").currentTime>.1')
         f.evaluate('document.querySelector("audio").currentTime=14.2')
         f.wait_for_function('document.querySelector("#step-date").textContent==="2026-06-10"')
@@ -125,7 +132,7 @@ def test_shared_player_source_date_region_mode_and_offline_cache(browser,tmp_pat
         before=f.evaluate('document.querySelector("audio").currentTime');f.locator('#language').select_option('kk')
         assert f.evaluate('document.querySelector("audio").currentTime')==before
         (folder/'offline').touch()
-        f.locator('#mode').select_option('fixed');load(f)
+        load(f)
         assert f.evaluate('steppeLive.request.network_requests')==0
         assert f.evaluate('steppeLive.ready')
         ctx.close()

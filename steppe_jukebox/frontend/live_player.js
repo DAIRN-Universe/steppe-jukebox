@@ -6,13 +6,20 @@ window.LivePlayerSession = class {
     this.map=new window.LiveGridMap();
     this.inspected=null;this.map.onSelect=index=>{document.getElementById('technical-details').open=true;this.inspect(index);};
     const $=id=>document.getElementById(id);this.$=$;
+    this.resetRegion();
+    $('add-route-points').addEventListener('change',()=>{
+      this.hooks.redraw();this.refresh();
+    });
+    $('reset-route').addEventListener('click',()=>this.hooks.restore());
     $('provider').addEventListener('change',()=>this.selection());
     $('observation-date').addEventListener('change',()=>this.selection());
     $('eic-date').addEventListener('change',()=>{$('observation-date').value=$('eic-date').value;this.selection();});
     $('load-data').addEventListener('click',()=>this.load());
-    $('clear-live-cache').addEventListener('click',()=>{this.invalidate();this.active=this.command('clear',{source:this.provider()});if(this.provider()==='eic')this.dates=[];this.refresh();});
+    $('clear-live-cache').addEventListener('click',()=>{this.invalidate();this.active=this.command('clear',{source:this.provider()});
+      if(this.provider()==='eic')this.dates=[];
+      this.hooks.redraw();this.refresh();});
     $('refresh-eic-dates').addEventListener('click',()=>this.command('refresh_catalog'));
-    for(const id of ['live-snow','live-water','live-temperature'])$(id).addEventListener('change',()=>this.selection());
+    for(const id of ['live-snow','live-temperature'])$(id).addEventListener('change',()=>this.selection());
   }
   command(type,fields={}){
     const id=crypto.randomUUID();this.queue.push({id,type,...fields});this.dispatch();return id;
@@ -21,25 +28,64 @@ window.LivePlayerSession = class {
     parent.postMessage({isStreamlitMessage:true,type:'streamlit:setComponentValue',dataType:'json',value:command},'*');}
   day(){return this.$('observation-date').value;}
   provider(){return this.$('provider').value;}
+  resetRegion(config,points=[]){
+    this.buildId=null;this.routeToken=null;
+    const keys=config?.point_keys?.filter(Boolean)||[];
+    this.presetNames=new Map(points.filter(p=>config?.point_keys[p.index]).map(p=>[config.point_keys[p.index],p.name_key]));
+    this.draft=this.presetNames.size?[...this.presetNames.keys()]:keys.length?[keys[0],keys.at(-1)]:[];
+    this.dirty=false;this.routeError=null;this.listSignature=null;
+    this.$('add-route-points').checked=false;
+  }
+  addPoint(key){
+    if(this.draft.length>=5){this.showRouteError({error:'points_limit'});return;}
+    this.buildId=null;this.draft.push(key);this.dirty=true;this.routeError=null;
+    this.hooks.redraw();this.refresh();
+  }
+  decorateMap(){
+    this.map.edit({editing:this.$('add-route-points').checked,draft:this.draft,names:this.pointNames(),
+      text:this.hooks.text,onSelect:key=>this.addPoint(key)});
+  }
+  pointNames(){return new Map([...this.presetNames].map(([key,name])=>[key,this.hooks.text(name==='naurzum'?'preset_naurzum':name)]));}
+  showRouteError(error){this.routeError=error;this.$('route-points').open=true;this.refresh();}
   placeholder(data,mode){
     const base=mode==='journey'?data.journey:data.seasons[0];
     return {...base,date:this.day(),audio_src:null,intervals:base.intervals.map(slot=>({...slot,date:mode==='journey'?slot.date:this.day()})),
       source_url:this.provider()==='gibs'?'https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_NOAA20_NDVI_8Day.json':'https://svs.gsfc.nasa.gov/5544/'};
   }
   invalidate(){
+    this.buildId=null;
     this.inspected=null;this.$('live-inspector').hidden=true;
     clearTimeout(this.timer);this.ready=false;this.loading=false;this.maps.clear();this.request=null;
     this.active=this.command('invalidate');this.hooks.reset();this.hooks.prepare();this.refresh();
   }
   selection(){this.hooks.selection();}
   load(){
+    if(this.dirty){
+      if(!this.draft.length){this.showRouteError({error:'points_limit'});return;}
+      this.hooks.pause();this.routeError=null;
+      this.buildId=this.command('build_route',{region:this.hooks.region(),waypoints:[...this.draft]});
+      this.refresh();return;
+    }
+    this.loadTrack();
+  }
+  loadTrack(){
     if(!this.day())return;this.invalidate();this.loading=true;
     this.active=this.command('load',{source:this.provider(),region:this.hooks.region(),mode:this.hooks.mode(),date:this.day(),
-      snow:this.$('live-snow').checked,water:this.$('live-water').checked,temperature:this.$('live-temperature').checked});
+      route_token:this.routeToken,
+      snow:this.$('live-snow').checked,water:false,temperature:this.$('live-temperature').checked});
     this.refresh();
   }
   accept(payload){
     if(payload.ack===this.inFlight){this.inFlight=null;this.dispatch();}
+    const result=payload.route_result;
+    if(result&&result.id===this.buildId){
+      this.buildId=null;
+      if(result.error)this.showRouteError(result);
+      else{
+        this.routeToken=result.id;this.dirty=false;this.routeError=null;
+        this.hooks.geometry(result.definition);this.loadTrack();
+      }
+    }
     const request=payload.request;
     if(request&&request.id===this.active){
       this.request=request;this.loading=request.state==='loading';
@@ -70,7 +116,34 @@ window.LivePlayerSession = class {
   refresh(){
     if(!this.hooks.text)return;const t=this.hooks.text,$=this.$;
     $('live-controls').hidden=false;$('load-data').hidden=false;$('season-field').hidden=true;$('date-field').hidden=this.hooks.mode()==='journey';
-    $('load-data').disabled=this.loading;$('toggle').disabled=!this.ready;$('restart').disabled=!this.ready;
+    $('load-data').disabled=this.loading||Boolean(this.buildId);$('toggle').disabled=!this.ready||Boolean(this.buildId);$('restart').disabled=!this.ready||Boolean(this.buildId);
+    $('route-points').hidden=false;
+    $('route-point-counter').textContent=`${this.draft.length}/5`;
+    const listSignature=JSON.stringify([this.draft,document.documentElement.lang]);
+    if(listSignature!==this.listSignature){
+      const focused=document.activeElement?.dataset.removePoint;
+      const list=$('route-coordinate-list');list.replaceChildren();
+      for(const [i,key] of this.draft.entries()){
+        const cell=this.map.config?.cells.find(c=>c.key===key);if(!cell)continue;
+        const [w,s,e,n]=cell.bounds,li=document.createElement('li'),label=document.createElement('span'),button=document.createElement('button');
+        const name=this.pointNames().get(key);
+        if(name){const title=document.createElement('strong');title.className='route-point-name';title.textContent=name;li.append(title);}
+        label.textContent=`${((s+n)/2).toFixed(4)}°, ${((w+e)/2).toFixed(4)}°`;
+        button.type='button';button.className='secondary';button.textContent='×';button.dataset.removePoint=String(i);
+        button.setAttribute('aria-label',t('route_remove',{index:i+1}));
+        button.addEventListener('click',()=>{this.buildId=null;this.draft.splice(i,1);this.dirty=true;this.routeError=null;this.hooks.redraw();this.refresh();});
+        li.append(label,button);list.append(li);
+      }
+      this.listSignature=listSignature;
+      if(focused!==undefined)list.querySelector(`[data-remove-point="${Math.min(Number(focused),this.draft.length-1)}"]`)?.focus();
+    }
+    let routeMessage=t(this.routeToken?'route_custom':'route_default');
+    if(this.$('add-route-points').checked)routeMessage=t('route_pick_ready');
+    if(this.draft.length)routeMessage=t('route_point_count',{count:this.draft.length})+' · '+routeMessage;
+    if(this.buildId)routeMessage=t('route_building');
+    if(this.routeError)routeMessage=t('route_'+this.routeError.error)+(this.routeError.key?' · '+this.routeError.key:'');
+    $('route-feedback').textContent=routeMessage;
+    $('route-feedback').dataset.error=String(Boolean(this.routeError));
     $('timing-details').hidden=!this.ready;
     const eic=this.provider()==='eic',select=$('eic-date');
     $('observation-date').hidden=eic&&this.dates.length>0;select.hidden=!eic||!this.dates.length;

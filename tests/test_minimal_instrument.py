@@ -107,7 +107,7 @@ def test_step_buttons_and_cursor_keys_preserve_clock_and_native_navigation(brows
 
 
 @pytest.mark.parametrize('provider', ['gibs', 'eic'])
-def test_journey_seek_changes_map_date_and_rewinds_trail_without_autoplay(browser, tmp_path, monkeypatch, provider):
+def test_fixed_date_seek_rewinds_trail_without_autoplay(browser, tmp_path, monkeypatch, provider):
     transport(tmp_path, monkeypatch)
     with running_app(None, tmp_path/'seek.log', live=True) as url:
         ctx, page, frame = ui(browser, url)
@@ -117,12 +117,12 @@ def test_journey_seek_changes_map_date_and_rewinds_trail_without_autoplay(browse
             expect(frame.locator('#step-forward')).to_be_disabled()
             expect(frame.locator('#point-note')).to_have_text('—')
             frame.locator('#provider').select_option(provider)
-            frame.locator('#mode').select_option('journey'); load(frame)
+            expect(frame.locator('#mode-field')).not_to_be_visible(); load(frame)
             slider = frame.locator('#progress'); expect(slider).to_be_enabled()
             slider.press('End'); slider.press('ArrowLeft')
-            frame.wait_for_function('steppeLive.hooks.currentDate()==="2026-06-10"')
+            frame.wait_for_function('steppeLive.hooks.currentDate()==="2026-04-20"')
             expect(frame.locator('#point-cell')).to_have_text('KST-048')
-            expect(frame.locator('#step-date')).to_have_text('2026-06-10')
+            expect(frame.locator('#step-date')).to_have_text('2026-04-20')
             assert frame.evaluate('steppeLive.map.currentIndex') == 47
             assert frame.locator('.route-tile.passed').count() > 0
             assert media(frame)['paused']

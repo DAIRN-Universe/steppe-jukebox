@@ -1,0 +1,32 @@
+{
+  "version": "0.6.0",
+  "url": "http://127.0.0.1:8517",
+  "cases": [
+    {
+      "region": "kostanay",
+      "source": "gibs",
+      "date": "2026-06-10",
+      "steps": 48,
+      "duration_s": 24,
+      "control_rest": "KST-006 at 2.5–3.0s",
+      "network_requests": 0
+    },
+    {
+      "region": "kostanay",
+      "source": "gibs",
+      "date": "2026-06-10",
+      "waypoints": [
+        "274/1067",
+        "274/1068",
+        "273/1067",
+        "273/1068",
+        "275/1067"
+      ],
+      "steps": 6,
+      "zoom": 4,
+      "audio_preserved_during_zoom": true,
+      "water_mask_used": false
+    }
+  ],
+  "javascript_errors": []
+}
