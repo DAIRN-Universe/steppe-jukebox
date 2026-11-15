@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "release": "Hackathon release",
+  "accepted_candidate": "b6447f9c724b80b21b9b7b795d81790f9460ecc1",
+  "runtime_change": "Application version only; accepted interface and audio behavior retained.",
+  "results": {
+    "unit": {
+      "tests": "157",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "10.342"
+    },
+    "browser": {
+      "tests": "23",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "124.568"
+    }
+  },
+  "pip_check": "No broken requirements found",
+  "python_syntax": "passed",
+  "javascript_syntax": "passed (four frontend files)",
+  "git_diff_check": "passed",
+  "real_nasa_acceptance": "Both regions, GIBS 2026-06-10 and EIC 2026-04-20 from an isolated prepared cache with external network blocked; KST-006 PCM is zero at 2.5–3.0s.",
+  "known_limits": "Full archival browser suite was not rerun; eight pre-existing failures are documented in RELEASE_0.6.0.md. Screen reader, physical mobile device, student evaluation and contest submission remain separate work."
+}
