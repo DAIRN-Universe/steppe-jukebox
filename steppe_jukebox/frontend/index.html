@@ -12,7 +12,7 @@
 <body>
 <main id="interface" data-i18n-aria="interface_label" hidden>
   <header class="site-header">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span><strong>DAIRN</strong><small>STEPPE JUKEBOX</small></span></div>
+    <a class="brand" href="#" data-open-view="listen"><span class="brand-origin">DAIRN</span><strong>Steppe Jukebox</strong></a>
     <nav id="navigation" role="tablist" data-i18n-aria="navigation_label">
       <button id="tab-listen" role="tab" aria-selected="true" aria-controls="listen-view" data-view="listen" data-i18n="listen_nav"></button>
       <button id="tab-method" role="tab" aria-selected="false" aria-controls="method-view" tabindex="-1" data-view="method" data-i18n="method_nav"></button>
@@ -30,9 +30,12 @@
   <div class="page-content">
     <p id="test-warning" class="warning" data-i18n="test_warning" hidden></p>
     <p id="data-error" role="alert" hidden></p>
-    <div id="listen-heading" class="page-heading" hidden><div><p class="eyebrow" data-i18n="listen_eyebrow"></p><h1 data-i18n="listen_title"></h1><p data-i18n="intro"></p></div><span class="pill" data-i18n="experience_label"></span></div>
+    <div id="listen-heading" class="page-heading" hidden>
+      <div><p class="eyebrow" data-i18n="listen_eyebrow"></p><h1 data-i18n="listen_title"></h1><p data-i18n="intro"></p></div>
+      <span class="edition">NASA SPACE APPS<br>MINIMAL INSTRUMENT</span>
+    </div>
     <div class="player-layout">
-      <aside id="selection-panel" class="card selection-panel" aria-labelledby="selection-panel-title" hidden>
+      <aside id="selection-panel" class="selection-panel" aria-labelledby="selection-panel-title" hidden>
         <h2 id="selection-panel-title" data-i18n="route_settings"></h2>
         <div class="selections">
           <div id="region-field" class="region-field season-field" hidden>
@@ -53,14 +56,12 @@
         </div>
         <p id="load-state" role="status" aria-live="polite" hidden></p>
       </aside>
-      <section id="route-context-card" class="card" aria-labelledby="region-heading" hidden><p class="eyebrow" data-i18n="route_context"></p><h2 id="region-heading"></h2><p id="route-summary"></p><ol id="route-landmarks"></ol><p id="description" class="muted" hidden></p><p id="map-attribution" class="muted" hidden><a id="map-source" target="_blank" rel="noopener noreferrer" data-i18n="map_source"></a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors · ODbL</a></p></section>
     <div id="player" hidden>
       <section id="listen-view" class="view" role="tabpanel" aria-labelledby="tab-listen">
         <div class="listen-grid">
-          <div class="main-column">
             <figure class="map-card">
               <figcaption><span id="map-region"></span><span data-i18n="route_heading"></span></figcaption>
-              <p class="muted" data-i18n="route_hint"></p>
+
               <svg id="route-map" viewBox="0 0 720 340" role="img" aria-labelledby="map-title map-description">
                 <title id="map-title" data-i18n="map_title"></title>
                 <desc id="map-description" data-i18n="map_description"></desc>
@@ -73,18 +74,43 @@
               </svg>
               <p id="map-credit" class="muted" hidden>© OpenStreetMap contributors · ODbL</p>
             </figure>
-            <section class="playback-card" data-i18n-aria="player_heading">
-              <div class="transport"><button id="toggle" type="button" aria-controls="audio">Play</button><button id="restart" class="secondary" type="button" data-i18n="restart"></button><span id="tempo"></span></div>
-              <p id="season-info" class="muted"></p>
-              <p id="journey-caveat" class="muted" data-i18n="journey_caveat" hidden></p>
-              <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
-              <div class="position"><progress id="progress" value="0" max="1" data-i18n-aria="progress_label"></progress><span id="clock"></span></div>
-              <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
-              <div id="current-step" data-i18n-aria="current_step_label" role="group" hidden>
-                <p><strong data-i18n="current_date_label"></strong> <time id="step-date"></time></p><p id="step-place"></p><p id="step-position" class="muted"></p>
-              </div>
-              <p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p><p id="error" role="alert" hidden></p>
-            </section>
+          <section class="point-card" data-i18n-aria="current_point_label">
+            <p class="eyebrow" data-i18n="current_point_label"></p>
+            <p id="point-count" class="point-count"></p>
+            <p id="point-cell" class="point-cell"></p>
+            <div class="point-sound"><strong id="point-note"></strong><p id="point-note-detail"></p></div>
+            <div id="current-step" data-i18n-aria="current_step_label" role="group">
+              <time id="step-date"></time><p id="step-place"></p><p id="step-position"></p>
+            </div>
+            <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+          </section>
+        </div>
+        <section class="playback-card" data-i18n-aria="player_heading">
+          <div class="transport">
+            <button id="step-back" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowLeft" data-i18n-aria="step_back" data-i18n-title="step_back" disabled>←</button>
+            <button id="toggle" type="button" aria-controls="audio">Play</button>
+            <button id="step-forward" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowRight" data-i18n-aria="step_forward" data-i18n-title="step_forward" disabled>→</button>
+            <button id="restart" class="secondary" type="button" data-i18n="restart"></button>
+          </div>
+          <div class="position">
+            <div class="position-label"><label for="progress" data-i18n="progress_heading"></label><span id="clock"></span></div>
+            <input id="progress" type="range" min="0" max="1" step="0.01" value="0" data-i18n-aria="progress_label" aria-controls="audio route-map" aria-describedby="seek-help" disabled>
+          </div>
+          <p id="tempo" class="muted"></p><p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p>
+          <p id="seek-help" class="sr-only" data-i18n="seek_help"></p>
+          <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
+          <p id="error" role="alert" hidden></p>
+        </section>
+        <ol id="journey-progress" class="journey-progress" data-i18n-aria="journey" hidden></ol>
+        <p id="journey-caveat" class="muted" data-i18n="journey_caveat" hidden></p>
+        <section class="scale-strip" data-i18n-aria="legend_label">
+          <p class="eyebrow" data-i18n="legend_label"></p><ul id="legend" data-i18n-aria="legend_label"></ul>
+        </section>
+        <details id="technical-details" class="technical-details">
+          <summary data-i18n="technical_information"></summary>
+          <p id="season-info" class="muted"></p>
+      <section id="route-context-card" class="card" aria-labelledby="region-heading" hidden><p class="eyebrow" data-i18n="route_context"></p><h2 id="region-heading"></h2><p id="route-summary"></p><ol id="route-landmarks"></ol><p id="description" class="muted" hidden></p><p id="map-attribution" class="muted" hidden><a id="map-source" target="_blank" rel="noopener noreferrer" data-i18n="map_source"></a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors · ODbL</a></p></section>
+              <p class="muted" data-i18n="route_hint"></p>
             <section id="live-inspector" class="card" hidden><h2 data-i18n="live_inspector"></h2><p id="live-pixel"></p></section>
             <details id="timing-details" open>
               <summary data-i18n="timing_summary"></summary>
@@ -108,17 +134,12 @@
               <fieldset id="live-layers" hidden><legend data-i18n="live_layers"></legend><label><input type="checkbox" id="live-snow"><span data-i18n="live_snow"></span></label><label><input type="checkbox" id="live-water"><span data-i18n="live_water"></span></label><label><input type="checkbox" id="live-temperature" checked><span data-i18n="live_temperature"></span></label></fieldset>
               <div class="table-scroll"><table id="live-requests"><thead><tr><th data-i18n="live_layer"></th><th data-i18n="live_date"></th><th data-i18n="live_actual"></th><th data-i18n="live_state"></th><th data-i18n="live_source"></th></tr></thead><tbody></tbody></table></div>
             </details>
-          </div>
-          <aside class="context-column">
-            <section class="card"><p class="eyebrow" data-i18n="scale_eyebrow"></p><h2 data-i18n="scale_heading"></h2><p data-i18n="scale_intro"></p>
-              <ul id="legend" data-i18n-aria="legend_label"></ul><p class="scale-direction"><span data-i18n="less_green"></span><span data-i18n="more_green"></span></p>
               <details id="scale-details"><summary data-i18n="scale_summary"></summary><p id="scale-description"></p><p id="provider-method" hidden></p><a href="https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml" target="_blank" rel="noopener noreferrer" data-i18n="legend_source"></a></details>
-            </section>
-          </aside>
-        </div>
+        </details>
       </section>
       <section id="method-view" class="view" role="tabpanel" aria-labelledby="tab-method" hidden>
         <div class="page-heading"><div><p class="eyebrow" data-i18n="method_eyebrow"></p><h1 data-i18n="method_title"></h1><p data-i18n="method_intro"></p></div></div>
+        <ul id="method-scale" class="method-scale" data-i18n-aria="legend_label"></ul>
         <div class="method-steps"><article><span>01</span><h2 data-i18n="method_frame"></h2><p data-i18n="method_frame_detail"></p></article><article><span>02</span><h2 data-i18n="method_route"></h2><p data-i18n="method_route_detail"></p></article><article><span>03</span><h2 data-i18n="method_notes"></h2><p data-i18n="method_notes_detail"></p></article></div>
         <div class="method-grid"><section class="card"><h2 data-i18n="sources_heading"></h2><p id="observation-source"></p><p><a href="https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml" target="_blank" rel="noopener noreferrer" data-i18n="legend_source"></a></p></section><section class="card"><h2 data-i18n="interpret_heading"></h2><p data-i18n="interpret_ndvi"></p><p data-i18n="interpret_dates"></p><p data-i18n="route_geometry_caveat"></p></section></div>
         <button class="secondary back-button" data-open-view="listen" data-i18n="back_listen"></button>

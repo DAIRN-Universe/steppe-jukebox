@@ -317,7 +317,8 @@ def test_layout_and_accessible_scale_on_desktop_and_mobile(ui):
     page, frame = ui
     results = ROOT / "test-results"
     results.mkdir(exist_ok=True)
-    frame.get_by_text("Шкала: цвет → класс → нота", exact=True).click()
+    frame.locator('#technical-details > summary').click()
+    frame.locator('#scale-details > summary').click()
     expect(frame.locator("#scale-description")).to_be_visible()
     expect(frame.get_by_role("list", name="Цвета и ноты классов NDVI").get_by_role("listitem")).to_have_count(6)
     expect(frame.get_by_role("img", name="Маршрут по ячейкам")).to_be_visible()

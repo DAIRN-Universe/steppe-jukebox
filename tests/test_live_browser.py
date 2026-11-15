@@ -137,6 +137,7 @@ def test_eic_unavailable_date_refresh_and_cache_clear(browser,tmp_path,monkeypat
         ctx,page,f=ui(browser,url)
         f.locator('#provider').select_option('eic');load(f)
         expect(f.locator('#toggle')).to_be_enabled()
+        f.locator('#technical-details > summary').press('Enter')
         f.locator('#live-diagnostics summary').press('Enter')
         f.locator('#refresh-eic-dates').press('Enter')
         f.wait_for_function('window.steppeLive.inFlight===null')
@@ -162,6 +163,8 @@ def test_failed_requests_or_wrong_dates_never_fall_back_to_saved_audio(browser,t
         ctx,page,f=ui(browser,url);load(f)
         assert f.evaluate('steppeLive.request.error')=='route_data_error'
         expect(f.locator('#toggle')).to_be_disabled()
+        expect(f.locator('#progress')).to_be_disabled()
+        expect(f.locator('#point-note')).to_have_text('—')
         assert f.locator('audio').get_attribute('src') is None
         assert f.locator('#load-state').get_attribute('data-error')=='true'
         ctx.close()

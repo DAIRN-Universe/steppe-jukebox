@@ -1,0 +1,242 @@
+{
+  "cache": "isolated copy of verified user cache; remote HTTP prohibited",
+  "screens": [
+    "desktop-gibs-gap.png",
+    "mobile-390.png",
+    "mobile-320.png"
+  ],
+  "errors": [],
+  "gibs": {
+    "source": "gibs",
+    "date": "2026-06-10",
+    "network_requests": 0,
+    "points": 48,
+    "duration": 24
+  },
+  "gap_samples": [
+    {
+      "time": 2.551556,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.558225,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.577331,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.594203,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.613115,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.630561,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.649006,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.665921,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.68431,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.691214,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.709509,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.726592,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.745008,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.763363,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.782242,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.80123,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.817345,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.824343,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.844984,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.861637,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.878211,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.896734,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.914541,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.933488,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    },
+    {
+      "time": 2.940418,
+      "paused": false,
+      "cell": "KST-006",
+      "note": "нет данных → пауза",
+      "mapIndex": 5,
+      "status": "Играет: KST-006 · нет данных → пауза · ячейка 6 из 48."
+    }
+  ],
+  "gap_pcm": {
+    "interval": [
+      2.5,
+      3.0
+    ],
+    "all_zero": true,
+    "bytes": 44100
+  },
+  "eic_first_cached_load": {
+    "source": "eic",
+    "date": "2026-04-20",
+    "network_requests": 0,
+    "points": 48,
+    "duration": 24
+  },
+  "eic_repeat_cached_load": {
+    "source": "eic",
+    "date": "2026-04-20",
+    "network_requests": 0,
+    "points": 48,
+    "duration": 24
+  },
+  "desktop_primary_controls_fit": true,
+  "touch_seek_and_play": true
+}
