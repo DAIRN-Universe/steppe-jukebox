@@ -58,7 +58,7 @@
 
   function updateViewLayout() {
     const hidden = view !== "listen" || Boolean(data.error);
-    for (const id of ["listen-heading", "selection-panel", "route-context-card"]) $(id).hidden = hidden;
+    for (const id of ["listen-heading", "selection-panel", "route-context-card", "playback-controls"]) $(id).hidden = hidden;
     document.querySelector(".player-layout").classList.toggle("without-sidebar", hidden);
   }
 

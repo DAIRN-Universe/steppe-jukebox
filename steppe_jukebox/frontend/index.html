@@ -56,6 +56,22 @@
         </div>
         <p id="load-state" role="status" aria-live="polite" hidden></p>
       </aside>
+      <section id="playback-controls" class="playback-card" hidden data-i18n-aria="player_heading">
+        <div class="transport">
+          <button id="step-back" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowLeft" data-i18n-aria="step_back" data-i18n-title="step_back" disabled>←</button>
+          <button id="toggle" type="button" aria-controls="audio">Play</button>
+          <button id="step-forward" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowRight" data-i18n-aria="step_forward" data-i18n-title="step_forward" disabled>→</button>
+          <button id="restart" class="secondary" type="button" data-i18n="restart"></button>
+        </div>
+        <div class="position">
+          <div class="position-label"><label for="progress" data-i18n="progress_heading"></label><span id="clock"></span></div>
+          <input id="progress" type="range" min="0" max="1" step="0.01" value="0" data-i18n-aria="progress_label" aria-controls="audio route-map" aria-describedby="seek-help" disabled>
+        </div>
+        <p id="tempo" class="muted"></p><p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p>
+        <p id="seek-help" class="sr-only" data-i18n="seek_help"></p>
+        <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
+        <p id="error" role="alert" hidden></p>
+      </section>
     <div id="player" hidden>
       <section id="listen-view" class="view" role="tabpanel" aria-labelledby="tab-listen">
         <div class="listen-grid">
@@ -85,22 +101,6 @@
             <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
           </section>
         </div>
-        <section class="playback-card" data-i18n-aria="player_heading">
-          <div class="transport">
-            <button id="step-back" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowLeft" data-i18n-aria="step_back" data-i18n-title="step_back" disabled>←</button>
-            <button id="toggle" type="button" aria-controls="audio">Play</button>
-            <button id="step-forward" class="secondary step-button" type="button" aria-controls="audio route-map" aria-keyshortcuts="ArrowRight" data-i18n-aria="step_forward" data-i18n-title="step_forward" disabled>→</button>
-            <button id="restart" class="secondary" type="button" data-i18n="restart"></button>
-          </div>
-          <div class="position">
-            <div class="position-label"><label for="progress" data-i18n="progress_heading"></label><span id="clock"></span></div>
-            <input id="progress" type="range" min="0" max="1" step="0.01" value="0" data-i18n-aria="progress_label" aria-controls="audio route-map" aria-describedby="seek-help" disabled>
-          </div>
-          <p id="tempo" class="muted"></p><p id="keyboard-help" class="muted" data-i18n="keyboard_help"></p>
-          <p id="seek-help" class="sr-only" data-i18n="seek_help"></p>
-          <audio id="audio" preload="auto" data-i18n-aria="audio_label"></audio>
-          <p id="error" role="alert" hidden></p>
-        </section>
         <ol id="journey-progress" class="journey-progress" data-i18n-aria="journey" hidden></ol>
         <p id="journey-caveat" class="muted" data-i18n="journey_caveat" hidden></p>
         <section class="scale-strip" data-i18n-aria="legend_label">

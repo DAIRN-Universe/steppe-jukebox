@@ -140,6 +140,28 @@ def test_journey_seek_changes_map_date_and_rewinds_trail_without_autoplay(browse
 
 
 @pytest.mark.parametrize('language', ['ru', 'kk', 'en'])
+def test_transport_remains_visible_in_720p_and_enlarged_zoom(browser, journey_url, language):
+    with localized_ui(browser, journey_url) as (page, frame):
+        frame.locator('#language').select_option(language)
+        # Effective CSS viewports for 1280x720 at 100%, 125% and 150% zoom.
+        for width, height in [(1280, 720), (1024, 576), (853, 480)]:
+            page.set_viewport_size({'width': width, 'height': height})
+            frame.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            for selector in ['#toggle', '#restart', '#step-back', '#step-forward', '#progress']:
+                rect = frame.locator(selector).bounding_box()
+                assert rect['y'] >= 0 and rect['y'] + rect['height'] <= height, (language, width, height, selector, rect)
+                assert rect['x'] >= 0 and rect['x'] + rect['width'] <= width
+            assert frame.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        frame.locator('#step-forward').click()
+        assert media(frame)['paused'] and media(frame)['time'] == .5
+        frame.locator('#tab-method').click()
+        expect(frame.locator('#playback-controls')).not_to_be_visible()
+        frame.locator('#tab-listen').click()
+        expect(frame.locator('#playback-controls')).to_be_visible()
+        assert media(frame)['paused'] and media(frame)['time'] == .5
+
+
+@pytest.mark.parametrize('language', ['ru', 'kk', 'en'])
 def test_recording_controls_fit_1080p_and_phone_has_no_horizontal_scroll(browser, journey_url, language):
     with localized_ui(browser, journey_url) as (page, frame):
         frame.locator('#language').select_option(language)

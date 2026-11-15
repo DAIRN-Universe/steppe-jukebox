@@ -14,8 +14,8 @@ from steppe_jukebox.live_view import render_live
 
 ROOT = Path(__file__).resolve().parent
 st.set_page_config(page_title="Steppe Jukebox", page_icon="🌱", layout="wide")
-# Keep enough room for Streamlit's toolbar without the default 96 px gap.
-st.html("<style>[data-testid='stMainBlockContainer'] { padding-top: 4rem; }</style>")
+# Keep the toolbar clear and reclaim side gutters for the instrument.
+st.html("<style>[data-testid='stMainBlockContainer'] { padding-top: 4rem; padding-inline: clamp(1rem, 3vw, 3rem); }</style>")
 
 
 @st.cache_data(show_spinner=False)
