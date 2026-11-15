@@ -1,0 +1,32 @@
+{
+  "version": "0.5.0",
+  "external_http": "prohibited",
+  "checks": [
+    "KST-006: map index 5, point ID, no-data symbol and silent PCM at 2.5–3.0 s",
+    "buttons, cursor keys and playback after seeking work without autoplay",
+    "EIC 2026-04-20 loads, plays and reloads from cache with zero HTTP requests",
+    "ru/kk/en at 390/320 px, accessible 44px step buttons and no horizontal overflow"
+  ],
+  "errors": [],
+  "gibs": {
+    "source": "gibs",
+    "date": "2026-06-10",
+    "points": 48,
+    "duration_s": 24,
+    "network_requests": 0
+  },
+  "eic_first": {
+    "source": "eic",
+    "date": "2026-04-20",
+    "points": 48,
+    "duration_s": 24,
+    "network_requests": 0
+  },
+  "eic_repeat": {
+    "source": "eic",
+    "date": "2026-04-20",
+    "points": 48,
+    "duration_s": 24,
+    "network_requests": 0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "baseline": "37deb1b564c25de17c9f1cb3b2a63f7682282bbd",
+  "viewport_svg": [
+    720,
+    430
+  ],
+  "cell": "KST-006",
+  "date": "2026-06-10",
+  "rendered_svg_identical": true,
+  "svg_sha256": "bbb424280288c4fca8aad80a297b889e207c611b9bd161f5de6ced6d6c490720",
+  "grid_map_js_unchanged": true,
+  "grid_map_js_sha256": "0b76939e8fc72c5501889d4438f680bf9022fc84adcb689b8d839b7e63f4c007"
+}

@@ -18,7 +18,8 @@
   let rows = [], markers = [];
   let mapGeometry = null, renderedMapWidth = 0;
   let isLive = false, mapDate = null;
-  function liveStep() { return audio.ended ? (season?.intervals.length || 1)-1 : Math.max(0, activeIndex); }
+  const atEnd = () => started && season && audio.currentTime >= season.duration_s;
+  function liveStep() { return atEnd() ? (season?.intervals.length || 1)-1 : Math.max(0, activeIndex); }
   const live = new window.LivePlayerSession({reset: resetTransport, selection: () => chooseMode(mode),
     prepare: () => activateTrack(live.placeholder(data, mode)),
     region: () => regionSelect.value || data.region_key, mode: () => mode, text: (...args) => t(...args),
@@ -107,12 +108,14 @@
 
   function renderCurrentStep(index) {
     const slot = season.intervals[index], cell = data.route[index];
-    $("step-date").textContent = slot.date;
-    $("step-date").setAttribute("datetime", slot.date);
+    const date = slot.date || season.date;
+    $("step-date").textContent = date || t("no_date");
+    if (date) $("step-date").setAttribute("datetime", date); else $("step-date").removeAttribute("datetime");
     const coordinate = (value) => value.toLocaleString(numberLocale(), {maximumFractionDigits: 4});
     $("step-place").textContent = t("step_coordinates", {place: placeName(slot), cell: slot.cell_id, lat: coordinate(cell.lat), lon: coordinate(cell.lon)});
     const distance = (value) => value.toLocaleString(numberLocale(), {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    $("step-position").textContent = t("journey_position", {index: index + 1, total: rows.length, distance: distance(slot.distance_km), total_distance: distance(season.distance_km)});
+    $("step-position").hidden = !Number.isFinite(slot.distance_km) || !Number.isFinite(season.distance_km);
+    if (!$("step-position").hidden) $("step-position").textContent = t("journey_position", {index: index + 1, total: rows.length, distance: distance(slot.distance_km), total_distance: distance(season.distance_km)});
   }
 
   function send(type, fields = {}) {
@@ -125,7 +128,9 @@
 
   function setButton(state) {
     buttonState = state;
+    toggle.dataset.state = state;
     toggle.textContent = t(state);
+    toggle.setAttribute("aria-label", t(state));
   }
 
   function sizeMarker(marker, active) {
@@ -171,18 +176,26 @@
     if (!season) return;
     const time = started ? Math.min(audio.currentTime || 0, season.duration_s) : 0;
     $("progress").value = time;
+    $("progress").disabled = !season.audio_src || audio.readyState < 1 || Boolean(audioError) || (isLive && !live.ready);
+    $("step-back").disabled = $("progress").disabled || time <= 0;
+    $("step-forward").disabled = $("progress").disabled || time >= season.duration_s;
+    $("progress").style.setProperty("--progress", `${time / season.duration_s * 100}%`);
+    $("progress").setAttribute("aria-valuetext", t("clock", {current: seconds(time), duration: seconds(season.duration_s)}));
     $("clock").textContent = t("clock", {current: seconds(time), duration: seconds(season.duration_s)});
     // Half-open intervals come from the same sample offsets as the WAV.
-    const index = !started || audio.ended ? -1 : season.intervals.findIndex((slot) => time >= slot.start_s && time < slot.end_s);
+    const ended = atEnd();
+    const index = !started || ended ? -1 : season.intervals.findIndex((slot) => time >= slot.start_s && time < slot.end_s);
     setActive(index);
     if (isLive) {
       const day = season.intervals[liveStep()]?.date || live.day();
       if (mapDate !== day) drawRoute();
-      live.map.highlight(index, audio.ended);
+      live.map.highlight(index, ended);
     }
-    if (mode === "journey") renderCurrentStep(audio.ended ? rows.length - 1 : Math.max(0, index));
-    let status = t(audio.ended ? "ended" : "ready");
-    if (!audio.ended && index >= 0) {
+    const current = ended ? rows.length - 1 : Math.max(0, index);
+    renderCurrentStep(current);
+    renderPoint(current, index >= 0 || ended);
+    let status = t(ended ? "ended" : "ready");
+    if (!ended && index >= 0) {
       const slot = season.intervals[index];
       const note = slot.note ? t("class_note", {value: slot.ndvi_class, note: slot.note}) : t("missing_rest");
       status = t(mode === "journey" ? "journey_status" : "status_slot", {phase: t(audio.paused && !wantsPlayback ? "paused" : "playing"),
@@ -190,6 +203,58 @@
     }
     if ($("status").textContent !== status) $("status").textContent = status;
     if (isLive && !live.ready) $("status").textContent = $("load-state").textContent;
+  }
+
+  function renderPoint(index, positioned) {
+    const slot = season.intervals[index];
+    const ready = !isLive || live.ready;
+    const missing = ready && positioned && !slot.note;
+    $("point-count").textContent = positioned ? `${index + 1} / ${rows.length}` : String(rows.length);
+    $("point-cell").textContent = ready && positioned ? slot.cell_id : t("route_positions");
+    $("point-note").textContent = !ready ? "—" : !positioned ? "C D E G A" : slot.note || "∅";
+    $("point-note-detail").textContent = !ready ? t("point_awaiting") : !positioned ? t("scale_intro") : missing ? t("missing_rest") : t("class_note", {value: slot.ndvi_class, note: slot.note});
+    document.querySelector(".point-card").dataset.state = missing ? "missing" : "normal";
+    document.querySelector(".point-card").dataset.positioned = String(positioned);
+    for (const item of $("journey-progress").children) {
+      const active = positioned && index >= Number(item.dataset.start) && index <= Number(item.dataset.end);
+      item.classList.toggle("reached", positioned && index >= Number(item.dataset.start));
+      if (active) item.setAttribute("aria-current", "step"); else item.removeAttribute("aria-current");
+    }
+  }
+
+  function drawJourneyProgress() {
+    const list = $("journey-progress");
+    list.hidden = mode !== "journey";
+    list.replaceChildren();
+    if (mode !== "journey") return;
+    const groups = Math.min(4, season.intervals.length);
+    for (let group = 0; group < groups; group++) {
+      const start = Math.floor(group * season.intervals.length / groups);
+      const end = Math.floor((group + 1) * season.intervals.length / groups) - 1;
+      const item = document.createElement("li"), date = document.createElement("time"), step = document.createElement("span");
+      item.dataset.start = start; item.dataset.end = end;
+      date.textContent = season.intervals[start].date; date.dateTime = season.intervals[start].date;
+      step.textContent = `${start + 1} / ${season.intervals.length}`;
+      item.append(date, step); list.append(item);
+    }
+  }
+
+  function seek(value) {
+    if (!season?.audio_src || $("progress").disabled) return;
+    const time = Math.max(0, Math.min(season.duration_s, Number(value)));
+    if (!Number.isFinite(time)) return;
+    // The native media clock also drives the map, table, date and point card.
+    // Seeking never calls play(): a paused or unstarted track stays silent.
+    started = true;
+    audio.currentTime = time;
+    setButton(time >= season.duration_s ? "replay" : audio.paused && !wantsPlayback ? "resume" : "pause");
+    renderPosition();
+  }
+
+  function seekStep(direction) {
+    if (!season || $("progress").disabled) return;
+    if (direction < 0 && audio.currentTime <= 0 || direction > 0 && atEnd()) return;
+    seek(audio.currentTime + direction * data.step_seconds);
   }
 
   function animate() {
@@ -325,7 +390,7 @@
     }
     if (isLive) {
       mapDate = season?.intervals[liveStep()]?.date || live.day();
-      live.map.draw(data.map_config, live.slice(mapDate), mapGeometry, activeIndex, audio.ended, liveLandmarks());
+      live.map.draw(data.map_config, live.slice(mapDate), mapGeometry, activeIndex, atEnd(), liveLandmarks());
       live.refresh();
       markers = [];
       return;
@@ -373,6 +438,7 @@
     document.title = t("page_title");
     document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
     document.querySelectorAll("[data-i18n-aria]").forEach((node) => { node.setAttribute("aria-label", t(node.dataset.i18nAria)); });
+    document.querySelectorAll("[data-i18n-title]").forEach((node) => { node.title = t(node.dataset.i18nTitle); });
     $("system-language").textContent = t("system_language");
     languageSelect.value = preference;
     $("test-warning").hidden = Boolean(data.error) || !data.is_test;
@@ -389,7 +455,7 @@
     for (const option of regionSelect.options) option.textContent = t(option.value);
     $("season-field").hidden = mode === "journey";
     $("journey-caveat").hidden = mode !== "journey";
-    $("current-step").hidden = mode !== "journey";
+    $("current-step").hidden = false;
     $("date-column").hidden = mode !== "journey";
     $("audio").setAttribute("aria-label", t(mode === "journey" ? "journey_audio_label" : "audio_label"));
     renderAxes();
@@ -417,6 +483,7 @@
     const notes = data.scale.map((note, index) => t("scale_note", {value: index + 1, label: noteNames[index], note: note.name})).join(", ");
     $("scale-description").textContent = t("scale_description", {notes});
     $("legend").replaceChildren();
+    $("method-scale").replaceChildren();
     [...data.scale.map((note, i) => ({color: note.color, text: `${i + 1} → ${note.name} (${noteNames[i]})`})),
       {color: data.missing_color, text: t("missing_rest")}].forEach(({color, text}) => {
       const item = document.createElement("li"), swatch = document.createElement("span");
@@ -425,6 +492,13 @@
       swatch.setAttribute("aria-hidden", "true");
       item.append(swatch, document.createTextNode(text));
       $("legend").append(item);
+    });
+    data.scale.forEach((note, index) => {
+      const item = document.createElement("li"), swatch = document.createElement("span"), name = document.createElement("strong"), label = document.createElement("span");
+      swatch.className = "swatch"; swatch.style.backgroundColor = note.color;
+      swatch.setAttribute("aria-hidden", "true");
+      name.textContent = note.name; label.textContent = t("scale_note", {value: index + 1, label: noteNames[index], note: note.name});
+      item.append(swatch, name, label); $("method-scale").append(item);
     });
     $("error").hidden = !audioError;
     if (audioError) $("error").textContent = t(audioError);
@@ -478,6 +552,7 @@
     $("progress").max = season.duration_s;
     drawRoute();
     drawTable();
+    drawJourneyProgress();
     refreshText();
   }
 
@@ -561,8 +636,25 @@
   modeSelect.addEventListener("change", () => chooseMode(modeSelect.value));
   regionSelect.addEventListener("change", () => chooseRegion(regionSelect.value));
   $("restart").addEventListener("click", () => activateTrack(season));
+  $("step-back").addEventListener("click", () => seekStep(-1));
+  $("step-forward").addEventListener("click", () => seekStep(1));
+  $("progress").addEventListener("input", (event) => seek(event.target.value));
+  $("progress").addEventListener("keydown", (event) => {
+    const direction = {ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1}[event.key];
+    if (!direction || $("progress").disabled) return;
+    event.preventDefault();
+    seekStep(direction);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || view !== "listen" || !season || $("progress").disabled || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const direction = {ArrowLeft: -1, ArrowRight: 1}[event.key];
+    // Keep native arrows in form fields, tab navigation and technical tables.
+    if (!direction || event.target.closest('input, select, textarea, [contenteditable], #navigation, #technical-details')) return;
+    event.preventDefault();
+    seekStep(direction);
+  });
   document.querySelectorAll("[data-open-view], [data-view]").forEach((button) => {
-    button.addEventListener("click", () => showView(button.dataset.openView || button.dataset.view, true));
+    button.addEventListener("click", (event) => { event.preventDefault(); showView(button.dataset.openView || button.dataset.view, true); });
   });
   $("navigation").addEventListener("keydown", (event) => {
     const tabs = [...$("navigation").querySelectorAll("[role=tab]")];
@@ -581,6 +673,7 @@
     frame = requestAnimationFrame(animate);
   });
   audio.addEventListener("timeupdate", renderPosition);
+  audio.addEventListener("loadedmetadata", renderPosition);
   audio.addEventListener("seeked", renderPosition);
   audio.addEventListener("pause", renderPosition);
   audio.addEventListener("ended", () => {

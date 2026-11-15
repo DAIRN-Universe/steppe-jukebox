@@ -4,7 +4,7 @@ window.LivePlayerSession = class {
     this.hooks=hooks;this.ready=false;this.loading=false;this.maps=new Map();this.active=null;
     this.inFlight=null;this.queue=[];this.timer=null;this.dates=[];this.request=null;
     this.map=new window.LiveGridMap();
-    this.inspected=null;this.map.onSelect=index=>this.inspect(index);
+    this.inspected=null;this.map.onSelect=index=>{document.getElementById('technical-details').open=true;this.inspect(index);};
     const $=id=>document.getElementById(id);this.$=$;
     $('provider').addEventListener('change',()=>this.selection());
     $('observation-date').addEventListener('change',()=>this.selection());
