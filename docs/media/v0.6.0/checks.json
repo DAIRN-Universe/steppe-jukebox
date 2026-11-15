@@ -38,5 +38,24 @@
     ],
     "unsupported_primary_locale": "en",
     "system_option_removed": true
+  },
+  "research": {
+    "tabs": [
+      "listen",
+      "method",
+      "research"
+    ],
+    "studies": [
+      "https://doi.org/10.1515/hacq-2016-0017",
+      "https://doi.org/10.32523/2616-7034-2023-145-4-63-70"
+    ],
+    "locales": [
+      "kk",
+      "en",
+      "ru"
+    ],
+    "desktop_width": 1280,
+    "mobile_width": 320,
+    "javascript_errors": []
   }
 }
