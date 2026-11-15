@@ -13,7 +13,7 @@ Steppe Jukebox lets people see and hear how vegetation varies along routes acros
 
 ## Status
 
-**v0.6.0** adds editable routes to the Minimal Instrument interface. Pick **1–5 points** on the existing region grid; the application connects them in order and prepares a track for one exact date using **NASA GIBS / NOAA-20** or **NASA EIC / Suomi NPP**. Water does not restrict the route and no water mask is requested. Region boundaries and holes remain enforced. Each step uses the same five-note scale, 120 BPM and 0.5-second interval; missing NDVI produces silence.
+**[v1.0.0 — Hackathon release](https://github.com/DAIRN-Universe/steppe-jukebox/releases/tag/v1.0.0)** is the accepted Minimal Instrument application for NASA Space Apps. Pick **1–5 points** on the existing region grid; the application connects them in order and prepares a track for one exact date using **NASA GIBS / NOAA-20** or **NASA EIC / Suomi NPP**. Water does not restrict the route and no water mask is requested. Region boundaries and holes remain enforced. Each step uses the same five-note scale, 120 BPM and 0.5-second interval; missing NDVI produces silence.
 
 The default routes retain their original geometry and timing: **Kostanay — 48 steps / 24 seconds**, **Akmola — 56 / 28 seconds**. Kostanay starts with three numbered place markers: **Kamennoye Lake → Naurzum → Akkum**. Akmola starts with its four established landmarks. The upcoming path stays hidden; playback and seeking reveal the current cell and travelled trail.
 
@@ -23,13 +23,15 @@ The interface has two tabs: **Listen to the steppe** and **How it works**. The *
 
 Classes describe the selected visualization’s color scale, not precise numerical NDVI. GIBS and EIC have separate scales and caches; a missing date is reported without substituting another date or provider. The main interface uses **one date**. Historical seasonal datasets and journeys remain available explicitly in saved-data mode, with their original CSV/WAV contracts.
 
-The user accepted the local application and authorized merging the changes into `main` and preparing **0.6.0** for publication. See [the release report](docs/RELEASE_0.6.0.md) for verification and known limits, and [the route acceptance report](docs/ISSUE_17_LOCAL.md) for detailed scenarios. Screen-reader and student evaluation remain separate work. EIC’s first download retrieves a global frame and can take around two minutes on the tested connection; a prepared cache needs no network access for the same inputs.
+The user accepted the application and authorized publishing it as **1.0.0, the hackathon release**. This replaces the unpublished 0.6.0 candidate. See [the release report](docs/RELEASE_1.0.0.md) for verification and known limits, and [the route acceptance report](docs/ISSUE_17_LOCAL.md) for detailed scenarios. Screen-reader and student evaluation remain separate work. EIC’s first download retrieves a global frame and can take around two minutes on the tested connection; a prepared cache needs no network access for the same inputs.
 
-## Run the preview
+## Run the application
 
 Python 3.11 or newer:
 
 ```bash
+git clone --branch v1.0.0 --depth 1 https://github.com/DAIRN-Universe/steppe-jukebox.git
+cd steppe-jukebox
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
