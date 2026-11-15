@@ -1,0 +1,141 @@
+{
+  "version": "0.5.3",
+  "checks": [
+    {
+      "language": "ru",
+      "width": 1920,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 1440,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 1280,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 1200,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 1024,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 853,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 768,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 390,
+      "centered": true
+    },
+    {
+      "language": "ru",
+      "width": 320,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 1920,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 1440,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 1280,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 1200,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 1024,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 853,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 768,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 390,
+      "centered": true
+    },
+    {
+      "language": "kk",
+      "width": 320,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 1920,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 1280,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 1200,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 1024,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 853,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "centered": true
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "centered": true
+    }
+  ],
+  "errors": []
+}

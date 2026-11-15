@@ -29,15 +29,16 @@ button:disabled { opacity: .5; cursor: default; }
 select, input[type=date] { color: #283b32; background: var(--paper); border: 1px solid #c6c8bc; width: 100%; min-width: 0; }
 :focus-visible { outline: 3px solid #b26a27; outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
-.site-header { display: flex; align-items: center; gap: 32px; max-width: 1600px; margin: auto; padding: 10px 28px; border-bottom: 1px solid var(--line); }
-.brand { display: flex; align-items: center; gap: 18px; margin-right: auto; text-decoration: none; color: inherit; white-space: nowrap; }
-.hackathon-logo { display: block; width: 106px; height: auto; flex-shrink: 0; }
+.site-header { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); grid-template-areas: 'brand logo actions'; align-items: center; gap: 32px; max-width: 1600px; margin: auto; padding: 10px 28px; border-bottom: 1px solid var(--line); }
+.brand { grid-area: brand; display: flex; align-items: center; gap: 18px; justify-self: start; text-decoration: none; color: inherit; white-space: nowrap; }
+.hackathon-logo { grid-area: logo; justify-self: center; display: block; width: 106px; height: auto; }
+.header-actions { grid-area: actions; display: flex; align-items: center; justify-self: end; gap: 26px; }
 .brand-origin { font-size: .65rem; font-weight: 750; letter-spacing: .07em; }
 .brand strong { font-size: 1.1rem; letter-spacing: -.04em; }
-#navigation { display: flex; align-items: center; gap: 22px; }
+#navigation { grid-area: navigation; display: flex; align-items: center; gap: 22px; }
 #navigation button { background: transparent; color: var(--muted); border: 0; border-bottom: 2px solid transparent; border-radius: 0; font-size: .82rem; padding: 10px 0; }
 #navigation button[aria-selected=true] { color: #25352d; border-color: var(--accent); }
-.language-field { display: flex; align-items: center; gap: 6px; }
+.language-field { grid-area: language; display: flex; align-items: center; justify-self: end; gap: 6px; min-width: 0; max-width: 100%; }
 .language-field label { font-size: .72rem; }
 .language-field select { max-width: 145px; font-size: .75rem; padding: 6px; background: transparent; }
 .page-content { max-width: 1600px; margin: auto; padding: 16px 28px 12px; }
@@ -183,8 +184,6 @@ footer > span { font: .6rem ui-monospace,monospace; color: var(--muted); }
   #keyboard-help { grid-column: 1 / -1; text-align: left; }
 }
 @media (max-width: 900px) {
-  .site-header { flex-wrap: wrap; gap: 10px 18px; }
-  #navigation { order: 3; width: 100%; }
   .player-layout { grid-template-columns: minmax(0,1fr); grid-template-areas: 'controls' 'settings' 'content'; }
   .selection-panel { padding: 0; }
   .selection-panel h2 { margin-bottom: 12px; }
@@ -194,11 +193,15 @@ footer > span { font: .6rem ui-monospace,monospace; color: var(--muted); }
   #load-data { margin: 0; align-self: end; }
   .edition { display: none; }
 }
+@media (max-width: 1200px) {
+  .site-header { grid-template-areas: 'brand logo language' 'navigation navigation navigation'; gap: 8px 18px; }
+  .header-actions { display: contents; }
+}
 @media (max-width: 740px) {
-  .site-header { padding: 10px 12px; }
-  .brand { gap: 8px; }
+  .site-header { padding: 10px 12px; column-gap: 8px; }
+  .brand { flex-direction: column; align-items: start; gap: 0; }
   .hackathon-logo { width: 64px; }
-  .brand strong { font-size: 1rem; }
+  .brand strong { font-size: .78rem; }
   .brand-origin { font-size: .55rem; }
   .language-field label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .language-field select { max-width: 110px; font-size: .7rem; }
