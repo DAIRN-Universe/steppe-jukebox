@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Steppe Jukebox</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="map_view.js" defer></script>
   <script src="grid_map.js" defer></script>
   <script src="live_player.js" defer></script>
   <script src="player.js" defer></script>
@@ -56,6 +57,16 @@
             <label for="season" data-i18n="season_label">Season</label><select id="season" aria-describedby="season-info"></select>
           </div>
           <button id="load-data" data-i18n="live_load" hidden></button>
+          <details id="route-points" hidden>
+            <summary><span data-i18n="route_points"></span><span id="route-point-counter" class="muted" aria-hidden="true"></span></summary>
+            <div class="route-points-body">
+            <label class="point-edit-toggle"><input id="add-route-points" type="checkbox"><span data-i18n="route_add"></span></label>
+            <p class="muted" data-i18n="route_points_hint"></p>
+            <ol id="route-coordinate-list" data-i18n-aria="route_coordinates"></ol>
+            <p id="route-feedback" role="status" aria-live="polite"></p>
+            <button id="reset-route" class="secondary" type="button" data-i18n="route_reset"></button>
+            </div>
+          </details>
         </div>
         <p id="load-state" role="status" aria-live="polite" hidden></p>
       </aside>
@@ -81,9 +92,17 @@
             <figure class="map-card">
               <figcaption><span id="map-region"></span><span data-i18n="route_heading"></span></figcaption>
 
+              <div id="map-tools" class="map-tools" role="group" data-i18n-aria="map_tools" hidden>
+                <button id="map-zoom-in" type="button" data-i18n-aria="map_zoom_in" data-i18n-title="map_zoom_in">+</button>
+                <output id="map-zoom-level" aria-live="polite">100%</output>
+                <button id="map-zoom-out" type="button" data-i18n-aria="map_zoom_out" data-i18n-title="map_zoom_out">−</button>
+                <button id="map-fit" type="button" data-i18n="map_fit"></button>
+                <span data-i18n="map_gesture_hint"></span>
+              </div>
               <svg id="route-map" viewBox="0 0 720 340" role="img" aria-labelledby="map-title map-description">
                 <title id="map-title" data-i18n="map_title"></title>
                 <desc id="map-description" data-i18n="map_description"></desc>
+                <defs><clipPath id="map-viewport-clip"><rect id="map-viewport-rect"/></clipPath></defs>
                 <g id="map-boundary" aria-hidden="true"></g>
                 <g id="map-grid" aria-hidden="true"></g>
                 <g id="map-axes" aria-hidden="true"></g>
@@ -134,7 +153,7 @@
             </details>
             <details id="live-diagnostics" hidden><summary data-i18n="live_diagnostics"></summary><p id="live-counts"></p><p id="live-cache-path"></p>
               <div class="transport"><button id="clear-live-cache" class="secondary" data-i18n="live_clear_cache"></button><button id="refresh-eic-dates" class="secondary" data-i18n="live_refresh_dates" hidden></button></div><p id="catalog-error" data-i18n="live_catalog_error" role="alert" hidden></p><p id="missing-frame-dates"></p><p id="live-point-errors"></p>
-              <fieldset id="live-layers" hidden><legend data-i18n="live_layers"></legend><label><input type="checkbox" id="live-snow"><span data-i18n="live_snow"></span></label><label><input type="checkbox" id="live-water"><span data-i18n="live_water"></span></label><label><input type="checkbox" id="live-temperature" checked><span data-i18n="live_temperature"></span></label></fieldset>
+              <fieldset id="live-layers" hidden><legend data-i18n="live_layers"></legend><label><input type="checkbox" id="live-snow"><span data-i18n="live_snow"></span></label><label><input type="checkbox" id="live-temperature" checked><span data-i18n="live_temperature"></span></label></fieldset>
               <div class="table-scroll"><table id="live-requests"><thead><tr><th data-i18n="live_layer"></th><th data-i18n="live_date"></th><th data-i18n="live_actual"></th><th data-i18n="live_state"></th><th data-i18n="live_source"></th></tr></thead><tbody></tbody></table></div>
             </details>
               <details id="scale-details"><summary data-i18n="scale_summary"></summary><p id="scale-description"></p><p id="provider-method" hidden></p><a href="https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml" target="_blank" rel="noopener noreferrer" data-i18n="legend_source"></a></details>
@@ -145,6 +164,7 @@
         <ul id="method-scale" class="method-scale" data-i18n-aria="legend_label"></ul>
         <div class="method-steps"><article><span>01</span><h2 data-i18n="method_frame"></h2><p data-i18n="method_frame_detail"></p></article><article><span>02</span><h2 data-i18n="method_route"></h2><p data-i18n="method_route_detail"></p></article><article><span>03</span><h2 data-i18n="method_notes"></h2><p data-i18n="method_notes_detail"></p></article></div>
         <div class="method-grid"><section class="card"><h2 data-i18n="sources_heading"></h2><p id="observation-source"></p><p><a href="https://gibs.earthdata.nasa.gov/colormaps/v1.3/MODIS_NDVI.xml" target="_blank" rel="noopener noreferrer" data-i18n="legend_source"></a></p></section><section class="card"><h2 data-i18n="interpret_heading"></h2><p data-i18n="interpret_ndvi"></p><p data-i18n="interpret_dates"></p><p data-i18n="route_geometry_caveat"></p></section></div>
+        <p class="muted" data-i18n="route_map_caveat"></p>
         <button class="secondary back-button" data-open-view="listen" data-i18n="back_listen"></button>
       </section>
     </div>

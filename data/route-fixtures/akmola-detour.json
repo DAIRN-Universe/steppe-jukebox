@@ -1,0 +1,36 @@
+{
+  "region": "akmola",
+  "waypoints": [
+    "267/1087",
+    "267/1089"
+  ],
+  "path": [
+    "267/1087",
+    "266/1087",
+    "266/1088",
+    "266/1089",
+    "267/1089"
+  ],
+  "blocked": {
+    "267/1088": "water"
+  },
+  "mask_layer": "routing_water",
+  "mask_date": "2015-01-01",
+  "source": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/MODIS_Terra_L3_Land_Water_Mask.json",
+  "tiles": [
+    {
+      "row": 33,
+      "col": 220,
+      "identity": "MODIS_Terra_L3_Land_Water_Mask/2015-01-01/EPSG4326/250m/8/33/220",
+      "sha256": "33997619a5de27b1dfb1e0609fdf70611fcf785de2c50ad17dda431586e7d108",
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_L3_Land_Water_Mask/default/2015-01-01/250m/8/33/220.png"
+    },
+    {
+      "row": 33,
+      "col": 221,
+      "identity": "MODIS_Terra_L3_Land_Water_Mask/2015-01-01/EPSG4326/250m/8/33/221",
+      "sha256": "d77778df15adcd8452dc0d5030a624516fe380c62862c3b3b9ac035e6d01cdca",
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_L3_Land_Water_Mask/default/2015-01-01/250m/8/33/221.png"
+    }
+  ]
+}

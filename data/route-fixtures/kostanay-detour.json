@@ -1,0 +1,37 @@
+{
+  "region": "kostanay",
+  "waypoints": [
+    "258/1067",
+    "258/1070"
+  ],
+  "path": [
+    "258/1067",
+    "259/1068",
+    "259/1069",
+    "259/1070",
+    "258/1070"
+  ],
+  "blocked": {
+    "258/1068": "land",
+    "258/1069": "water"
+  },
+  "mask_layer": "routing_water",
+  "mask_date": "2015-01-01",
+  "source": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/MODIS_Terra_L3_Land_Water_Mask.json",
+  "tiles": [
+    {
+      "row": 32,
+      "col": 216,
+      "identity": "MODIS_Terra_L3_Land_Water_Mask/2015-01-01/EPSG4326/250m/8/32/216",
+      "sha256": "c1335508397a9f8aad474fde91b9fb4cd07a4590af3d5650aa942ae428ffe949",
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_L3_Land_Water_Mask/default/2015-01-01/250m/8/32/216.png"
+    },
+    {
+      "row": 32,
+      "col": 217,
+      "identity": "MODIS_Terra_L3_Land_Water_Mask/2015-01-01/EPSG4326/250m/8/32/217",
+      "sha256": "dc109f507c1891cc821cdf4e23c1c1bcd1bbdfebd7ed0821c5258ab6b7c1c15a",
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_L3_Land_Water_Mask/default/2015-01-01/250m/8/32/217.png"
+    }
+  ]
+}

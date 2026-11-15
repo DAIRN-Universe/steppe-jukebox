@@ -1,0 +1,82 @@
+{
+  "control_rest": "KST-006: PCM zero at 2.5–3.0s",
+  "cases": [
+    {
+      "region": "kostanay",
+      "source": "gibs",
+      "date": "2026-06-10",
+      "steps": 5,
+      "network_requests": 0,
+      "mask_date": "2015-01-01",
+      "waypoints": [
+        "258/1067",
+        "258/1070"
+      ],
+      "path": [
+        "258/1067",
+        "259/1068",
+        "259/1069",
+        "259/1070",
+        "258/1070"
+      ]
+    },
+    {
+      "region": "kostanay",
+      "source": "eic",
+      "date": "2026-04-20",
+      "steps": 5,
+      "network_requests": 0,
+      "mask_date": "2015-01-01",
+      "waypoints": [
+        "258/1067",
+        "258/1070"
+      ],
+      "path": [
+        "258/1067",
+        "259/1068",
+        "259/1069",
+        "259/1070",
+        "258/1070"
+      ]
+    },
+    {
+      "region": "akmola",
+      "source": "gibs",
+      "date": "2026-06-10",
+      "steps": 5,
+      "network_requests": 0,
+      "mask_date": "2015-01-01",
+      "waypoints": [
+        "267/1087",
+        "267/1089"
+      ],
+      "path": [
+        "267/1087",
+        "266/1087",
+        "266/1088",
+        "266/1089",
+        "267/1089"
+      ]
+    },
+    {
+      "region": "akmola",
+      "source": "eic",
+      "date": "2026-04-20",
+      "steps": 5,
+      "network_requests": 0,
+      "mask_date": "2015-01-01",
+      "waypoints": [
+        "267/1087",
+        "267/1089"
+      ],
+      "path": [
+        "267/1087",
+        "266/1087",
+        "266/1088",
+        "266/1089",
+        "267/1089"
+      ]
+    }
+  ],
+  "javascript_errors": []
+}
