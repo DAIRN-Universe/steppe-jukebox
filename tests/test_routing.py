@@ -45,7 +45,8 @@ def test_geometry_ids_and_original_presets_are_unchanged_and_revisits_survive():
         assert len({c.cell_id for c in custom.route})==3
         assert custom.route[0].lat==custom.route[-1].lat
         assert custom.route[0].lon==custom.route[-1].lon
-        assert len(base.route)==(48 if base.key=='kostanay' else 56)
+        if base.key in {'kostanay', 'akmola'}:
+            assert len(base.route)==(48 if base.key=='kostanay' else 56)
         definition=route_definition(custom,grid,[a['key'],b['key'],a['key']])
         assert definition['map_config']['point_keys']==[a['key'],b['key'],a['key']]
         assert len(definition['intervals'])==3

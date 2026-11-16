@@ -152,9 +152,13 @@ def test_akmola_gap_advances_date_and_marker_user_pause_freezes_them(browser, jo
             assert media(frame)["time"] == frozen
             expect(frame.locator("#step-date")).to_have_text("2026-07-24")
         frame.locator("#toggle").press("Enter")
-        expect(frame.locator(".cell.active")).to_have_attribute("data-cell-id", "AKM-028")
-        expect(frame.locator("#step-date")).to_have_text("2026-07-28")
+        frame.wait_for_function("document.querySelector('audio').currentTime >= 13.5")
         frame.locator("#toggle").press("Space")
+        index = int(media(frame)["time"] / 0.5)
+        expected = dataset_rows("akmola", "journey.csv")
+        assert index >= 27
+        expect(frame.locator(".cell.active")).to_have_attribute("data-cell-id", expected[index]["cell_id"])
+        expect(frame.locator("#step-date")).to_have_text(expected[index]["date"])
 
 
 def test_full_akmola_journey_tracks_all_56_dates_and_rest_on_audio_clock(browser, journey_url):

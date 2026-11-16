@@ -479,6 +479,7 @@ def test_csv_errors_keep_language_picker_and_translate_details(browser, tmp_path
 def test_translated_ui_fits_mobile_and_exposes_localized_accessibility(browser, app_url, language, label):
     with localized_ui(browser, app_url, language) as (page, frame):
         page.set_viewport_size({"width": 390, "height": 844})
+        frame.locator("#technical-details > summary").click()
         frame.locator("#scale-details summary").click()
         expect(frame.get_by_label(label, exact=True)).to_be_visible()
         expect(frame.locator("#scale-description")).to_be_visible()
@@ -503,6 +504,7 @@ def test_issue_1_real_datasets_play_and_switch_seasons(browser, tmp_path, name, 
             expect(frame.locator("#test-warning")).to_be_hidden()
             expect(frame.locator("#timeline tbody tr")).to_have_count(count)
             expect(frame.locator("#season-info")).to_contain_text(spring_date)
+            frame.locator("#technical-details > summary").click()
             assert "nasa.gov" in frame.get_by_role("link", name="Источник данных").get_attribute("href")
             frame.locator("#toggle").press("Enter")
             frame.wait_for_function("document.querySelector('audio').currentTime > 0.1")
@@ -636,6 +638,7 @@ def test_journey_keyboard_dates_pause_replay_and_landmarks(browser, journey_url)
         expect(selector).to_have_value("journey")
         expect(frame.locator("#season-field")).to_be_hidden()
         expect(frame.locator("#current-step")).to_be_visible()
+        frame.locator("#technical-details > summary").click()
         expect(frame.locator("#date-column")).to_be_visible()
         expect(frame.locator("#step-date")).to_have_text("2026-04-15")
         expect(frame.locator("#step-place")).to_contain_text("Каменное озеро")
@@ -698,7 +701,7 @@ def test_switching_journey_and_fixed_modes_stops_and_resets_audio(browser, journ
         frame.wait_for_function("document.querySelector('audio').currentTime > 0.1")
         frame.locator("#mode").select_option("fixed")
         assert media(frame)["paused"] and media(frame)["time"] == 0
-        expect(frame.locator("#current-step")).to_be_hidden()
+        expect(frame.locator("#current-step")).to_be_visible()
         expect(frame.locator("#date-column")).to_be_hidden()
         expect(frame.locator("#season")).to_have_value("summer")
         expect(frame.locator("#season-info")).to_contain_text("2026-07-16")

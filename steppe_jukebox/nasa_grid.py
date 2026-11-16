@@ -91,16 +91,12 @@ def display_grid(region, route):
                           "bounds": [-180 + x * scale, 90 - (y + GRID_Y_PIXELS) * scale,
                                      -180 + (x + GRID_X_PIXELS) * scale, 90 - y * scale]}
     point_keys, trail = [], {}
-    previous = None
     for index, point in enumerate(route):
         current = _native((point.lon, point.lat))
         key = _cell_key(math.floor(current[1] / GRID_Y_PIXELS), math.floor(current[0] / GRID_X_PIXELS))
         point_keys.append(key if key in cells else None)
-        for row, col in _crossed_cells(previous if previous is not None else current, current):
-            crossed_key = _cell_key(row, col)
-            if crossed_key in cells and crossed_key not in trail:
-                trail[crossed_key] = {"key": crossed_key, "first_step": index}
-        previous = current
+        if key in cells and key not in trail:
+            trail[key] = {"key": key, "first_step": index}
     return {"cells": list(cells.values()), "route_cells": list(trail.values()), "point_keys": point_keys,
             "hidden_route_points": [point.cell_id for point, key in zip(route, point_keys, strict=True) if key is None]}
 

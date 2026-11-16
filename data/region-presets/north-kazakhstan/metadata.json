@@ -1,0 +1,14 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Петропавла, Булаева и Тайынши в лесостепной и степной зонах. Метки привязаны к ближайшим допустимым ячейкам.",
+    "en": "A route near Petropavl, Bulayevo and Taiynsha through forest-steppe and steppe. Markers are snapped to eligible grid cells.",
+    "kk": "Петропавл, Булаев және Тайынша маңындағы орманды дала мен дала бағыты. Белгілер жарамды тор ұяшықтарына жақындатылған."
+  },
+  "landmarks": {
+    "NORTH-KAZAKHSTAN-0001": "petropavl",
+    "NORTH-KAZAKHSTAN-0006": "bulaevo",
+    "NORTH-KAZAKHSTAN-0014": "taiynsha"
+  }
+}

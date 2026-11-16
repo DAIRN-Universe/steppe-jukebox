@@ -2,7 +2,7 @@
 
 A DAIRN Great Steppe project for the [2026 NASA Space Apps Challenge: The Earth Information Jukebox](https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/).
 
-Steppe Jukebox lets people see and hear how vegetation varies along routes across Kazakhstan's Kostanay and Akmola regions. It loads NASA GIBS NOAA-20/VIIRS or NASA EIC Suomi NPP/VIIRS visualizations and turns vegetation-index color classes into notes while highlighting the corresponding cells on a map.
+Steppe Jukebox lets people see and hear how vegetation varies along routes across eight regions of Kazakhstan. It loads NASA GIBS NOAA-20/VIIRS or NASA EIC Suomi NPP/VIIRS visualizations and turns vegetation-index color classes into notes while highlighting the corresponding cells on a map.
 
 ## First working version
 
@@ -25,12 +25,16 @@ Classes describe the selected visualization’s color scale, not precise numeric
 
 The user accepted the application and authorized publishing it as **1.0.0, the hackathon release**. This replaces the unpublished 0.6.0 candidate. See [the release report](docs/RELEASE_1.0.0.md) for verification and known limits, and [the route acceptance report](docs/ISSUE_17_LOCAL.md) for detailed scenarios. Screen-reader and student evaluation remain separate work. EIC’s first download retrieves a global frame and can take around two minutes on the tested connection; a prepared cache needs no network access for the same inputs.
 
+## Regions after v1.0.0
+
+The region selector also includes North Kazakhstan, Pavlodar, West Kazakhstan, Aktobe, Karaganda and Abai. Preset markers indicate the nearest eligible grid cells to the named places. Regional landscapes include forest-steppe, steppe, uplands, semi-desert, desert and mountains; each route description specifies its context. See [map sources](data/maps/MAP-SOURCES.md) and the [verification report](docs/ISSUE_23_LOCAL.md).
+
 ## Run the application
 
 Python 3.11 or newer:
 
 ```bash
-git clone --branch v1.0.0 --depth 1 https://github.com/DAIRN-Universe/steppe-jukebox.git
+git clone https://github.com/DAIRN-Universe/steppe-jukebox.git
 cd steppe-jukebox
 python3 -m venv .venv
 source .venv/bin/activate
@@ -38,7 +42,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Open `http://localhost:8501`. Select **Region**, **Data source** and an exact **Date**, press **Load route**, then start playback. For an initial comparison, use April 20 or June 10, 2026; both are in the checked EIC catalog. The collapsible **Route points** panel sits below **Load route**, starts folded with a point counter, and contains the preset’s named places: **Kamennoye Lake → Naurzum → Akkum** (Kostanay, three points) or the four existing Akmola landmarks. Expand the panel and enable **Pick on map**, remove or add markers (up to five), and press **Load route** to build the ordered path and prepare its track. Picking remains enabled after loading, so you can continue editing. Click a grid cell, or use Tab, arrow keys and Enter/Space. Use **+ / − / Fit map**, the mouse wheel or a two-finger pinch to zoom (100–800%), then drag to pan. Markers can be placed with consecutive clicks or taps. Water does not restrict selection or routing; no land/water mask is requested. Region boundaries and holes remain enforced. If a draft fails, the active route is retained. Changing date or source keeps the custom geometry and resets audio for explicit loading; changing region or choosing **Preset route** restores that region’s original 48/56 steps. No audio starts automatically. Changing the language or section preserves playback. NASA images are cached outside the project under the user's cache directory; an empty cache needs network access. See [the local demo guide](docs/LOCAL_DEMO.md) for saved-data mode, CSV contracts, language controls, audio export and tests.
+Open `http://localhost:8501`. Select **Region**, **Data source** and an exact **Date**, press **Load route**, then start playback. For an initial comparison, use April 20 or June 10, 2026; both are in the checked EIC catalog. The collapsible **Route points** panel sits below **Load route**, starts folded with a point counter, and contains the preset’s named places: **Kamennoye Lake → Naurzum → Akkum** (Kostanay, three points), the four Akmola landmarks, or the named places of the selected new region. Expand the panel and enable **Pick on map**, remove or add markers (up to five), and press **Load route** to build the ordered path and prepare its track. Picking remains enabled after loading, so you can continue editing. Click a grid cell, or use Tab, arrow keys and Enter/Space. Use **+ / − / Fit map**, the mouse wheel or a two-finger pinch to zoom (100–800%), then drag to pan. Markers can be placed with consecutive clicks or taps. Water does not restrict selection or routing; no land/water mask is requested. Region boundaries and holes remain enforced. If a draft fails, the active route is retained. Changing date or source keeps the custom geometry and resets audio for explicit loading; changing region or choosing **Preset route** restores that region’s preset; Kostanay and Akmola retain their original 48 and 56 steps. No audio starts automatically. Changing the language or section preserves playback. NASA images are cached outside the project under the user's cache directory; an empty cache needs network access. See [the local demo guide](docs/LOCAL_DEMO.md) for saved-data mode, CSV contracts, language controls, audio export and tests.
 
 ## Data and attribution
 

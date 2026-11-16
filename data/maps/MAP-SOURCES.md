@@ -1,5 +1,12 @@
 # Steppe Jukebox: контуры областей
 
+## Подготовка новых областей (issue #23)
+
+- Северо-Казахстанская область: `north-kazakhstan.geojson`, [OpenStreetMap relation 215760](https://www.openstreetmap.org/relation/215760).
+- Павлодарская область: `pavlodar.geojson`, [OpenStreetMap relation 215772](https://www.openstreetmap.org/relation/215772).
+
+Геометрии WGS 84 получены 16.11.2026 через поиск Nominatim с `polygon_geojson=1`; сохранены все полигоны и внутренние кольца. Источник: [© OpenStreetMap contributors](https://www.openstreetmap.org/copyright), лицензия [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/). Сетка и маршруты используют эту же геометрию.
+
 ## Костанайская область · `kostanay-oblast.svg`
 
 - Непосредственный источник: экран `spring` из `Steppe-Jukebox-Preview-Akmola.html`.
@@ -19,3 +26,10 @@
 Оба SVG имеют прозрачный фон; демонстрационные квадраты, маршруты, подписи и звук не перенесены. Костанайский SVG сохранён из предыдущего пакета; Акмолинский перестроен из геоданных. У SVG разные `viewBox`; экранные координаты не являются широтой и долготой.
 
 Для [задачи #3](https://github.com/DAIRN-Universe/steppe-jukebox/issues/3) их можно использовать как визуальные основы. Чтобы наложить координатную сетку, используйте WGS 84 GeoJSON для Акмолинской области, а Костанайскую основу привяжите по её исходной геометрии; затем рисуйте данные и подсветку отдельным слоем по `cell_id`. Датированные ряды NASA относятся к данным маршрута, а не к контурам областей.
+
+- Западно-Казахстанская область: `west-kazakhstan.geojson`, [OSM relation 215441](https://www.openstreetmap.org/relation/215441).
+- Актюбинская область: `aktobe.geojson`, [OSM relation 215683](https://www.openstreetmap.org/relation/215683).
+- Карагандинская область: `karaganda.geojson`, [OSM relation 215776](https://www.openstreetmap.org/relation/215776).
+- Область Абай: `abai.geojson`, [OSM relation 14243026](https://www.openstreetmap.org/relation/14243026).
+
+Геометрии WGS 84 получены 16.11.2026 из Nominatim (`polygon_geojson=1`), включая внутренние кольца; атрибуция и условия ODbL указаны выше. Сетка строится непосредственно из той же геометрии; точки маршрутов привязаны к центрам целиком внутренних ячеек, а именованные населённые пункты служат приблизительными ориентирами.

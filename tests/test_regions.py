@@ -55,8 +55,8 @@ def test_boundary_rejects_svg_coordinates_unclosed_rings_and_non_polygons(tmp_pa
 def test_catalog_keeps_map_route_dates_and_audio_in_one_region():
     regions = load_regions(ROOT / "data/regions.json")
     payload = regions_payload(regions)
-    assert [region.key for region in regions] == ["kostanay", "akmola"]
-    assert [len(region.dataset.route) for region in regions] == [48, 56]
+    assert [region.key for region in regions][:2] == ["kostanay", "akmola"]
+    assert [len(region.dataset.route) for region in regions[:2]] == [48, 56]
     assert len(payload["regions"]) == len(regions)
     assert set(payload["translations"]) == {"ru", "kk", "en"}
     for region, item in zip(regions, payload["regions"], strict=True):

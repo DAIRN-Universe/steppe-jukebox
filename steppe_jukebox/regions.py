@@ -65,7 +65,7 @@ def load_regions(path: Path) -> tuple[Region, ...]:
             raise ValueError("Expected a nonempty region list")
         for item in manifest:
             key = item["key"]
-            if key not in {"kostanay", "akmola"} or key in seen:
+            if key not in {"kostanay", "akmola", "north-kazakhstan", "pavlodar", "west-kazakhstan", "aktobe", "karaganda", "abai"} or key in seen:
                 raise ValueError("Unknown or duplicate region")
             seen.add(key)
             url = urlsplit(item["map_source_url"])

@@ -1,0 +1,14 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Павлодара, Аксу и Баянаула через степные и горные ландшафты. Метки привязаны к ближайшим допустимым ячейкам.",
+    "en": "A route near Pavlodar, Aksu and Bayanaul through steppe and mountain landscapes. Markers are snapped to eligible grid cells.",
+    "kk": "Павлодар, Ақсу және Баянауыл маңындағы дала мен таулы жерлер бағыты. Белгілер жарамды тор ұяшықтарына жақындатылған."
+  },
+  "landmarks": {
+    "PAVLODAR-0001": "pavlodar_city",
+    "PAVLODAR-0002": "aksu_city",
+    "PAVLODAR-0011": "bayanaul"
+  }
+}

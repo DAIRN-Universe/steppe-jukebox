@@ -1,0 +1,13 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Караганды и Каркаралинска через степь и мелкосопочник; область включает также полупустыни. Метки привязаны к сетке.",
+    "en": "A route near Karaganda and Karkaraly through steppe and uplands; the region also includes semi-desert. Markers are snapped to the grid.",
+    "kk": "Қарағанды мен Қарқаралы маңындағы дала мен ұсақ шоқылар бағыты; облыста шөлейт те бар. Белгілер торға жақындатылған."
+  },
+  "landmarks": {
+    "KARAGANDA-0001": "karaganda_city",
+    "KARAGANDA-0011": "karkaraly"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Актобе и Хромтау в северной степной части области; южнее встречаются полупустыни и пустыни. Метки привязаны к сетке.",
+    "en": "A route near Aktobe and Khromtau in the northern steppe; semi-desert and desert occur farther south. Markers are snapped to the grid.",
+    "kk": "Ақтөбе мен Хромтау маңындағы солтүстік дала бағыты; оңтүстікте шөлейт пен шөл бар. Белгілер торға жақындатылған."
+  },
+  "landmarks": {
+    "AKTOBE-0001": "aktobe_city",
+    "AKTOBE-0007": "khromtau"
+  }
+}
