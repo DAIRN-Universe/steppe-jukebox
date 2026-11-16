@@ -79,22 +79,19 @@ def test_display_cells_reject_boundary_cuts_concavities_and_small_holes():
     assert all(251 <= cell["row"] <= 256 and 1101 <= cell["col"] <= 1106 for cell in view["cells"])
 
 
-def test_display_trail_includes_between_point_cells_and_deduplicates_return_path():
+def test_display_trail_shows_only_sampled_cells_and_deduplicates_returns():
     ring = [_coordinate(*point) for point in [(0.2, 0.2), (7.8, 0.2), (7.8, 7.8), (0.2, 7.8), (0.2, 0.2)]]
     region = RegionGrid({"type": "Polygon", "coordinates": [ring]})
     route = tuple(Cell(str(index), *reversed(_coordinate(col, row)))
                   for index, (col, row) in enumerate([(1.5, 1.5), (5.5, 1.5), (5.5, 5.5), (1.5, 1.5)]))
-    before = tuple((point.cell_id, point.lat, point.lon) for point in route)
     view = display_grid(region, route)
     path = {cell["key"]: cell["first_step"] for cell in view["route_cells"]}
     assert not view["hidden_route_points"]
-    assert len(path) == len(view["route_cells"])
-    assert path["251/1101"] == 0 and path["251/1103"] == 1 and path["253/1105"] == 2
+    assert path == {view["point_keys"][0]: 0, view["point_keys"][1]: 1, view["point_keys"][2]: 2}
     assert view["point_keys"][0] == view["point_keys"][-1]
-    assert tuple((point.cell_id, point.lat, point.lon) for point in route) == before
 
 
-def test_display_kostanay_route_keeps_all_48_points_on_one_connected_interior_trail():
+def test_display_kostanay_preserves_samples_and_uses_only_their_cells():
     root = Path(__file__).resolve().parents[1]
     route = load_route(root / "data/real-test/noaa20-kostanay/route.csv")
     view = display_grid(RegionGrid(load_boundary(root / "data/maps/kostanay.geojson")), route)
@@ -102,18 +99,6 @@ def test_display_kostanay_route_keeps_all_48_points_on_one_connected_interior_tr
     path = {cell["key"] for cell in view["route_cells"]}
     assert len(view["cells"]) == 674
     assert len(view["point_keys"]) == 48 and len(set(view["point_keys"])) == 32
-    assert len(path) == len(view["route_cells"]) == 37
+    assert len(path) == len(view["route_cells"]) == 32
     assert not view["hidden_route_points"]
-    assert set(view["point_keys"]) <= path <= cells
-    pending = [next(iter(path))]
-    visited = set()
-    while pending:
-        key = pending.pop()
-        if key in visited:
-            continue
-        visited.add(key)
-        row, col = map(int, key.split("/"))
-        pending.extend(neighbor for neighbor in [f"{row-1}/{col}", f"{row+1}/{col}",
-                                                 f"{row}/{col-1}", f"{row}/{col+1}"]
-                       if neighbor in path and neighbor not in visited)
-    assert visited == path
+    assert path == set(view["point_keys"]) and path <= cells

@@ -51,3 +51,57 @@ def test_named_presets_replace_pluses_and_reset_without_changing_track(browser,t
                 assert f.evaluate('document.documentElement.scrollWidth<=innerWidth')
         assert not errors,errors
         ctx.close()
+
+
+def test_abai_diagonal_reveals_only_one_new_route_cell_per_step(browser, tmp_path, monkeypatch):
+    transport(tmp_path, monkeypatch)
+    with running_app(None, tmp_path/'abai-trail.log', live=True) as url:
+        ctx, page, f = ui(browser, url)
+        f.locator('#region').select_option('abai')
+        load(f)
+        f.locator('#step-forward').click()
+        for index in range(2, 14):
+            expect(f.locator('.route-tile:not([hidden])')).to_have_count(index)
+            expect(f.locator('.route-tile.active')).to_have_count(1)
+            f.locator('#step-forward').click()
+        ctx.close()
+
+
+@pytest.mark.parametrize('region', ['kostanay', 'akmola', 'north-kazakhstan', 'pavlodar',
+                                    'west-kazakhstan', 'aktobe', 'karaganda', 'abai'])
+def test_every_route_step_reveals_only_its_sampled_cell(browser, tmp_path, monkeypatch, region):
+    transport(tmp_path, monkeypatch)
+    with running_app(None, tmp_path/'all-route-trails.log', live=True) as url:
+        ctx, page, f = ui(browser, url)
+        f.locator('#region').select_option(region)
+        load(f)
+
+        def check_trail():
+            result = f.evaluate('''() => {
+                const map = steppeLive.map, keys = map.config.point_keys;
+                const first = new Set(), errors = [];
+                for (let i = 0; i < keys.length; i++) {
+                    if (keys[i] != null) first.add(keys[i]);
+                    map.highlight(i, false);
+                    const visible = [...map.nodes].filter(([key, node]) => !node.hasAttribute('hidden')).map(([key]) => key);
+                    const active = [...map.nodes].filter(([key, node]) => node.classList.contains('active')).map(([key]) => key);
+                    if (visible.length !== first.size || visible.some(key => !first.has(key)) ||
+                        (keys[i] != null && (active.length !== 1 || active[0] !== keys[i]))) errors.push(i);
+                }
+                return errors;
+            }''')
+            assert not result, (region, result)
+
+        check_trail()
+        keys = f.evaluate('Array.from(new Set(steppeLive.map.config.point_keys.filter(Boolean)))')
+        selected = [keys[round(i * (len(keys) - 1) / 4)] for i in range(5)]
+        enable_points(f); remove_all(f)
+        for key in selected: pick(f, key)
+        load(f)
+        assert f.evaluate('steppeLive.request.state') == 'ready'
+        assert f.evaluate('document.querySelector("audio").paused')
+        check_trail()
+        remove_all(f); pick(f, selected[0]); load(f)
+        assert f.evaluate('steppeLive.request.track.intervals.length') == 1
+        check_trail()
+        ctx.close()
