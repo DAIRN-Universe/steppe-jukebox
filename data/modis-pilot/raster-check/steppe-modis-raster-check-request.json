@@ -1,0 +1,163 @@
+{
+  "tier": 1,
+  "error": null,
+  "params": {
+    "geo": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  63.76383333,
+                  53.278277779999996
+                ],
+                [
+                  63.78783333,
+                  53.278277779999996
+                ],
+                [
+                  63.78783333,
+                  53.30227778
+                ],
+                [
+                  63.76383333,
+                  53.30227778
+                ],
+                [
+                  63.76383333,
+                  53.278277779999996
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": "KST-001"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  64.16285737,
+                  51.27881782
+                ],
+                [
+                  64.18685737,
+                  51.27881782
+                ],
+                [
+                  64.18685737,
+                  51.30281782
+                ],
+                [
+                  64.16285737,
+                  51.30281782
+                ],
+                [
+                  64.16285737,
+                  51.27881782
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": "KST-024"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  65.523833,
+                  49.325222
+                ],
+                [
+                  65.547833,
+                  49.325222
+                ],
+                [
+                  65.547833,
+                  49.349222
+                ],
+                [
+                  65.523833,
+                  49.349222
+                ],
+                [
+                  65.523833,
+                  49.325222
+                ]
+              ]
+            ]
+          },
+          "properties": {
+            "id": "KST-048"
+          }
+        }
+      ]
+    },
+    "dates": [
+      {
+        "endDate": "07-12-2001",
+        "startDate": "07-12-2001"
+      },
+      {
+        "endDate": "07-12-2013",
+        "startDate": "07-12-2013"
+      },
+      {
+        "endDate": "07-12-2025",
+        "startDate": "07-12-2025"
+      }
+    ],
+    "layers": [
+      {
+        "layer": "_250m_16_days_NDVI",
+        "product": "MOD13Q1.061"
+      },
+      {
+        "layer": "_250m_16_days_VI_Quality",
+        "product": "MOD13Q1.061"
+      },
+      {
+        "layer": "_250m_16_days_pixel_reliability",
+        "product": "MOD13Q1.061"
+      }
+    ],
+    "output": {
+      "format": {
+        "type": "geotiff"
+      },
+      "projection": "native"
+    }
+  },
+  "status": "processing",
+  "created": "2026-11-16T07:01:35.424838",
+  "task_id": "89625bf5-cb82-4284-a519-313e2ff24f18",
+  "updated": "2026-11-16T07:03:15.578535",
+  "estimate": {
+    "request_size": 33390.87496074636,
+    "request_tier": 0,
+    "request_memory": 1
+  },
+  "retry_at": null,
+  "has_swath": false,
+  "task_name": "steppe-modis-raster-check",
+  "task_type": "area",
+  "api_version": "v1",
+  "svc_version": "3.137",
+  "web_version": null,
+  "has_nsidc_daac": false,
+  "expires_on": "2026-12-16T07:03:15.578535",
+  "attempts": 1
+}

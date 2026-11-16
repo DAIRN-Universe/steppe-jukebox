@@ -1,0 +1,30 @@
+# MOD13Q1 pilot: Kostanay route
+
+NASA AppEEARS task `8d80601a-649c-4d18-9ebd-5dd7fce13d07`, completed 2026-11-16, sampled Terra MOD13Q1.061 for the original 48 ordered points. The source granule names and NASA links are in `data/modis-pilot/steppe-jukebox-mod13q1-pilot-granule-list.txt`; the unmodified AppEEARS CSV and product metadata are beside it. This is a real NASA extraction, not synthetic data. At the user's request, full HDF downloads were stopped and a one-point check accepted. Four source HDFs had completed. A subsequent direct HDF comparison covers all 70 route samples in those files (31 in 2001, 39 in 2013): NDVI, VI Quality and pixel reliability match the point export in all 210 comparisons. KST-001 is included in both years; its 2025 check uses the native AppEEARS GeoTIFF because its HDF was not downloaded. The remaining route values come from the NASA point extraction; they were not independently compared against original HDF. The checked files, sizes and SHA-256 digests are recorded in `data/modis-pilot/hdf-manifest-partial.csv`, and every comparison is in `data/modis-pilot/hdf-comparison-partial.csv`.
+
+SHA-256 of the direct KST-001 HDF checks: `MOD13Q1.A2001193.h21v03.061.2020062170601.hdf`: `fd2fd14200191d1b92927bede601e4a5dedc4b408cf7dd693241a48a5e618289`; `MOD13Q1.A2013193.h21v03.061.2021234075407.hdf`: `d458960ac7102996d7af479f2cfdc07bf68dcd8c8556144bb64678530f2fbef5`. The files were kept outside the repository in `/tmp/steppe-mod13q1-hdf`.
+
+All three granules start on day 193, July 12, and end July 27 inclusive in 2001, 2013, and 2025. Nine source granules span three tiles per year. AppEEARS produced 48 of 48 samples for each date; reliable samples: 48, 47, and 48. KST-002 in 2013 has pixel reliability 1 and is silent. The export's NDVI values are already scaled: the original integer scale is 0.0001, valid raw range -2000 through 10000, fill -3000. Never scale the export a second time. Pixel reliability 0 and VI quality MODLAND bits 0 are required; fill and other quality values are missing, including unreliable but numerically present values. Low or negative valid values are class 1. An extraction or file error is an error, not a rest.
+
+Each existing route coordinate is sampled at its containing 250 m MODIS sinusoidal pixel, not averaged across the larger Jukebox display cell. AppEEARS reports tile and zero-based line/sample. The processing script checks that the coordinates in every returned row match the original route before using its values. Independent sinusoidal coordinate calculations match all 144 records; examples are KST-001 h21v03/3220/3898, KST-024 h22v03/4180/63, and KST-048 h22v04/318/1297. This checks coordinate-to-pixel math against AppEEARS metadata; the direct HDF checks are limited to the points and years stated above. The PNGs are overview maps of the route points, not a complete classified raster or playback screenshot.
+
+An additional AppEEARS area task `89625bf5-cb82-4284-a519-313e2ff24f18` returned native-projection GeoTIFF cutouts around those three points. `scripts/check_modis_rasters.py` reads the raster georeferencing and independently locates the containing pixel; NDVI, VI quality and pixel reliability all match the separate point extraction for each of the three years (27 comparisons). The original-scale integer NDVI in these TIFFs is multiplied by 0.0001 exactly once. TIFFs, request and the per-pixel comparison are in `data/modis-pilot/raster-check/`. These cutouts and the point samples are both processed by AppEEARS and do not replace an independent check of the original HDF.
+
+The fixed numeric bins use 0.2 increments and clamp the ends to classes 1 and 5. NASA MODIS_NDVI colors sampled at 0.1, 0.3, 0.5, 0.7, 0.9 are paired with the existing C4, D4, E4, G4, A4 notes. Gray denotes a missing value. Class counts (1–5, missing) are 2001: 3, 25, 11, 9, 0, 0; 2013: 1, 35, 7, 4, 0, 1; 2025: 3, 28, 10, 7, 0, 0. Classes 1–4 occur across the three maps and are visually distinct; class 5 occurs in none, so its discrimination in actual observations is untested. Classes 4 and 5 are both dark green and deserve further contrast review. No thresholds were adjusted. The route point maps and 24-second mono WAVs are generated from the same class sequence. WAV headers and the silent 2013 step were verified. A Chromium test used the existing saved-data player with each real 48-step class sequence: the playing audio clock, active table row and active route marker agreed during the first three steps; the 2013 missing step was also checked. This tests the saved-data marker view, not the live grid or a MODIS-integrated screen.
+
+## Reproduction
+
+Configure Earthdata Login in `~/.netrc` and authorize AppEEARS. The following submits a fresh NASA task, downloads its results and metadata, then regenerates CSV, PNG and WAV (the first command overwrites the saved NASA export):
+
+```bash
+python scripts/fetch_modis_pilot.py
+python scripts/fetch_modis_rasters.py
+python scripts/modis_pilot.py
+python scripts/check_modis_rasters.py
+python -m pytest -q tests/test_modis_pilot.py tests/test_sound.py tests/test_nasa_grid.py
+python -m pytest -q -m browser tests/test_modis_pilot_browser.py
+```
+
+To regenerate the outputs from the included export without network access, omit the fetch commands. If original HDFs are available locally, run `python scripts/check_modis_hdf.py /path/to/hdf --available-only` to reproduce the explicitly partial comparison; this requires the HDF4 mfhdf shared library. The AppEEARS request JSON omits the account identifier. A new extraction may use newly reprocessed granules; inspect its granule list and timestamps before comparison. SHA-256 of the included NASA CSV is `7c0a22a38c825a3ea8b0106e50557a2df095d6277b03661a3be67fb959cd2ba9`; granule list `e2ce9eeaf3d60eab5b2fdf44464f826e8284762b13451466e20203206b184a84`; original route `95b7d9b6301d9d712194ca572afc358c3cbc1a63c0b09b6af0a9f875e3e39e00`.
+
+These are snapshots, not evidence of a long-term trend. A common color does not make MODIS 16-day and GIBS 8-day composites equivalent. This pilot does not change source/date selection or the GIBS/EIC loaders.
