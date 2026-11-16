@@ -26,6 +26,18 @@ def pixel(lat, lon):
     h, v = math.floor(xx / tile), math.floor(yy / tile)
     return f'h{h:02}v{v:02}', math.floor((yy / tile - v) * 4800), math.floor((xx / tile - h) * 4800)
 
+def validate_sample_location(sample, cell):
+    try:
+        coordinates = (float(sample['Latitude']), float(sample['Longitude']))
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError(f'Invalid sample coordinates for {cell.cell_id}') from exc
+    if coordinates != (cell.lat, cell.lon):
+        raise ValueError(f'Sample coordinates do not match route for {cell.cell_id}')
+    actual = (sample['MODIS_Tile'], int(float(sample['MOD13Q1_061_Line_Y_250m'])), int(float(sample['MOD13Q1_061_Sample_X_250m'])))
+    if pixel(cell.lat, cell.lon) != actual:
+        raise ValueError(f'Geolocation mismatch: {cell.cell_id}, {actual}, {pixel(cell.lat, cell.lon)}')
+    return actual
+
 def classify(value, reliability, qa):
     if value is None or not -0.2 <= value <= 1 or reliability != 0 or qa is None or qa == 65535 or qa & 3:
         return None
@@ -84,8 +96,7 @@ def main():
         rows, classes = [], []
         for cell in route:
             s = index[(cell.cell_id, f'{year}-07-12')]
-            actual = (s['MODIS_Tile'], int(float(s['MOD13Q1_061_Line_Y_250m'])), int(float(s['MOD13Q1_061_Sample_X_250m'])))
-            if pixel(cell.lat, cell.lon) != actual: raise ValueError(f'Geolocation mismatch: {cell.cell_id}, {actual}, {pixel(cell.lat,cell.lon)}')
+            actual = validate_sample_location(s, cell)
             def number(name):
                 raw = s[PREFIX + name]
                 return float(raw) if raw.strip() else None
