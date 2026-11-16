@@ -345,6 +345,8 @@
       text.textContent = tick.label;
       group.append(svgElement("line", {x1: x, y1: bottom, x2: x, y2: bottom + 6, class: "axis-line"}), text);
       axes.append(group);
+      const halfWidth = text.getComputedTextLength() / 2;
+      text.setAttribute("x", Math.max(halfWidth + 2, Math.min($('route-map').viewBox.baseVal.width - halfWidth - 2, x)));
     }
     for (const tick of yTicks) {
       const y = projectY(tick.value);

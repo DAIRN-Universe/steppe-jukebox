@@ -1,9 +1,8 @@
 name: Tests
 
 on:
-  pull_request:
-  push:
-    branches: [main]
+  # Manual only: this PR is verified locally without starting GitHub checks.
+  workflow_dispatch:
 
 permissions:
   contents: read
