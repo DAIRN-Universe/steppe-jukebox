@@ -1,0 +1,13 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Уральска и Чапаева в степной части области. В области также встречаются полупустынные ландшафты. Метки привязаны к сетке.",
+    "en": "A route near Oral and Chapayev in the region’s steppe; the region also includes semi-desert. Markers are snapped to the grid.",
+    "kk": "Орал мен Чапаев маңындағы дала бағыты; облыста шөлейт жерлер де бар. Белгілер торға жақындатылған."
+  },
+  "landmarks": {
+    "WEST-KAZAKHSTAN-0001": "oral",
+    "WEST-KAZAKHSTAN-0009": "chapaev"
+  }
+}

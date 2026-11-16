@@ -47,14 +47,19 @@ def load_live_regions():
     for item in json.loads((ROOT / "data/regions.json").read_text()):
         folder = ROOT / "data" / item["dataset"]
         route = load_route(folder / "route.csv")
-        with (folder / "journey.csv").open(newline="", encoding="utf-8-sig") as file:
-            records = list(csv.DictReader(file))
-        if [r["cell_id"] for r in records] != [c.cell_id for c in route]:
-            raise ValueError("Journey date IDs must match route geometry")
-        days = tuple(date.fromisoformat(r["date"]).isoformat() for r in records)
-        if any(a >= b for a, b in zip(days, days[1:])):
-            raise ValueError("Journey dates must increase")
-        metadata = json.loads((folder / "journey_metadata.json").read_text())
+        journey_path = folder / "journey.csv"
+        if journey_path.exists():
+            with journey_path.open(newline="", encoding="utf-8-sig") as file:
+                records = list(csv.DictReader(file))
+            if [r["cell_id"] for r in records] != [c.cell_id for c in route]:
+                raise ValueError("Journey date IDs must match route geometry")
+            days = tuple(date.fromisoformat(r["date"]).isoformat() for r in records)
+            if any(a >= b for a, b in zip(days, days[1:])):
+                raise ValueError("Journey dates must increase")
+            metadata = json.loads((folder / "journey_metadata.json").read_text())
+        else:
+            days = ()
+            metadata = json.loads((folder / "metadata.json").read_text(encoding="utf-8"))
         result[item["key"]] = LiveRegion(item["key"], route, RegionGrid(load_boundary(ROOT / "data" / item["boundary"])),
                                          days, metadata.get("landmarks", {}), item["map_source_url"])
     return result
@@ -63,17 +68,19 @@ def load_live_regions():
 def player_catalog(regions):
     items = []
     for region in regions.values():
+        info_path = ROOT / "data" / "region-presets" / region.key / "metadata.json"
+        descriptions = json.loads(info_path.read_text(encoding="utf-8")).get("description_i18n", {}) if info_path.exists() else {}
         intervals = region.intervals(["2026-04-20"] * len(region.route))
         track = {"key": "selected_date", "name": "", "date": "2026-04-20", "duration_s": len(intervals)*STEP_SECONDS,
                  "audio_src": None, "intervals": intervals, "source_url": GIBS_SOURCE}
-        journey = {**track, "key": "journey", "intervals": region.intervals(region.dates),
+        journey = {**track, "key": "journey", "intervals": region.intervals(region.dates or [None] * len(region.route)),
                    "distance_km": _route_distances(region.route)[-1]}
         items.append({"region_key": region.key, "route": [vars(cell) for cell in region.route],
                       "boundary": region.grid.geometry, "map_source_url": region.map_source,
                       "map_config": {"bounds": region.grid.bounds, "point_ids": [cell.cell_id for cell in region.route],
                                      **display_grid(region.grid, region.route)},
                       "bpm": BPM, "sample_rate": SAMPLE_RATE, "step_seconds": STEP_SECONDS,
-                      "is_test": False, "description": "", "description_i18n": {}, "missing_color": MISSING_COLOR,
+                      "is_test": False, "description": "", "description_i18n": descriptions, "missing_color": MISSING_COLOR,
                       "scale": [{"name": n.name, "color": n.color} for n in SCALE], "seasons": [track], "journey": journey})
     return _with_translations({"regions": items, "live": True})
 
@@ -82,6 +89,8 @@ class LiveJob:
     def __init__(self, request_id, region, source, mode, day, gibs=None, eic=None, layers=None):
         if source not in {"gibs", "eic"} or mode not in {"fixed", "journey"}:
             raise ValueError("Unknown source or mode")
+        if mode == "journey" and not region.dates:
+            raise ValueError("No dated journey exists for this region")
         if date.fromisoformat(day).isoformat() != day:
             raise ValueError("Invalid ISO date")
         self.request_id, self.region, self.source, self.mode, self.day = request_id, region, source, mode, day

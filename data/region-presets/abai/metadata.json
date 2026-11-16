@@ -1,0 +1,14 @@
+{
+  "is_test": true,
+  "description": "Route geometry only; no saved satellite observations.",
+  "description_i18n": {
+    "ru": "Маршрут около Семея, Кайнара и Аягоза через степные и возвышенные ландшафты; область включает горные и полупустынные территории. Метки привязаны к сетке.",
+    "en": "A route near Semey, Kainar and Ayagoz through steppe and uplands; the region includes mountains and semi-desert. Markers are snapped to the grid.",
+    "kk": "Семей, Қайнар және Аягөз маңындағы дала мен қырат бағыты; облыста таулы және шөлейт жерлер бар. Белгілер торға жақындатылған."
+  },
+  "landmarks": {
+    "ABAI-0001": "semey",
+    "ABAI-0012": "kainar",
+    "ABAI-0018": "ayagoz"
+  }
+}
